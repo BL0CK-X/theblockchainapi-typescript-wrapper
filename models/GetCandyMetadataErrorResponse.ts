@@ -12,35 +12,21 @@
 
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class GetCandyMetadataErrorResponse {
+    'error'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
-            "format": ""
-        },
-        {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "statusCode",
-            "baseName": "status_code",
-            "type": "number",
+            "name": "error",
+            "baseName": "error",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return GetCandyMetadataErrorResponse.attributeTypeMap;
     }
 
     public constructor() {

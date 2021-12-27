@@ -10,37 +10,173 @@
  * Do not edit the class manually.
  */
 
+import { GetCandyMetadataResponseCreators } from './GetCandyMetadataResponseCreators';
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class GetCandyMetadataResponse {
+    /**
+    * The update authority of the candy machine
+    */
+    'authority'?: string;
+    'bump'?: number;
+    /**
+    * The ID of the candy machine 
+    */
+    'candyMachineId'?: string;
+    /**
+    * The configuration public key address of the candy machine 
+    */
+    'configAddress'?: string;
+    'creators'?: Array<GetCandyMetadataResponseCreators>;
+    /**
+    * The unix timestamp of the start date of the candy machine 
+    */
+    'goLiveDate'?: number;
+    'isMutable'?: boolean;
+    /**
+    * The number of NFTs available for mint from the candy machine 
+    */
+    'itemsAvailable'?: number;
+    /**
+    * The number of NFTs minted already from the candy machine 
+    */
+    'itemsRedeemed'?: number;
+    'maxNumberOfLines'?: number;
+    'maxSupply'?: number;
+    /**
+    * The price in Lamports for minting an NFT from the candy machine. 1e9 Lamport  = 1 SOL 
+    */
+    'price'?: number;
+    'retainAuthority'?: boolean;
+    /**
+    * The royalty the creators receive on each sale after the primary sale (the initial minting) (denominated in basis points (e.g., 75 basis points = 0.75%)) 
+    */
+    'sellerFeeBasisPoints'?: number;
+    'symbol'?: string;
+    'tokenMint'?: string;
+    /**
+    * The uuid of the candy machine
+    */
+    'uuid'?: string;
+    /**
+    * The public key address of the wallet that recevies the proceeds from NFT mints 
+    */
+    'wallet'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
+            "name": "authority",
+            "baseName": "authority",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
+            "name": "bump",
+            "baseName": "bump",
             "type": "number",
             "format": ""
         },
         {
-            "name": "statusCode",
-            "baseName": "status_code",
+            "name": "candyMachineId",
+            "baseName": "candy_machine_id",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "configAddress",
+            "baseName": "config_address",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "creators",
+            "baseName": "creators",
+            "type": "Array<GetCandyMetadataResponseCreators>",
+            "format": ""
+        },
+        {
+            "name": "goLiveDate",
+            "baseName": "go_live_date",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "isMutable",
+            "baseName": "is_mutable",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "itemsAvailable",
+            "baseName": "items_available",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "itemsRedeemed",
+            "baseName": "items_redeemed",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "maxNumberOfLines",
+            "baseName": "max_number_of_lines",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "maxSupply",
+            "baseName": "max_supply",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "price",
+            "baseName": "price",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "retainAuthority",
+            "baseName": "retain_authority",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "sellerFeeBasisPoints",
+            "baseName": "seller_fee_basis_points",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "symbol",
+            "baseName": "symbol",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "tokenMint",
+            "baseName": "token_mint",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "uuid",
+            "baseName": "uuid",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "wallet",
+            "baseName": "wallet",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return GetCandyMetadataResponse.attributeTypeMap;
     }
 
     public constructor() {

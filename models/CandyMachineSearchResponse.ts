@@ -12,35 +12,24 @@
 
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class CandyMachineSearchResponse {
+    /**
+    * The config address of the candy machine
+    */
+    'configAddress': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
-            "format": ""
-        },
-        {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "statusCode",
-            "baseName": "status_code",
-            "type": "number",
+            "name": "configAddress",
+            "baseName": "config_address",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return CandyMachineSearchResponse.attributeTypeMap;
     }
 
     public constructor() {

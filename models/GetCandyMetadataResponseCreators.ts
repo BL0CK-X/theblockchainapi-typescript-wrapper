@@ -12,35 +12,34 @@
 
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class GetCandyMetadataResponseCreators {
+    /**
+    * The public key of a creator
+    */
+    'address'?: string;
+    /**
+    * The share of the royalty that each creator receives
+    */
+    'share'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
+            "name": "address",
+            "baseName": "address",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "statusCode",
-            "baseName": "status_code",
+            "name": "share",
+            "baseName": "share",
             "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return GetCandyMetadataResponseCreators.attributeTypeMap;
     }
 
     public constructor() {

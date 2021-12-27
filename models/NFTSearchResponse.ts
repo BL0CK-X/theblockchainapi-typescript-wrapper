@@ -10,37 +10,34 @@
  * Do not edit the class manually.
  */
 
+import { NFT } from './NFT';
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class NFTSearchResponse {
+    'nftMetadata'?: NFT;
+    /**
+    * Use this to verify the NFT
+    */
+    'pubKeyHash'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
+            "name": "nftMetadata",
+            "baseName": "nft_metadata",
+            "type": "NFT",
             "format": ""
         },
         {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "statusCode",
-            "baseName": "status_code",
-            "type": "number",
+            "name": "pubKeyHash",
+            "baseName": "pub_key_hash",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return NFTSearchResponse.attributeTypeMap;
     }
 
     public constructor() {

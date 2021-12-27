@@ -12,35 +12,34 @@
 
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class ListTokensRequest {
+    /**
+    * Whether or not to include NFTs in the response
+    */
+    'includeNfts'?: boolean;
+    /**
+    * Whether or not to include holdings that have zero balance. This indicates that the wallet held this token or NFT in the past, but no longer holds it.
+    */
+    'includeZeroBalanceHoldings'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
+            "name": "includeNfts",
+            "baseName": "include_nfts",
+            "type": "boolean",
             "format": ""
         },
         {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "statusCode",
-            "baseName": "status_code",
-            "type": "number",
+            "name": "includeZeroBalanceHoldings",
+            "baseName": "include_zero_balance_holdings",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return ListTokensRequest.attributeTypeMap;
     }
 
     public constructor() {

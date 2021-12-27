@@ -4,12 +4,12 @@ All URIs are relative to *https://api.theblockchainapi.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**solanaCreateTestCandyMachine**](SolanaCandyMachineApi.md#solanaCreateTestCandyMachine) | **POST** /solana/nft/candy_machine | Create a test candy machine 
-[**solanaGetAllNFTsFromCandyMachine**](SolanaCandyMachineApi.md#solanaGetAllNFTsFromCandyMachine) | **GET** /solana/nft/candy_machine/{network}/{candy_machine_id}/nfts | Get the list of all NFTs (minted and unminted) from a Solana Candy Machine 
-[**solanaGetCandyMachineConfigurationDetails**](SolanaCandyMachineApi.md#solanaGetCandyMachineConfigurationDetails) | **POST** /solana/nft/candy_machine/config/info | Get the details of a Solana Candy Machine configuration 
-[**solanaGetCandyMachineDetails**](SolanaCandyMachineApi.md#solanaGetCandyMachineDetails) | **POST** /solana/nft/candy_machine/info | Get a Metaplex candy machine&#39;s details 
-[**solanaGetNFTsMintedFromCandyMachine**](SolanaCandyMachineApi.md#solanaGetNFTsMintedFromCandyMachine) | **POST** /solana/nft/candy_machine/nfts | Get the list of NFTs minted from a Solana Candy Machine 
-[**solanaMintFromCandyMachine**](SolanaCandyMachineApi.md#solanaMintFromCandyMachine) | **POST** /solana/nft/candy_machine/mint | Mint an NFT from a Metaplex candy machine
+[**solanaCreateTestCandyMachine**](SolanaCandyMachineApi.md#solanaCreateTestCandyMachine) | **POST** /solana/nft/candy_machine | Create a test CM
+[**solanaGetAllNFTsFromCandyMachine**](SolanaCandyMachineApi.md#solanaGetAllNFTsFromCandyMachine) | **GET** /solana/nft/candy_machine/{network}/{candy_machine_id}/nfts | Get CM&#39;s NFTs  
+[**solanaGetCandyMachineMetadata**](SolanaCandyMachineApi.md#solanaGetCandyMachineMetadata) | **POST** /solana/nft/candy_machine/metadata | Get a CM&#39;s metadata 
+[**solanaListAllCandyMachines**](SolanaCandyMachineApi.md#solanaListAllCandyMachines) | **GET** /solana/nft/candy_machine/list | List all CMs
+[**solanaMintFromCandyMachine**](SolanaCandyMachineApi.md#solanaMintFromCandyMachine) | **POST** /solana/nft/candy_machine/mint | Mint from a CM
+[**solanaSearchCandyMachines**](SolanaCandyMachineApi.md#solanaSearchCandyMachines) | **POST** /solana/nft/candy_machine/search | Search CMs
 
 
 # **solanaCreateTestCandyMachine**
@@ -34,6 +34,8 @@ let body:theblockchainapi.SolanaCandyMachineApiSolanaCreateTestCandyMachineReque
     derivationPath: "m/44/501/0/0",
     passphrase: "",
     network: "devnet",
+    candyMachineContractVersion: "v1",
+    includeGatekeeper: false,
   },
 };
 
@@ -77,7 +79,7 @@ Name | Type | Description  | Notes
 # **solanaGetAllNFTsFromCandyMachine**
 > GetAllNFTsResponse solanaGetAllNFTsFromCandyMachine()
 
-<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-all-nfts\" target=\"_blank\"> See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of all NFTs (minted and unminted) from a Solana Candy Machine.  `Cost: 3 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-all-nfts\" target=\"_blank\"> See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of all NFTs (minted and unminted) from a Solana Candy Machine.  This works for `v1` and `v2` candy machines.   *However*, for `v2` only the value for `all_nfts` is provided. To determine which are minted and unminted follow this example.  You do not need to specify `v1` or `v2` for this endpoint as it will automatically determine it from the candy machine ID.  See example for how to get the list of NFT hashes <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-hash-table\" target=\"_blank\">here</a>.    `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
 
 ### Example
 
@@ -135,71 +137,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **solanaGetCandyMachineConfigurationDetails**
-> GetConfigInfoResponse solanaGetCandyMachineConfigurationDetails()
+# **solanaGetCandyMachineMetadata**
+> GetCandyMetadataResponse solanaGetCandyMachineMetadata()
 
-<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-config-info\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the details of a Solana Candy Machine configuration.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-
-### Example
-
-
-```typescript
-import { theblockchainapi } from 'theblockchainapi';
-import * as fs from 'fs';
-
-const configuration = theblockchainapi.createConfiguration();
-const apiInstance = new theblockchainapi.SolanaCandyMachineApi(configuration);
-
-let body:theblockchainapi.SolanaCandyMachineApiSolanaGetCandyMachineConfigurationDetailsRequest = {
-  // GetConfigInfoRequest (optional)
-  getConfigInfoRequest: {
-    configAddress: "configAddress_example",
-    network: "devnet",
-  },
-};
-
-apiInstance.solanaGetCandyMachineConfigurationDetails(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **getConfigInfoRequest** | **GetConfigInfoRequest**|  |
-
-
-### Return type
-
-**GetConfigInfoResponse**
-
-### Authorization
-
-[APIKeyID](README.md#APIKeyID), [APISecretKey](README.md#APISecretKey)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful Response |  -  |
-**400** | Bad request (check response message) |  -  |
-**401** | Invalid API key pair in headers |  -  |
-**402** | Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;. |  -  |
-**404** | Not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **solanaGetCandyMachineDetails**
-> GetCandyDetailsResponse solanaGetCandyMachineDetails()
-
-<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-info\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the following details about a Metaplex candy machine: uuid, go live date, items in the collection, and the cost to mint.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+<a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  Use this endpoint to get metadata about a Metaplex candy machine. This includes the goLiveDate, itemsAvailable, and itemsRedeemed. To see what is included, expand the green successful response below.  NOTE: Supply exactly one of `candy_machine_id`, `config_address`, or `uuid`. If you provide more than one, you will receive a `400` error.   `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
 
 ### Example
 
@@ -211,15 +152,18 @@ import * as fs from 'fs';
 const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.SolanaCandyMachineApi(configuration);
 
-let body:theblockchainapi.SolanaCandyMachineApiSolanaGetCandyMachineDetailsRequest = {
-  // GetCandyDetailsRequest (optional)
-  getCandyDetailsRequest: {
+let body:theblockchainapi.SolanaCandyMachineApiSolanaGetCandyMachineMetadataRequest = {
+  // GetCandyMetadataRequest (optional)
+  getCandyMetadataRequest: {
     candyMachineId: "candyMachineId_example",
+    configAddress: "configAddress_example",
+    uuid: "uuid_example",
     network: "devnet",
+    candyMachineContractVersion: "v1",
   },
 };
 
-apiInstance.solanaGetCandyMachineDetails(body).then((data:any) => {
+apiInstance.solanaGetCandyMachineMetadata(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -229,12 +173,12 @@ apiInstance.solanaGetCandyMachineDetails(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **getCandyDetailsRequest** | **GetCandyDetailsRequest**|  |
+ **getCandyMetadataRequest** | **GetCandyMetadataRequest**|  |
 
 
 ### Return type
 
-**GetCandyDetailsResponse**
+**GetCandyMetadataResponse**
 
 ### Authorization
 
@@ -256,10 +200,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **solanaGetNFTsMintedFromCandyMachine**
-> Array<GetMintedNFTsResponse> solanaGetNFTsMintedFromCandyMachine()
+# **solanaListAllCandyMachines**
+> any solanaListAllCandyMachines()
 
-<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-minted-nfts\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of NFTs minted from a Solana Candy Machine.  See example for how to get the list of NFT hashes <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-hash-table\" target=\"_blank\">here</a>.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+<a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can list all candy machines published to Solana mainnet.  We update this data every 15 minutes.  The output is a list of config addresses, currently about 17000 in length.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
 
 ### Example
 
@@ -271,30 +215,21 @@ import * as fs from 'fs';
 const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.SolanaCandyMachineApi(configuration);
 
-let body:theblockchainapi.SolanaCandyMachineApiSolanaGetNFTsMintedFromCandyMachineRequest = {
-  // GetMintedNFTsRequest (optional)
-  getMintedNFTsRequest: {
-    candyMachineId: "candyMachineId_example",
-    network: "devnet",
-  },
-};
+let body:any = {};
 
-apiInstance.solanaGetNFTsMintedFromCandyMachine(body).then((data:any) => {
+apiInstance.solanaListAllCandyMachines(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
 
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **getMintedNFTsRequest** | **GetMintedNFTsRequest**|  |
+This endpoint does not need any parameter.
 
 
 ### Return type
 
-**Array<GetMintedNFTsResponse>**
+**any**
 
 ### Authorization
 
@@ -302,25 +237,24 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful Response. Click \&quot;Expand All\&quot; on the right sidebar to see more. |  -  |
+**200** | Successful Response |  -  |
 **400** | Bad request (check response message) |  -  |
 **401** | Invalid API key pair in headers |  -  |
 **402** | Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;. |  -  |
-**404** | Not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **solanaMintFromCandyMachine**
 > MintNFTResponse solanaMintFromCandyMachine()
 
-<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  `Cost: 10 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
 
 ### Example
 
@@ -340,6 +274,7 @@ let body:theblockchainapi.SolanaCandyMachineApiSolanaMintFromCandyMachineRequest
     derivationPath: "m/44/501/0/0",
     passphrase: "",
     network: "devnet",
+    candyMachineContractVersion: "v1",
   },
 };
 
@@ -373,7 +308,78 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful Response. The actual response to this API will be something like {\&quot;task_id\&quot;: \&quot;10jd12Ka1\&quot;}.  You must poll the task ID endpoint to get info on this task. Once the task is completed, the returned format will follow the schema {&#39;transaction_signature&#39;: &#39;...&#39;}. See the [Task endpoint](/#tag/Task/paths/~1task~1{task_id}/get).  |  -  |
+**200** | Successful Response.  |  -  |
+**400** | Bad request (check response message) |  -  |
+**401** | Invalid API key pair in headers |  -  |
+**402** | Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **solanaSearchCandyMachines**
+> Array<CandyMachineSearchResponse> solanaSearchCandyMachines()
+
+<a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search candy machines by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of config addresses.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+
+### Example
+
+
+```typescript
+import { theblockchainapi } from 'theblockchainapi';
+import * as fs from 'fs';
+
+const configuration = theblockchainapi.createConfiguration();
+const apiInstance = new theblockchainapi.SolanaCandyMachineApi(configuration);
+
+let body:theblockchainapi.SolanaCandyMachineApiSolanaSearchCandyMachinesRequest = {
+  // CandyMachineSearchRequest (optional)
+  candyMachineSearchRequest: {
+    updateAuthority: "updateAuthority_example",
+    updateAuthoritySearchMethod: "exact_match",
+    configAddress: "configAddress_example",
+    configAddressSearchMethod: "exact_match",
+    uuid: "uuid_example",
+    uuidSearchMethod: "exact_match",
+    symbol: "symbol_example",
+    symbolSearchMethod: "exact_match",
+    nftName: "nftName_example",
+    nftNameIndex: "0",
+    nftNameSearchMethod: "exact_match",
+    network: "devnet",
+    candyMachineContractVersion: "v1",
+  },
+};
+
+apiInstance.solanaSearchCandyMachines(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **candyMachineSearchRequest** | **CandyMachineSearchRequest**|  |
+
+
+### Return type
+
+**Array<CandyMachineSearchResponse>**
+
+### Authorization
+
+[APIKeyID](README.md#APIKeyID), [APISecretKey](README.md#APISecretKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
 **400** | Bad request (check response message) |  -  |
 **401** | Invalid API key pair in headers |  -  |
 **402** | Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;. |  -  |

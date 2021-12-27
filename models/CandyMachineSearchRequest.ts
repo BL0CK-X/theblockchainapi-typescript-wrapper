@@ -12,38 +12,147 @@
 
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class CandyMachineSearchRequest {
+    /**
+    * The public key of the update authority of the candy machine
+    */
+    'updateAuthority'?: string;
+    /**
+    * Only `exact_match` supported at this time
+    */
+    'updateAuthoritySearchMethod'?: CandyMachineSearchRequestUpdateAuthoritySearchMethodEnum;
+    /**
+    * The public key of the configuration of the candy machine
+    */
+    'configAddress'?: string;
+    /**
+    * Only `exact_match` supported at this time
+    */
+    'configAddressSearchMethod'?: CandyMachineSearchRequestConfigAddressSearchMethodEnum;
+    /**
+    * The alphanumeric string of length six that corresponds to the candy machine. This is NOT the candy machine ID.  This is the first six letters of the configuration address and is also used to identify the candy machine. An example is `4zKV6i`. 
+    */
+    'uuid'?: string;
+    /**
+    * Only `exact_match` supported at this time
+    */
+    'uuidSearchMethod'?: CandyMachineSearchRequestUuidSearchMethodEnum;
+    /**
+    * The symbol associated with the candy machine
+    */
+    'symbol'?: string;
+    'symbolSearchMethod'?: CandyMachineSearchRequestSymbolSearchMethodEnum;
+    /**
+    * The name of an NFT on the candy machine, minted or unminted. For example, to find The Solana Money Boys candy machine, you already know that each NFT is named \"Solana Money Boy #0\", \"Solana Money Boy #1\", and so on. So you could search with  nft_name=\"Solana Money Boy #0\", nft_name_index=0, nft_name_search_method='exact_match', for example, which would return the candy machine ID. This also works with candy machines that are not live but are uploaded. 
+    */
+    'nftName'?: string;
+    /**
+    * The index of the NFT to check, e.g., the 2nd NFT would have an index of 1. We cannot search all NFTs on a candy machine currently, so you must search an NFT at a particular position, such as the first, second, and so on. In general, nft_name_index=0 works for most use cases. 
+    */
+    'nftNameIndex'?: string;
+    'nftNameSearchMethod'?: CandyMachineSearchRequestNftNameSearchMethodEnum;
+    'network'?: CandyMachineSearchRequestNetworkEnum;
+    /**
+    * The candy machine contract you want to search.  If you want to search `v1` candy machines, set this to `v1`. If you want to search `v2` candy machines. set this to `v2`. 
+    */
+    'candyMachineContractVersion'?: CandyMachineSearchRequestCandyMachineContractVersionEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
+            "name": "updateAuthority",
+            "baseName": "update_authority",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
-            "type": "number",
+            "name": "updateAuthoritySearchMethod",
+            "baseName": "update_authority_search_method",
+            "type": "CandyMachineSearchRequestUpdateAuthoritySearchMethodEnum",
             "format": ""
         },
         {
-            "name": "statusCode",
-            "baseName": "status_code",
-            "type": "number",
+            "name": "configAddress",
+            "baseName": "config_address",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "configAddressSearchMethod",
+            "baseName": "config_address_search_method",
+            "type": "CandyMachineSearchRequestConfigAddressSearchMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "uuid",
+            "baseName": "uuid",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "uuidSearchMethod",
+            "baseName": "uuid_search_method",
+            "type": "CandyMachineSearchRequestUuidSearchMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "symbol",
+            "baseName": "symbol",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "symbolSearchMethod",
+            "baseName": "symbol_search_method",
+            "type": "CandyMachineSearchRequestSymbolSearchMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "nftName",
+            "baseName": "nft_name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "nftNameIndex",
+            "baseName": "nft_name_index",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "nftNameSearchMethod",
+            "baseName": "nft_name_search_method",
+            "type": "CandyMachineSearchRequestNftNameSearchMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "network",
+            "baseName": "network",
+            "type": "CandyMachineSearchRequestNetworkEnum",
+            "format": ""
+        },
+        {
+            "name": "candyMachineContractVersion",
+            "baseName": "candy_machine_contract_version",
+            "type": "CandyMachineSearchRequestCandyMachineContractVersionEnum",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return CandyMachineSearchRequest.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
+
+
+export type CandyMachineSearchRequestUpdateAuthoritySearchMethodEnum = "exact_match" ;
+export type CandyMachineSearchRequestConfigAddressSearchMethodEnum = "exact_match" ;
+export type CandyMachineSearchRequestUuidSearchMethodEnum = "exact_match" ;
+export type CandyMachineSearchRequestSymbolSearchMethodEnum = "begins_with" | "exact_match" ;
+export type CandyMachineSearchRequestNftNameSearchMethodEnum = "begins_with" | "exact_match" ;
+export type CandyMachineSearchRequestNetworkEnum = "devnet" | "mainnet-beta" ;
+export type CandyMachineSearchRequestCandyMachineContractVersionEnum = "v1" | "v2" ;
 

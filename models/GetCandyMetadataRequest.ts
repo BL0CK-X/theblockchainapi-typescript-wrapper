@@ -12,38 +12,68 @@
 
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class GetCandyMetadataRequest {
+    /**
+    * The ID of the candy machine. This is the same as `config_address` for `v2` candy machines (supply either). 
+    */
+    'candyMachineId'?: string;
+    /**
+    * The configuration address of the candy machine. This is the same as `candy_machine_id` for `v2` candy machines (supply either). 
+    */
+    'configAddress'?: string;
+    /**
+    * The uuid of the candy machine. This is an alphanumeric string of length six (e.g., HpVdfP), which corresponds to the first six characters of the config_address. 
+    */
+    'uuid'?: string;
+    'network'?: GetCandyMetadataRequestNetworkEnum;
+    /**
+    * The candy machine contract of the candy machine for which you are retrieving the metadata. If you are providing `v1` candy machine ID, set this to `v1`. If you are providing `v2` candy machine ID, set this to `v2`. If you don't know which version your candy machine is, check out <a href=\"#operation/solanaGetAccountIsCandyMachine\">this endpoint</a>. 
+    */
+    'candyMachineContractVersion'?: GetCandyMetadataRequestCandyMachineContractVersionEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
+            "name": "candyMachineId",
+            "baseName": "candy_machine_id",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
-            "type": "number",
+            "name": "configAddress",
+            "baseName": "config_address",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "statusCode",
-            "baseName": "status_code",
-            "type": "number",
+            "name": "uuid",
+            "baseName": "uuid",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "network",
+            "baseName": "network",
+            "type": "GetCandyMetadataRequestNetworkEnum",
+            "format": ""
+        },
+        {
+            "name": "candyMachineContractVersion",
+            "baseName": "candy_machine_contract_version",
+            "type": "GetCandyMetadataRequestCandyMachineContractVersionEnum",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return GetCandyMetadataRequest.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
+
+
+export type GetCandyMetadataRequestNetworkEnum = "devnet" | "mainnet-beta" ;
+export type GetCandyMetadataRequestCandyMachineContractVersionEnum = "v1" | "v2" ;
 

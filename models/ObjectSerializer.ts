@@ -7,24 +7,23 @@ export * from './AccountValue';
 export * from './AirdropRequest';
 export * from './BalanceRequest';
 export * from './BalanceResponse';
+export * from './CandyMachineSearchRequest';
+export * from './CandyMachineSearchResponse';
 export * from './CreateTestCandyMachineRequest';
 export * from './CreateTestCandyMachineResponse';
 export * from './GetAllNFTsResponse';
 export * from './GetAllNFTsResponseMintedNfts';
 export * from './GetAllNFTsResponseUnmintedNfts';
-export * from './GetCandyDetailsErrorResponse';
-export * from './GetCandyDetailsRequest';
-export * from './GetCandyDetailsResponse';
 export * from './GetCandyMachineIDRequest';
 export * from './GetCandyMachineIDResponse';
-export * from './GetConfigInfoRequest';
-export * from './GetConfigInfoResponse';
-export * from './GetConfigInfoResponseCreators';
+export * from './GetCandyMetadataErrorResponse';
+export * from './GetCandyMetadataRequest';
+export * from './GetCandyMetadataResponse';
+export * from './GetCandyMetadataResponseCreators';
 export * from './GetFileResponse';
-export * from './GetMintedNFTsRequest';
-export * from './GetMintedNFTsResponse';
 export * from './GetPublicKeyRequest';
 export * from './ListNFTsResponse';
+export * from './ListTokensRequest';
 export * from './MintNFTErrorResponse';
 export * from './MintNFTRequest';
 export * from './MintNFTResponse';
@@ -34,9 +33,10 @@ export * from './NFTMintErrorResponse';
 export * from './NFTMintFee';
 export * from './NFTMintRequest';
 export * from './NFTOwnerResponse';
+export * from './NFTSearchRequest';
+export * from './NFTSearchResponse';
 export * from './PublicKey';
 export * from './SecretPhrase';
-export * from './Task';
 export * from './Transaction';
 export * from './TransferRequest';
 export * from './TransferResponse';
@@ -45,32 +45,31 @@ export * from './UploadFileRequest';
 import { ATAResponse } from './ATAResponse';
 import { Account } from './Account';
 import { AccountContext } from './AccountContext';
-import { AccountIsCandyMachine } from './AccountIsCandyMachine';
+import { AccountIsCandyMachine , AccountIsCandyMachineCandyMachineContractVersionEnum   } from './AccountIsCandyMachine';
 import { AccountIsNFT } from './AccountIsNFT';
 import { AccountValue } from './AccountValue';
 import { AirdropRequest } from './AirdropRequest';
 import { BalanceRequest , BalanceRequestUnitEnum  , BalanceRequestNetworkEnum    } from './BalanceRequest';
 import { BalanceResponse   , BalanceResponseNetworkEnum  , BalanceResponseUnitEnum   } from './BalanceResponse';
-import { CreateTestCandyMachineRequest   , CreateTestCandyMachineRequestNetworkEnum   } from './CreateTestCandyMachineRequest';
+import { CandyMachineSearchRequest , CandyMachineSearchRequestUpdateAuthoritySearchMethodEnum   , CandyMachineSearchRequestConfigAddressSearchMethodEnum   , CandyMachineSearchRequestUuidSearchMethodEnum   , CandyMachineSearchRequestSymbolSearchMethodEnum    , CandyMachineSearchRequestNftNameSearchMethodEnum  , CandyMachineSearchRequestNetworkEnum  , CandyMachineSearchRequestCandyMachineContractVersionEnum   } from './CandyMachineSearchRequest';
+import { CandyMachineSearchResponse } from './CandyMachineSearchResponse';
+import { CreateTestCandyMachineRequest   , CreateTestCandyMachineRequestNetworkEnum  , CreateTestCandyMachineRequestCandyMachineContractVersionEnum    } from './CreateTestCandyMachineRequest';
 import { CreateTestCandyMachineResponse } from './CreateTestCandyMachineResponse';
 import { GetAllNFTsResponse } from './GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from './GetAllNFTsResponseMintedNfts';
 import { GetAllNFTsResponseUnmintedNfts } from './GetAllNFTsResponseUnmintedNfts';
-import { GetCandyDetailsErrorResponse } from './GetCandyDetailsErrorResponse';
-import { GetCandyDetailsRequest , GetCandyDetailsRequestNetworkEnum   } from './GetCandyDetailsRequest';
-import { GetCandyDetailsResponse } from './GetCandyDetailsResponse';
 import { GetCandyMachineIDRequest , GetCandyMachineIDRequestNetworkEnum   } from './GetCandyMachineIDRequest';
-import { GetCandyMachineIDResponse } from './GetCandyMachineIDResponse';
-import { GetConfigInfoRequest , GetConfigInfoRequestNetworkEnum   } from './GetConfigInfoRequest';
-import { GetConfigInfoResponse } from './GetConfigInfoResponse';
-import { GetConfigInfoResponseCreators } from './GetConfigInfoResponseCreators';
+import { GetCandyMachineIDResponse , GetCandyMachineIDResponseCandyMachineContractVersionEnum   } from './GetCandyMachineIDResponse';
+import { GetCandyMetadataErrorResponse } from './GetCandyMetadataErrorResponse';
+import { GetCandyMetadataRequest   , GetCandyMetadataRequestNetworkEnum  , GetCandyMetadataRequestCandyMachineContractVersionEnum   } from './GetCandyMetadataRequest';
+import { GetCandyMetadataResponse } from './GetCandyMetadataResponse';
+import { GetCandyMetadataResponseCreators } from './GetCandyMetadataResponseCreators';
 import { GetFileResponse } from './GetFileResponse';
-import { GetMintedNFTsRequest , GetMintedNFTsRequestNetworkEnum   } from './GetMintedNFTsRequest';
-import { GetMintedNFTsResponse } from './GetMintedNFTsResponse';
 import { GetPublicKeyRequest } from './GetPublicKeyRequest';
 import { ListNFTsResponse } from './ListNFTsResponse';
+import { ListTokensRequest } from './ListTokensRequest';
 import { MintNFTErrorResponse } from './MintNFTErrorResponse';
-import { MintNFTRequest    , MintNFTRequestNetworkEnum   } from './MintNFTRequest';
+import { MintNFTRequest    , MintNFTRequestNetworkEnum  , MintNFTRequestCandyMachineContractVersionEnum   } from './MintNFTRequest';
 import { MintNFTResponse } from './MintNFTResponse';
 import { NFT } from './NFT';
 import { NFTData } from './NFTData';
@@ -78,9 +77,10 @@ import { NFTMintErrorResponse } from './NFTMintErrorResponse';
 import { NFTMintFee } from './NFTMintFee';
 import { NFTMintRequest        , NFTMintRequestNftUploadMethodEnum       , NFTMintRequestNetworkEnum   } from './NFTMintRequest';
 import { NFTOwnerResponse } from './NFTOwnerResponse';
+import { NFTSearchRequest , NFTSearchRequestUpdateAuthoritySearchMethodEnum   , NFTSearchRequestMintAddressSearchMethodEnum   , NFTSearchRequestNameSearchMethodEnum   , NFTSearchRequestUriSearchMethodEnum   , NFTSearchRequestSymbolSearchMethodEnum  , NFTSearchRequestNetworkEnum   } from './NFTSearchRequest';
+import { NFTSearchResponse } from './NFTSearchResponse';
 import { PublicKey } from './PublicKey';
 import { SecretPhrase } from './SecretPhrase';
-import { Task } from './Task';
 import { Transaction    , TransactionNetworkEnum   } from './Transaction';
 import { TransferRequest     , TransferRequestNetworkEnum    } from './TransferRequest';
 import { TransferResponse } from './TransferResponse';
@@ -106,18 +106,34 @@ const supportedMediaTypes: { [mediaType: string]: number } = {
 
 
 let enumsMap: Set<string> = new Set<string>([
+    "AccountIsCandyMachineCandyMachineContractVersionEnum",
     "BalanceRequestUnitEnum",
     "BalanceRequestNetworkEnum",
     "BalanceResponseNetworkEnum",
     "BalanceResponseUnitEnum",
+    "CandyMachineSearchRequestUpdateAuthoritySearchMethodEnum",
+    "CandyMachineSearchRequestConfigAddressSearchMethodEnum",
+    "CandyMachineSearchRequestUuidSearchMethodEnum",
+    "CandyMachineSearchRequestSymbolSearchMethodEnum",
+    "CandyMachineSearchRequestNftNameSearchMethodEnum",
+    "CandyMachineSearchRequestNetworkEnum",
+    "CandyMachineSearchRequestCandyMachineContractVersionEnum",
     "CreateTestCandyMachineRequestNetworkEnum",
-    "GetCandyDetailsRequestNetworkEnum",
+    "CreateTestCandyMachineRequestCandyMachineContractVersionEnum",
     "GetCandyMachineIDRequestNetworkEnum",
-    "GetConfigInfoRequestNetworkEnum",
-    "GetMintedNFTsRequestNetworkEnum",
+    "GetCandyMachineIDResponseCandyMachineContractVersionEnum",
+    "GetCandyMetadataRequestNetworkEnum",
+    "GetCandyMetadataRequestCandyMachineContractVersionEnum",
     "MintNFTRequestNetworkEnum",
+    "MintNFTRequestCandyMachineContractVersionEnum",
     "NFTMintRequestNftUploadMethodEnum",
     "NFTMintRequestNetworkEnum",
+    "NFTSearchRequestUpdateAuthoritySearchMethodEnum",
+    "NFTSearchRequestMintAddressSearchMethodEnum",
+    "NFTSearchRequestNameSearchMethodEnum",
+    "NFTSearchRequestUriSearchMethodEnum",
+    "NFTSearchRequestSymbolSearchMethodEnum",
+    "NFTSearchRequestNetworkEnum",
     "TransactionNetworkEnum",
     "TransferRequestNetworkEnum",
     "UploadFileRequestUploadMethodEnum",
@@ -133,24 +149,23 @@ let typeMap: {[index: string]: any} = {
     "AirdropRequest": AirdropRequest,
     "BalanceRequest": BalanceRequest,
     "BalanceResponse": BalanceResponse,
+    "CandyMachineSearchRequest": CandyMachineSearchRequest,
+    "CandyMachineSearchResponse": CandyMachineSearchResponse,
     "CreateTestCandyMachineRequest": CreateTestCandyMachineRequest,
     "CreateTestCandyMachineResponse": CreateTestCandyMachineResponse,
     "GetAllNFTsResponse": GetAllNFTsResponse,
     "GetAllNFTsResponseMintedNfts": GetAllNFTsResponseMintedNfts,
     "GetAllNFTsResponseUnmintedNfts": GetAllNFTsResponseUnmintedNfts,
-    "GetCandyDetailsErrorResponse": GetCandyDetailsErrorResponse,
-    "GetCandyDetailsRequest": GetCandyDetailsRequest,
-    "GetCandyDetailsResponse": GetCandyDetailsResponse,
     "GetCandyMachineIDRequest": GetCandyMachineIDRequest,
     "GetCandyMachineIDResponse": GetCandyMachineIDResponse,
-    "GetConfigInfoRequest": GetConfigInfoRequest,
-    "GetConfigInfoResponse": GetConfigInfoResponse,
-    "GetConfigInfoResponseCreators": GetConfigInfoResponseCreators,
+    "GetCandyMetadataErrorResponse": GetCandyMetadataErrorResponse,
+    "GetCandyMetadataRequest": GetCandyMetadataRequest,
+    "GetCandyMetadataResponse": GetCandyMetadataResponse,
+    "GetCandyMetadataResponseCreators": GetCandyMetadataResponseCreators,
     "GetFileResponse": GetFileResponse,
-    "GetMintedNFTsRequest": GetMintedNFTsRequest,
-    "GetMintedNFTsResponse": GetMintedNFTsResponse,
     "GetPublicKeyRequest": GetPublicKeyRequest,
     "ListNFTsResponse": ListNFTsResponse,
+    "ListTokensRequest": ListTokensRequest,
     "MintNFTErrorResponse": MintNFTErrorResponse,
     "MintNFTRequest": MintNFTRequest,
     "MintNFTResponse": MintNFTResponse,
@@ -160,9 +175,10 @@ let typeMap: {[index: string]: any} = {
     "NFTMintFee": NFTMintFee,
     "NFTMintRequest": NFTMintRequest,
     "NFTOwnerResponse": NFTOwnerResponse,
+    "NFTSearchRequest": NFTSearchRequest,
+    "NFTSearchResponse": NFTSearchResponse,
     "PublicKey": PublicKey,
     "SecretPhrase": SecretPhrase,
-    "Task": Task,
     "Transaction": Transaction,
     "TransferRequest": TransferRequest,
     "TransferResponse": TransferResponse,

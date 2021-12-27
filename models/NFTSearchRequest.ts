@@ -12,38 +12,123 @@
 
 import { HttpFile } from '../http/http';
 
-export class Task {
-    'response': any;
-    'timeCompleted'?: number;
-    'statusCode': number;
+export class NFTSearchRequest {
+    /**
+    * The public key of the update authority of the NFT
+    */
+    'updateAuthority'?: string;
+    /**
+    * Only `exact_match` supported at this time
+    */
+    'updateAuthoritySearchMethod'?: NFTSearchRequestUpdateAuthoritySearchMethodEnum;
+    /**
+    * The mint address of the NFT
+    */
+    'mintAddress'?: string;
+    /**
+    * Only `exact_match` supported at this time
+    */
+    'mintAddressSearchMethod'?: NFTSearchRequestMintAddressSearchMethodEnum;
+    /**
+    * The name of the NFT
+    */
+    'name'?: string;
+    'nameSearchMethod'?: NFTSearchRequestNameSearchMethodEnum;
+    /**
+    * The NFT's uri
+    */
+    'uri'?: string;
+    'uriSearchMethod'?: NFTSearchRequestUriSearchMethodEnum;
+    /**
+    * The symbol associated with the candy machine
+    */
+    'symbol'?: string;
+    'symbolSearchMethod'?: NFTSearchRequestSymbolSearchMethodEnum;
+    'network'?: NFTSearchRequestNetworkEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "response",
-            "baseName": "response",
-            "type": "any",
+            "name": "updateAuthority",
+            "baseName": "update_authority",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "timeCompleted",
-            "baseName": "time_completed",
-            "type": "number",
+            "name": "updateAuthoritySearchMethod",
+            "baseName": "update_authority_search_method",
+            "type": "NFTSearchRequestUpdateAuthoritySearchMethodEnum",
             "format": ""
         },
         {
-            "name": "statusCode",
-            "baseName": "status_code",
-            "type": "number",
+            "name": "mintAddress",
+            "baseName": "mint_address",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "mintAddressSearchMethod",
+            "baseName": "mint_address_search_method",
+            "type": "NFTSearchRequestMintAddressSearchMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "nameSearchMethod",
+            "baseName": "name_search_method",
+            "type": "NFTSearchRequestNameSearchMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "uri",
+            "baseName": "uri",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "uriSearchMethod",
+            "baseName": "uri_search_method",
+            "type": "NFTSearchRequestUriSearchMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "symbol",
+            "baseName": "symbol",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "symbolSearchMethod",
+            "baseName": "symbol_search_method",
+            "type": "NFTSearchRequestSymbolSearchMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "network",
+            "baseName": "network",
+            "type": "NFTSearchRequestNetworkEnum",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Task.attributeTypeMap;
+        return NFTSearchRequest.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
+
+
+export type NFTSearchRequestUpdateAuthoritySearchMethodEnum = "exact_match" ;
+export type NFTSearchRequestMintAddressSearchMethodEnum = "exact_match" ;
+export type NFTSearchRequestNameSearchMethodEnum = "begins_with" | "exact_match" ;
+export type NFTSearchRequestUriSearchMethodEnum = "begins_with" | "exact_match" ;
+export type NFTSearchRequestSymbolSearchMethodEnum = "begins_with" | "exact_match" ;
+export type NFTSearchRequestNetworkEnum = "devnet" | "mainnet-beta" ;
 

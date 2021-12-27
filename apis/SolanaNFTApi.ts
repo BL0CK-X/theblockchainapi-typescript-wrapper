@@ -14,6 +14,8 @@ import { NFTMintErrorResponse } from '../models/NFTMintErrorResponse';
 import { NFTMintFee } from '../models/NFTMintFee';
 import { NFTMintRequest } from '../models/NFTMintRequest';
 import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
+import { NFTSearchRequest } from '../models/NFTSearchRequest';
+import { NFTSearchResponse } from '../models/NFTSearchResponse';
 
 /**
  * no description
@@ -21,7 +23,7 @@ import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
 export class SolanaNFTApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana. Read more on this <a href=\"https://blog.theblockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana. Read more on this <a href=\"https://blog.theblockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  To add attributes to the NFT, add them to a JSON file and upload that to Arweave/IPFS/Filecoin. The JSON file should follow this format: <a href=\"https://docs.metaplex.com/nft-standard\" target=\"_blank\">NFT Standard.</a> (See the \"URI JSON Schema\" section in that article). Then supply the link to the JSON file in `nft_url`. You don't need to use `nft_metadata`.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Create an NFT on Solana
      * @param nFTMintRequest 
      */
@@ -64,7 +66,7 @@ export class SolanaNFTApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-metadata\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the metadata of an NFT.  `Cost: 1 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-metadata\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the metadata of an NFT.  If you're looking for metadata such as attributes and others, you can retrieve them from the link in the URI field of the NFT metadata returned. See the example on the right. The URI is an Arweave URL. That contains the attributes and other information about the NFT. That URL is stored on the Solana blockchain.  `Cost: 1 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get an NFT's metadata
      * @param network The network ID (devnet, mainnet-beta)
      * @param mintAddress The mint address of the NFT
@@ -228,6 +230,49 @@ export class SolanaNFTApiRequestFactory extends BaseAPIRequestFactory {
         return requestContext;
     }
 
+    /**
+     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search for NFTs by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of NFTs that match your query.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Search NFTs on Solana
+     * @param nFTSearchRequest 
+     */
+    public async solanaSearchNFTs(nFTSearchRequest?: NFTSearchRequest, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+
+        // Path Params
+        const localVarPath = '/solana/nft/search';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(nFTSearchRequest, "NFTSearchRequest", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = _config.authMethods["APIKeyID"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["APISecretKey"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
 }
 
 export class SolanaNFTApiResponseProcessor {
@@ -263,9 +308,6 @@ export class SolanaNFTApiResponseProcessor {
         }
         if (isCodeInRange("414", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "URI too long (the data you provided was too large [e.g., the metadata provided was 500kb])", undefined, response.headers);
-        }
-        if (isCodeInRange("502", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Service unavailable. This can happen when Solana&#39;s leading validator is behind and is unable to process transactions we send. We have no control over this. The proper response here is to wait 10 or so seconds and try again.", undefined, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -432,6 +474,44 @@ export class SolanaNFTApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "GetCandyMachineIDResponse", ""
             ) as GetCandyMachineIDResponse;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to solanaSearchNFTs
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async solanaSearchNFTs(response: ResponseContext): Promise<NFTSearchResponse > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: NFTSearchResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NFTSearchResponse", ""
+            ) as NFTSearchResponse;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Bad request (check response message)", undefined, response.headers);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Invalid API key pair in headers", undefined, response.headers);
+        }
+        if (isCodeInRange("402", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;.", undefined, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: NFTSearchResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NFTSearchResponse", ""
+            ) as NFTSearchResponse;
             return body;
         }
 

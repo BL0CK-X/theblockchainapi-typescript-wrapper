@@ -7,16 +7,14 @@ import {ApiException} from './exception';
 import {canConsumeForm, isCodeInRange} from '../util';
 
 
+import { CandyMachineSearchRequest } from '../models/CandyMachineSearchRequest';
+import { CandyMachineSearchResponse } from '../models/CandyMachineSearchResponse';
 import { CreateTestCandyMachineRequest } from '../models/CreateTestCandyMachineRequest';
 import { CreateTestCandyMachineResponse } from '../models/CreateTestCandyMachineResponse';
 import { GetAllNFTsResponse } from '../models/GetAllNFTsResponse';
-import { GetCandyDetailsErrorResponse } from '../models/GetCandyDetailsErrorResponse';
-import { GetCandyDetailsRequest } from '../models/GetCandyDetailsRequest';
-import { GetCandyDetailsResponse } from '../models/GetCandyDetailsResponse';
-import { GetConfigInfoRequest } from '../models/GetConfigInfoRequest';
-import { GetConfigInfoResponse } from '../models/GetConfigInfoResponse';
-import { GetMintedNFTsRequest } from '../models/GetMintedNFTsRequest';
-import { GetMintedNFTsResponse } from '../models/GetMintedNFTsResponse';
+import { GetCandyMetadataErrorResponse } from '../models/GetCandyMetadataErrorResponse';
+import { GetCandyMetadataRequest } from '../models/GetCandyMetadataRequest';
+import { GetCandyMetadataResponse } from '../models/GetCandyMetadataResponse';
 import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
 import { MintNFTRequest } from '../models/MintNFTRequest';
 import { MintNFTResponse } from '../models/MintNFTResponse';
@@ -28,7 +26,7 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/create-test-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.   Use this endpoint to create a test candy machine so that you can test your minting bot.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create a test candy machine 
+     * Create a test CM
      * @param createTestCandyMachineRequest 
      */
     public async solanaCreateTestCandyMachine(createTestCandyMachineRequest?: CreateTestCandyMachineRequest, _options?: Configuration): Promise<RequestContext> {
@@ -70,8 +68,8 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-all-nfts\" target=\"_blank\"> See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of all NFTs (minted and unminted) from a Solana Candy Machine.  `Cost: 3 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the list of all NFTs (minted and unminted) from a Solana Candy Machine 
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-all-nfts\" target=\"_blank\"> See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of all NFTs (minted and unminted) from a Solana Candy Machine.  This works for `v1` and `v2` candy machines.   *However*, for `v2` only the value for `all_nfts` is provided. To determine which are minted and unminted follow this example.  You do not need to specify `v1` or `v2` for this endpoint as it will automatically determine it from the candy machine ID.  See example for how to get the list of NFT hashes <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-hash-table\" target=\"_blank\">here</a>.    `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get CM's NFTs  
      * @param network The network ID (devnet, mainnet-beta)
      * @param candyMachineId The ID of the candy machine
      */
@@ -116,16 +114,16 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-config-info\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the details of a Solana Candy Machine configuration.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the details of a Solana Candy Machine configuration 
-     * @param getConfigInfoRequest 
+     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  Use this endpoint to get metadata about a Metaplex candy machine. This includes the goLiveDate, itemsAvailable, and itemsRedeemed. To see what is included, expand the green successful response below.  NOTE: Supply exactly one of `candy_machine_id`, `config_address`, or `uuid`. If you provide more than one, you will receive a `400` error.   `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a CM's metadata 
+     * @param getCandyMetadataRequest 
      */
-    public async solanaGetCandyMachineConfigurationDetails(getConfigInfoRequest?: GetConfigInfoRequest, _options?: Configuration): Promise<RequestContext> {
+    public async solanaGetCandyMachineMetadata(getCandyMetadataRequest?: GetCandyMetadataRequest, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
 
         // Path Params
-        const localVarPath = '/solana/nft/candy_machine/config/info';
+        const localVarPath = '/solana/nft/candy_machine/metadata';
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -138,7 +136,7 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(getConfigInfoRequest, "GetConfigInfoRequest", ""),
+            ObjectSerializer.serialize(getCandyMetadataRequest, "GetCandyMetadataRequest", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -159,32 +157,19 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-info\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the following details about a Metaplex candy machine: uuid, go live date, items in the collection, and the cost to mint.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get a Metaplex candy machine's details 
-     * @param getCandyDetailsRequest 
+     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can list all candy machines published to Solana mainnet.  We update this data every 15 minutes.  The output is a list of config addresses, currently about 17000 in length.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List all CMs
      */
-    public async solanaGetCandyMachineDetails(getCandyDetailsRequest?: GetCandyDetailsRequest, _options?: Configuration): Promise<RequestContext> {
+    public async solanaListAllCandyMachines(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-
         // Path Params
-        const localVarPath = '/solana/nft/candy_machine/info';
+        const localVarPath = '/solana/nft/candy_machine/list';
 
         // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-
-        // Body Params
-        const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json"
-        ]);
-        requestContext.setHeaderParam("Content-Type", contentType);
-        const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(getCandyDetailsRequest, "GetCandyDetailsRequest", ""),
-            contentType
-        );
-        requestContext.setBody(serializedBody);
 
         let authMethod = null;
         // Apply auth methods
@@ -202,51 +187,8 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-minted-nfts\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of NFTs minted from a Solana Candy Machine.  See example for how to get the list of NFT hashes <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-hash-table\" target=\"_blank\">here</a>.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the list of NFTs minted from a Solana Candy Machine 
-     * @param getMintedNFTsRequest 
-     */
-    public async solanaGetNFTsMintedFromCandyMachine(getMintedNFTsRequest?: GetMintedNFTsRequest, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-
-        // Path Params
-        const localVarPath = '/solana/nft/candy_machine/nfts';
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        // Body Params
-        const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json"
-        ]);
-        requestContext.setHeaderParam("Content-Type", contentType);
-        const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(getMintedNFTsRequest, "GetMintedNFTsRequest", ""),
-            contentType
-        );
-        requestContext.setBody(serializedBody);
-
-        let authMethod = null;
-        // Apply auth methods
-        authMethod = _config.authMethods["APIKeyID"]
-        if (authMethod) {
-            await authMethod.applySecurityAuthentication(requestContext);
-        }
-        // Apply auth methods
-        authMethod = _config.authMethods["APISecretKey"]
-        if (authMethod) {
-            await authMethod.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  `Cost: 10 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Mint an NFT from a Metaplex candy machine
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Mint from a CM
      * @param mintNFTRequest 
      */
     public async solanaMintFromCandyMachine(mintNFTRequest?: MintNFTRequest, _options?: Configuration): Promise<RequestContext> {
@@ -268,6 +210,49 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
             ObjectSerializer.serialize(mintNFTRequest, "MintNFTRequest", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = _config.authMethods["APIKeyID"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["APISecretKey"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search candy machines by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of config addresses.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Search CMs
+     * @param candyMachineSearchRequest 
+     */
+    public async solanaSearchCandyMachines(candyMachineSearchRequest?: CandyMachineSearchRequest, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+
+        // Path Params
+        const localVarPath = '/solana/nft/candy_machine/search';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(candyMachineSearchRequest, "CandyMachineSearchRequest", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -374,16 +359,58 @@ export class SolanaCandyMachineApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to solanaGetCandyMachineConfigurationDetails
+     * @params response Response returned by the server for a request to solanaGetCandyMachineMetadata
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async solanaGetCandyMachineConfigurationDetails(response: ResponseContext): Promise<GetConfigInfoResponse > {
+     public async solanaGetCandyMachineMetadata(response: ResponseContext): Promise<GetCandyMetadataResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: GetConfigInfoResponse = ObjectSerializer.deserialize(
+            const body: GetCandyMetadataResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "GetConfigInfoResponse", ""
-            ) as GetConfigInfoResponse;
+                "GetCandyMetadataResponse", ""
+            ) as GetCandyMetadataResponse;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: GetCandyMetadataErrorResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "GetCandyMetadataErrorResponse", ""
+            ) as GetCandyMetadataErrorResponse;
+            throw new ApiException<GetCandyMetadataErrorResponse>(400, "Bad request (check response message)", body, response.headers);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Invalid API key pair in headers", undefined, response.headers);
+        }
+        if (isCodeInRange("402", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;.", undefined, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: GetCandyMetadataResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "GetCandyMetadataResponse", ""
+            ) as GetCandyMetadataResponse;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to solanaListAllCandyMachines
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async solanaListAllCandyMachines(response: ResponseContext): Promise<any > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -395,99 +422,13 @@ export class SolanaCandyMachineApiResponseProcessor {
         if (isCodeInRange("402", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;.", undefined, response.headers);
         }
-        if (isCodeInRange("404", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Not found", undefined, response.headers);
-        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: GetConfigInfoResponse = ObjectSerializer.deserialize(
+            const body: any = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "GetConfigInfoResponse", ""
-            ) as GetConfigInfoResponse;
-            return body;
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to solanaGetCandyMachineDetails
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async solanaGetCandyMachineDetails(response: ResponseContext): Promise<GetCandyDetailsResponse > {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: GetCandyDetailsResponse = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "GetCandyDetailsResponse", ""
-            ) as GetCandyDetailsResponse;
-            return body;
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: GetCandyDetailsErrorResponse = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "GetCandyDetailsErrorResponse", ""
-            ) as GetCandyDetailsErrorResponse;
-            throw new ApiException<GetCandyDetailsErrorResponse>(400, "Bad request (check response message)", body, response.headers);
-        }
-        if (isCodeInRange("401", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid API key pair in headers", undefined, response.headers);
-        }
-        if (isCodeInRange("402", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;.", undefined, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: GetCandyDetailsResponse = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "GetCandyDetailsResponse", ""
-            ) as GetCandyDetailsResponse;
-            return body;
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to solanaGetNFTsMintedFromCandyMachine
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async solanaGetNFTsMintedFromCandyMachine(response: ResponseContext): Promise<Array<GetMintedNFTsResponse> > {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<GetMintedNFTsResponse> = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<GetMintedNFTsResponse>", ""
-            ) as Array<GetMintedNFTsResponse>;
-            return body;
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Bad request (check response message)", undefined, response.headers);
-        }
-        if (isCodeInRange("401", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid API key pair in headers", undefined, response.headers);
-        }
-        if (isCodeInRange("402", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;.", undefined, response.headers);
-        }
-        if (isCodeInRange("404", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Not found", undefined, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<GetMintedNFTsResponse> = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<GetMintedNFTsResponse>", ""
-            ) as Array<GetMintedNFTsResponse>;
+                "any", ""
+            ) as any;
             return body;
         }
 
@@ -530,6 +471,44 @@ export class SolanaCandyMachineApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "MintNFTResponse", ""
             ) as MintNFTResponse;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to solanaSearchCandyMachines
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async solanaSearchCandyMachines(response: ResponseContext): Promise<Array<CandyMachineSearchResponse> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Array<CandyMachineSearchResponse> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<CandyMachineSearchResponse>", ""
+            ) as Array<CandyMachineSearchResponse>;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Bad request (check response message)", undefined, response.headers);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Invalid API key pair in headers", undefined, response.headers);
+        }
+        if (isCodeInRange("402", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;.", undefined, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<CandyMachineSearchResponse> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<CandyMachineSearchResponse>", ""
+            ) as Array<CandyMachineSearchResponse>;
             return body;
         }
 

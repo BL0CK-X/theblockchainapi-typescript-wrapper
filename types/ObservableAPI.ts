@@ -12,24 +12,23 @@ import { AccountValue } from '../models/AccountValue';
 import { AirdropRequest } from '../models/AirdropRequest';
 import { BalanceRequest } from '../models/BalanceRequest';
 import { BalanceResponse } from '../models/BalanceResponse';
+import { CandyMachineSearchRequest } from '../models/CandyMachineSearchRequest';
+import { CandyMachineSearchResponse } from '../models/CandyMachineSearchResponse';
 import { CreateTestCandyMachineRequest } from '../models/CreateTestCandyMachineRequest';
 import { CreateTestCandyMachineResponse } from '../models/CreateTestCandyMachineResponse';
 import { GetAllNFTsResponse } from '../models/GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from '../models/GetAllNFTsResponseMintedNfts';
 import { GetAllNFTsResponseUnmintedNfts } from '../models/GetAllNFTsResponseUnmintedNfts';
-import { GetCandyDetailsErrorResponse } from '../models/GetCandyDetailsErrorResponse';
-import { GetCandyDetailsRequest } from '../models/GetCandyDetailsRequest';
-import { GetCandyDetailsResponse } from '../models/GetCandyDetailsResponse';
 import { GetCandyMachineIDRequest } from '../models/GetCandyMachineIDRequest';
 import { GetCandyMachineIDResponse } from '../models/GetCandyMachineIDResponse';
-import { GetConfigInfoRequest } from '../models/GetConfigInfoRequest';
-import { GetConfigInfoResponse } from '../models/GetConfigInfoResponse';
-import { GetConfigInfoResponseCreators } from '../models/GetConfigInfoResponseCreators';
+import { GetCandyMetadataErrorResponse } from '../models/GetCandyMetadataErrorResponse';
+import { GetCandyMetadataRequest } from '../models/GetCandyMetadataRequest';
+import { GetCandyMetadataResponse } from '../models/GetCandyMetadataResponse';
+import { GetCandyMetadataResponseCreators } from '../models/GetCandyMetadataResponseCreators';
 import { GetFileResponse } from '../models/GetFileResponse';
-import { GetMintedNFTsRequest } from '../models/GetMintedNFTsRequest';
-import { GetMintedNFTsResponse } from '../models/GetMintedNFTsResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
+import { ListTokensRequest } from '../models/ListTokensRequest';
 import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
 import { MintNFTRequest } from '../models/MintNFTRequest';
 import { MintNFTResponse } from '../models/MintNFTResponse';
@@ -39,9 +38,10 @@ import { NFTMintErrorResponse } from '../models/NFTMintErrorResponse';
 import { NFTMintFee } from '../models/NFTMintFee';
 import { NFTMintRequest } from '../models/NFTMintRequest';
 import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
+import { NFTSearchRequest } from '../models/NFTSearchRequest';
+import { NFTSearchResponse } from '../models/NFTSearchResponse';
 import { PublicKey } from '../models/PublicKey';
 import { SecretPhrase } from '../models/SecretPhrase';
-import { Task } from '../models/Task';
 import { Transaction } from '../models/Transaction';
 import { TransferRequest } from '../models/TransferRequest';
 import { TransferResponse } from '../models/TransferResponse';
@@ -130,7 +130,7 @@ export class ObservableSolanaAccountApi {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [COMING SOON]</a>.      Determine whether or not a public key address corresponds to a candy machine ID or candy machine configuration.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-account/get-is-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Determine whether or not a public key address corresponds to a candy machine ID or candy machine configuration.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get if account is candy machine
      * @param network The network ID (devnet, mainnet-beta)
      * @param publicKey The public key of the account
@@ -155,7 +155,7 @@ export class ObservableSolanaAccountApi {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [COMING SOON]</a>.      Determine whether or not a public key is an NFT `mint address`  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-account/get-is-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Determine whether or not a public key is an NFT `mint address`  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get if account is NFT
      * @param network The network ID (devnet, mainnet-beta)
      * @param publicKey The public key of the account
@@ -199,7 +199,7 @@ export class ObservableSolanaCandyMachineApi {
 
     /**
      * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/create-test-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.   Use this endpoint to create a test candy machine so that you can test your minting bot.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create a test candy machine 
+     * Create a test CM
      * @param createTestCandyMachineRequest 
      */
     public solanaCreateTestCandyMachine(createTestCandyMachineRequest?: CreateTestCandyMachineRequest, _options?: Configuration): Observable<CreateTestCandyMachineResponse> {
@@ -222,8 +222,8 @@ export class ObservableSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-all-nfts\" target=\"_blank\"> See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of all NFTs (minted and unminted) from a Solana Candy Machine.  `Cost: 3 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the list of all NFTs (minted and unminted) from a Solana Candy Machine 
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-all-nfts\" target=\"_blank\"> See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of all NFTs (minted and unminted) from a Solana Candy Machine.  This works for `v1` and `v2` candy machines.   *However*, for `v2` only the value for `all_nfts` is provided. To determine which are minted and unminted follow this example.  You do not need to specify `v1` or `v2` for this endpoint as it will automatically determine it from the candy machine ID.  See example for how to get the list of NFT hashes <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-hash-table\" target=\"_blank\">here</a>.    `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get CM's NFTs  
      * @param network The network ID (devnet, mainnet-beta)
      * @param candyMachineId The ID of the candy machine
      */
@@ -247,12 +247,12 @@ export class ObservableSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-config-info\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the details of a Solana Candy Machine configuration.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the details of a Solana Candy Machine configuration 
-     * @param getConfigInfoRequest 
+     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  Use this endpoint to get metadata about a Metaplex candy machine. This includes the goLiveDate, itemsAvailable, and itemsRedeemed. To see what is included, expand the green successful response below.  NOTE: Supply exactly one of `candy_machine_id`, `config_address`, or `uuid`. If you provide more than one, you will receive a `400` error.   `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a CM's metadata 
+     * @param getCandyMetadataRequest 
      */
-    public solanaGetCandyMachineConfigurationDetails(getConfigInfoRequest?: GetConfigInfoRequest, _options?: Configuration): Observable<GetConfigInfoResponse> {
-        const requestContextPromise = this.requestFactory.solanaGetCandyMachineConfigurationDetails(getConfigInfoRequest, _options);
+    public solanaGetCandyMachineMetadata(getCandyMetadataRequest?: GetCandyMetadataRequest, _options?: Configuration): Observable<GetCandyMetadataResponse> {
+        const requestContextPromise = this.requestFactory.solanaGetCandyMachineMetadata(getCandyMetadataRequest, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -266,17 +266,16 @@ export class ObservableSolanaCandyMachineApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaGetCandyMachineConfigurationDetails(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaGetCandyMachineMetadata(rsp)));
             }));
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-info\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the following details about a Metaplex candy machine: uuid, go live date, items in the collection, and the cost to mint.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get a Metaplex candy machine's details 
-     * @param getCandyDetailsRequest 
+     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can list all candy machines published to Solana mainnet.  We update this data every 15 minutes.  The output is a list of config addresses, currently about 17000 in length.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List all CMs
      */
-    public solanaGetCandyMachineDetails(getCandyDetailsRequest?: GetCandyDetailsRequest, _options?: Configuration): Observable<GetCandyDetailsResponse> {
-        const requestContextPromise = this.requestFactory.solanaGetCandyMachineDetails(getCandyDetailsRequest, _options);
+    public solanaListAllCandyMachines(_options?: Configuration): Observable<any> {
+        const requestContextPromise = this.requestFactory.solanaListAllCandyMachines(_options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -290,37 +289,13 @@ export class ObservableSolanaCandyMachineApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaGetCandyMachineDetails(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaListAllCandyMachines(rsp)));
             }));
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-minted-nfts\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of NFTs minted from a Solana Candy Machine.  See example for how to get the list of NFT hashes <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-hash-table\" target=\"_blank\">here</a>.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the list of NFTs minted from a Solana Candy Machine 
-     * @param getMintedNFTsRequest 
-     */
-    public solanaGetNFTsMintedFromCandyMachine(getMintedNFTsRequest?: GetMintedNFTsRequest, _options?: Configuration): Observable<Array<GetMintedNFTsResponse>> {
-        const requestContextPromise = this.requestFactory.solanaGetNFTsMintedFromCandyMachine(getMintedNFTsRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaGetNFTsMintedFromCandyMachine(rsp)));
-            }));
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  `Cost: 10 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Mint an NFT from a Metaplex candy machine
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Mint from a CM
      * @param mintNFTRequest 
      */
     public solanaMintFromCandyMachine(mintNFTRequest?: MintNFTRequest, _options?: Configuration): Observable<MintNFTResponse> {
@@ -339,6 +314,30 @@ export class ObservableSolanaCandyMachineApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaMintFromCandyMachine(rsp)));
+            }));
+    }
+
+    /**
+     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search candy machines by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of config addresses.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Search CMs
+     * @param candyMachineSearchRequest 
+     */
+    public solanaSearchCandyMachines(candyMachineSearchRequest?: CandyMachineSearchRequest, _options?: Configuration): Observable<Array<CandyMachineSearchResponse>> {
+        const requestContextPromise = this.requestFactory.solanaSearchCandyMachines(candyMachineSearchRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaSearchCandyMachines(rsp)));
             }));
     }
 
@@ -361,7 +360,7 @@ export class ObservableSolanaNFTApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana. Read more on this <a href=\"https://blog.theblockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana. Read more on this <a href=\"https://blog.theblockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  To add attributes to the NFT, add them to a JSON file and upload that to Arweave/IPFS/Filecoin. The JSON file should follow this format: <a href=\"https://docs.metaplex.com/nft-standard\" target=\"_blank\">NFT Standard.</a> (See the \"URI JSON Schema\" section in that article). Then supply the link to the JSON file in `nft_url`. You don't need to use `nft_metadata`.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Create an NFT on Solana
      * @param nFTMintRequest 
      */
@@ -385,7 +384,7 @@ export class ObservableSolanaNFTApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-metadata\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the metadata of an NFT.  `Cost: 1 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-metadata\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the metadata of an NFT.  If you're looking for metadata such as attributes and others, you can retrieve them from the link in the URI field of the NFT metadata returned. See the example on the right. The URI is an Arweave URL. That contains the attributes and other information about the NFT. That URL is stored on the Solana blockchain.  `Cost: 1 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get an NFT's metadata
      * @param network The network ID (devnet, mainnet-beta)
      * @param mintAddress The mint address of the NFT
@@ -478,6 +477,30 @@ export class ObservableSolanaNFTApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaGetNFTsCandyMachineId(rsp)));
+            }));
+    }
+
+    /**
+     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search for NFTs by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of NFTs that match your query.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Search NFTs on Solana
+     * @param nFTSearchRequest 
+     */
+    public solanaSearchNFTs(nFTSearchRequest?: NFTSearchRequest, _options?: Configuration): Observable<NFTSearchResponse> {
+        const requestContextPromise = this.requestFactory.solanaSearchNFTs(nFTSearchRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaSearchNFTs(rsp)));
             }));
     }
 
@@ -639,7 +662,7 @@ export class ObservableSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-balance\" target=\"_blank\">See examples (Python, JavaScript) [More examples coming soon]</a>.      See the balance of a wallet in SOL or any SPL token.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-balance\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the balance of a wallet in SOL or any SPL token.  To get the balance of an SPL token, supply the `mint_address` of the SPL token. The list of SPL tokens can be viewed <a href=\"https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json\" target=\"_blank\">here</a>.  You can also use this endpoint to see whether or not a person owns an NFT. Just supply the `mint_address` of the NFT. A balance of \"1\" means the person owns the NFT, and a balance of \"0\" means the person does not own the NFT. This works in most cases, but we are aware of one edge case where a balance of \"0\" will show up for a person who is actually the owner of the NFT. We just recommend using the <a href=\"#operation/solanaGetNFTOwner\">getNFTOwner</a> endpoint and comparing that output to the expected address.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get wallet's balance in SOL or any SPL
      * @param balanceRequest 
      */
@@ -688,13 +711,14 @@ export class ObservableSolanaWalletApi {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      See the token holdings of a given public key address  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-token-holdings\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the token holdings of a given public key address  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get address's tokens and respective balances
      * @param network The network ID (devnet, mainnet-beta)
      * @param publicKey The public key of the account whose list of owned NFTs you want to get
+     * @param listTokensRequest 
      */
-    public solanaGetTokensBelongingToWallet(network: string, publicKey: string, _options?: Configuration): Observable<Array<any>> {
-        const requestContextPromise = this.requestFactory.solanaGetTokensBelongingToWallet(network, publicKey, _options);
+    public solanaGetTokensBelongingToWallet(network: string, publicKey: string, listTokensRequest?: ListTokensRequest, _options?: Configuration): Observable<Array<any>> {
+        const requestContextPromise = this.requestFactory.solanaGetTokensBelongingToWallet(network, publicKey, listTokensRequest, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -713,7 +737,7 @@ export class ObservableSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/transfer-sol\" target=\"_blank\">See transfer SOL example (Python, JavaScript)</a>.  <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/transfer-nft\" target=\"_blank\">See transfer NFT example (can also be used for SPL token) (Python, JavaScript)</a>.  Transfer SOL, a token or an NFT to another address. If you're transferring an NFT, supply the `mint` (the address of the mint) for the `token_address`.  If you're transfering a token, supply the token address found on the explorer (e.g., see `SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt` for <a href=\"https://explorer.solana.com/address/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt\" target=\"_blank\">Serum Token</a>) for the `token_address`. If you're transferring SOL, do not supply a value for `token_address`.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/transfer-sol\" target=\"_blank\">See transfer SOL example (Python, JavaScript)</a>.  <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/transfer-nft\" target=\"_blank\">See transfer NFT example (can also be used for SPL token) (Python, JavaScript)</a>.  Transfer SOL, a token or an NFT to another address. If you're transferring an NFT, supply the `mint` (the address of the mint) for the `token_address`.  SENDER: Note that the wallet information (`secret_recovery_phrase`, `passphrase`, `derivation_path`) is used to authorize the sending of the tokens and identifies the source of the tokens.   RECEIVER: `recipient_address` identifies the receiver. This is entirely separate from the information used for the SENDER above. So, in this API call, there are two wallets involved, but only one (namely, the SENDER) is needed to authorize the transaction.  If you're transfering a token, supply the token address found on the explorer (e.g., see `SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt` for <a href=\"https://explorer.solana.com/address/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt\" target=\"_blank\">Serum Token</a>) for the `token_address`. If you're transferring SOL, do not supply a value for `token_address`.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Transfer SOL, a token, or an NFT to another address
      * @param transferRequest 
      */
@@ -733,48 +757,6 @@ export class ObservableSolanaWalletApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaTransfer(rsp)));
-            }));
-    }
-
-}
-
-import { TaskApiRequestFactory, TaskApiResponseProcessor} from "../apis/TaskApi";
-export class ObservableTaskApi {
-    private requestFactory: TaskApiRequestFactory;
-    private responseProcessor: TaskApiResponseProcessor;
-    private configuration: Configuration;
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: TaskApiRequestFactory,
-        responseProcessor?: TaskApiResponseProcessor
-    ) {
-        this.configuration = configuration;
-        this.requestFactory = requestFactory || new TaskApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new TaskApiResponseProcessor();
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the result of a task. Replace `task_id` with the ID of your task.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the result of a task
-     * @param taskId The ID of the task
-     */
-    public getTask(taskId: string, _options?: Configuration): Observable<Task> {
-        const requestContextPromise = this.requestFactory.getTask(taskId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getTask(rsp)));
             }));
     }
 
