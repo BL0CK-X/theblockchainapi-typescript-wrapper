@@ -13,7 +13,6 @@ import { BalanceRequest } from '../models/BalanceRequest';
 import { BalanceResponse } from '../models/BalanceResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
-import { ListTokensRequest } from '../models/ListTokensRequest';
 import { PublicKey } from '../models/PublicKey';
 import { SecretPhrase } from '../models/SecretPhrase';
 import { TransferRequest } from '../models/TransferRequest';
@@ -285,9 +284,10 @@ export class SolanaWalletApiRequestFactory extends BaseAPIRequestFactory {
      * Get address's tokens and respective balances
      * @param network The network ID (devnet, mainnet-beta)
      * @param publicKey The public key of the account whose list of owned NFTs you want to get
-     * @param listTokensRequest 
+     * @param includeNfts Whether or not to include NFTs in the response
+     * @param includeZeroBalanceHoldings Whether or not to include holdings that have zero balance. This indicates that the wallet held this token or NFT in the past, but no longer holds it.
      */
-    public async solanaGetTokensBelongingToWallet(network: string, publicKey: string, listTokensRequest?: ListTokensRequest, _options?: Configuration): Promise<RequestContext> {
+    public async solanaGetTokensBelongingToWallet(network: string, publicKey: string, includeNfts?: boolean, includeZeroBalanceHoldings?: boolean, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'network' is not null or undefined
@@ -303,6 +303,7 @@ export class SolanaWalletApiRequestFactory extends BaseAPIRequestFactory {
 
 
 
+
         // Path Params
         const localVarPath = '/solana/wallet/{network}/{public_key}/tokens'
             .replace('{' + 'network' + '}', encodeURIComponent(String(network)))
@@ -312,17 +313,16 @@ export class SolanaWalletApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
+        // Query Params
+        if (includeNfts !== undefined) {
+            requestContext.setQueryParam("include_nfts", ObjectSerializer.serialize(includeNfts, "boolean", ""));
+        }
 
-        // Body Params
-        const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json"
-        ]);
-        requestContext.setHeaderParam("Content-Type", contentType);
-        const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(listTokensRequest, "ListTokensRequest", ""),
-            contentType
-        );
-        requestContext.setBody(serializedBody);
+        // Query Params
+        if (includeZeroBalanceHoldings !== undefined) {
+            requestContext.setQueryParam("include_zero_balance_holdings", ObjectSerializer.serialize(includeZeroBalanceHoldings, "boolean", ""));
+        }
+
 
         let authMethod = null;
         // Apply auth methods

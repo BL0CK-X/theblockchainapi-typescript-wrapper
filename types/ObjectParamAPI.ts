@@ -27,7 +27,6 @@ import { GetCandyMetadataResponseCreators } from '../models/GetCandyMetadataResp
 import { GetFileResponse } from '../models/GetFileResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
-import { ListTokensRequest } from '../models/ListTokensRequest';
 import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
 import { MintNFTRequest } from '../models/MintNFTRequest';
 import { MintNFTResponse } from '../models/MintNFTResponse';
@@ -513,11 +512,17 @@ export interface SolanaWalletApiSolanaGetTokensBelongingToWalletRequest {
      */
     publicKey: string
     /**
-     * 
-     * @type ListTokensRequest
+     * Whether or not to include NFTs in the response
+     * @type boolean
      * @memberof SolanaWalletApisolanaGetTokensBelongingToWallet
      */
-    listTokensRequest?: ListTokensRequest
+    includeNfts?: boolean
+    /**
+     * Whether or not to include holdings that have zero balance. This indicates that the wallet held this token or NFT in the past, but no longer holds it.
+     * @type boolean
+     * @memberof SolanaWalletApisolanaGetTokensBelongingToWallet
+     */
+    includeZeroBalanceHoldings?: boolean
 }
 
 export interface SolanaWalletApiSolanaTransferRequest {
@@ -596,7 +601,7 @@ export class ObjectSolanaWalletApi {
      * @param param the request object
      */
     public solanaGetTokensBelongingToWallet(param: SolanaWalletApiSolanaGetTokensBelongingToWalletRequest, options?: Configuration): Promise<Array<any>> {
-        return this.api.solanaGetTokensBelongingToWallet(param.network, param.publicKey, param.listTokensRequest,  options).toPromise();
+        return this.api.solanaGetTokensBelongingToWallet(param.network, param.publicKey, param.includeNfts, param.includeZeroBalanceHoldings,  options).toPromise();
     }
 
     /**

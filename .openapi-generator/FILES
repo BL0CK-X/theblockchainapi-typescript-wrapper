@@ -46,7 +46,6 @@ models/GetCandyMetadataResponseCreators.ts
 models/GetFileResponse.ts
 models/GetPublicKeyRequest.ts
 models/ListNFTsResponse.ts
-models/ListTokensRequest.ts
 models/MintNFTErrorResponse.ts
 models/MintNFTRequest.ts
 models/MintNFTResponse.ts

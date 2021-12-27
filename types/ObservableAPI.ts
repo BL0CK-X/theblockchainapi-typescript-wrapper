@@ -28,7 +28,6 @@ import { GetCandyMetadataResponseCreators } from '../models/GetCandyMetadataResp
 import { GetFileResponse } from '../models/GetFileResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
-import { ListTokensRequest } from '../models/ListTokensRequest';
 import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
 import { MintNFTRequest } from '../models/MintNFTRequest';
 import { MintNFTResponse } from '../models/MintNFTResponse';
@@ -715,10 +714,11 @@ export class ObservableSolanaWalletApi {
      * Get address's tokens and respective balances
      * @param network The network ID (devnet, mainnet-beta)
      * @param publicKey The public key of the account whose list of owned NFTs you want to get
-     * @param listTokensRequest 
+     * @param includeNfts Whether or not to include NFTs in the response
+     * @param includeZeroBalanceHoldings Whether or not to include holdings that have zero balance. This indicates that the wallet held this token or NFT in the past, but no longer holds it.
      */
-    public solanaGetTokensBelongingToWallet(network: string, publicKey: string, listTokensRequest?: ListTokensRequest, _options?: Configuration): Observable<Array<any>> {
-        const requestContextPromise = this.requestFactory.solanaGetTokensBelongingToWallet(network, publicKey, listTokensRequest, _options);
+    public solanaGetTokensBelongingToWallet(network: string, publicKey: string, includeNfts?: boolean, includeZeroBalanceHoldings?: boolean, _options?: Configuration): Observable<Array<any>> {
+        const requestContextPromise = this.requestFactory.solanaGetTokensBelongingToWallet(network, publicKey, includeNfts, includeZeroBalanceHoldings, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);

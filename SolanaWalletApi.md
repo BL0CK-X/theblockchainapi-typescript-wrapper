@@ -383,8 +383,10 @@ let body:theblockchainapi.SolanaWalletApiSolanaGetTokensBelongingToWalletRequest
   network: "mainnet-beta",
   // string | The public key of the account whose list of owned NFTs you want to get
   publicKey: "GKNcUmNacSJo4S2Kq3DuYRYRGw3sNUfJ4tyqd198t6vQ",
-  // ListTokensRequest (optional)
-  listTokensRequest: null,
+  // boolean | Whether or not to include NFTs in the response (optional)
+  includeNfts: false,
+  // boolean | Whether or not to include holdings that have zero balance. This indicates that the wallet held this token or NFT in the past, but no longer holds it. (optional)
+  includeZeroBalanceHoldings: false,
 };
 
 apiInstance.solanaGetTokensBelongingToWallet(body).then((data:any) => {
@@ -397,9 +399,10 @@ apiInstance.solanaGetTokensBelongingToWallet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listTokensRequest** | **ListTokensRequest**|  |
  **network** | [**string**] | The network ID (devnet, mainnet-beta) | defaults to undefined
  **publicKey** | [**string**] | The public key of the account whose list of owned NFTs you want to get | defaults to undefined
+ **includeNfts** | [**boolean**] | Whether or not to include NFTs in the response | (optional) defaults to undefined
+ **includeZeroBalanceHoldings** | [**boolean**] | Whether or not to include holdings that have zero balance. This indicates that the wallet held this token or NFT in the past, but no longer holds it. | (optional) defaults to undefined
 
 
 ### Return type
@@ -412,7 +415,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 

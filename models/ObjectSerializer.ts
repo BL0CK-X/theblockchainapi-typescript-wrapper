@@ -23,7 +23,6 @@ export * from './GetCandyMetadataResponseCreators';
 export * from './GetFileResponse';
 export * from './GetPublicKeyRequest';
 export * from './ListNFTsResponse';
-export * from './ListTokensRequest';
 export * from './MintNFTErrorResponse';
 export * from './MintNFTRequest';
 export * from './MintNFTResponse';
@@ -67,7 +66,6 @@ import { GetCandyMetadataResponseCreators } from './GetCandyMetadataResponseCrea
 import { GetFileResponse } from './GetFileResponse';
 import { GetPublicKeyRequest } from './GetPublicKeyRequest';
 import { ListNFTsResponse } from './ListNFTsResponse';
-import { ListTokensRequest } from './ListTokensRequest';
 import { MintNFTErrorResponse } from './MintNFTErrorResponse';
 import { MintNFTRequest    , MintNFTRequestNetworkEnum  , MintNFTRequestCandyMachineContractVersionEnum   } from './MintNFTRequest';
 import { MintNFTResponse } from './MintNFTResponse';
@@ -165,7 +163,6 @@ let typeMap: {[index: string]: any} = {
     "GetFileResponse": GetFileResponse,
     "GetPublicKeyRequest": GetPublicKeyRequest,
     "ListNFTsResponse": ListNFTsResponse,
-    "ListTokensRequest": ListTokensRequest,
     "MintNFTErrorResponse": MintNFTErrorResponse,
     "MintNFTRequest": MintNFTRequest,
     "MintNFTResponse": MintNFTResponse,
