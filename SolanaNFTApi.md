@@ -30,9 +30,7 @@ const apiInstance = new theblockchainapi.SolanaNFTApi(configuration);
 let body:theblockchainapi.SolanaNFTApiSolanaCreateNFTRequest = {
   // NFTMintRequest (optional)
   nFTMintRequest: {
-    secretRecoveryPhrase: "secretRecoveryPhrase_example",
-    derivationPath: "m/44/501/0/0",
-    passphrase: "",
+    wallet: null,
     nftName: "",
     nftSymbol: "",
     nftDescription: "",
@@ -44,6 +42,7 @@ let body:theblockchainapi.SolanaNFTApiSolanaCreateNFTRequest = {
     sellerFeeBasisPoints: 0,
     creators: ["The Public Key Corresponding to The Seed Phrase, Path, and Passphrase Provided"],
     share: [100],
+    mintToPublicKey: "The public key of the wallet provided",
     network: "devnet",
   },
 };
@@ -261,7 +260,7 @@ Name | Type | Description  | Notes
 # **solanaGetNFTsCandyMachineId**
 > GetCandyMachineIDResponse solanaGetNFTsCandyMachineId()
 
-<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-candy-machine-id\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the candy machine ID from where the NFT came, if any. NFTs can also be minted without a candy machine.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-candy-machine-id\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the candy machine ID from where the NFT came, if any. NFTs can also be minted without a candy machine.  It's also possible that we return \"Not Found\" when the NFT actually did come from a version of a candy machine. We check for the most popular versions of candy machine, but it is possible that someone creates their own candy machine version and mints NFTs from it.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
 
 ### Example
 
@@ -320,9 +319,9 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **solanaSearchNFTs**
-> NFTSearchResponse solanaSearchNFTs()
+> Array<NFTSearchResponse> solanaSearchNFTs()
 
-<a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search for NFTs by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of NFTs that match your query.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/search-nfts\" target=\"_blank\">See examples (Python, JavaScript)</a>.  With this endpoint, you can search for NFTs by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of NFTs that match your query.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
 
 ### Example
 
@@ -366,7 +365,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**NFTSearchResponse**
+**Array<NFTSearchResponse>**
 
 ### Authorization
 

@@ -10,24 +10,26 @@
  * Do not edit the class manually.
  */
 
-import { Wallet } from './Wallet';
 import { HttpFile } from '../http/http';
 
-export class GetPublicKeyRequest {
-    'wallet': Wallet;
+export class B58PrivateKey {
+    /**
+    * A private key corresponds to exactly one public key address. A private key can be used to move assets out of the wallet and sign transaction with the corresponding public key.  A base58-encoded private key is a base58-encoded version of the typical private key. It is represented as a string (e.g., `4waBTVeAVWEAczSdx36uMrR19668ACgQDs7r386vrUes3UCzvXCQ2FPSCVGb1zJrwcULgpNzgABreyQaWSpGBwfx`).  <a href=\"https://phantom.app\" target=\"_blank\">Phantom</a> is a popular wallet interface on Solana that allows you to export your private key in this format.
+    */
+    'b58PrivateKey': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "wallet",
-            "baseName": "wallet",
-            "type": "Wallet",
+            "name": "b58PrivateKey",
+            "baseName": "b58_private_key",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GetPublicKeyRequest.attributeTypeMap;
+        return B58PrivateKey.attributeTypeMap;
     }
 
     public constructor() {

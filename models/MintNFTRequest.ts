@@ -10,25 +10,15 @@
  * Do not edit the class manually.
  */
 
+import { Wallet } from './Wallet';
 import { HttpFile } from '../http/http';
 
 export class MintNFTRequest {
+    'wallet': Wallet;
     /**
-    * The config address of the candy machine. You can retrieve this if you have the candy machine ID using <a href=\"#operation/solanaGetCandyMachineDetails\">this endpoint</a> and retrieving the `config_address` from the response.. 
+    * The config address of the candy machine. You can retrieve this if you have the candy machine ID using <a href=\"#operation/solanaGetCandyMachineDetails\">this endpoint</a> and retrieving the `config_address` from the response.  A candy machine ID is the same thing as a configuration address for v2 candy machines. 
     */
     'configAddress': string;
-    /**
-    * The twelve word phrase that can be used to derive many public key addresses. To derive a public key, you need a secret recovery phrase, a derivation path, and an optional passphrase. See our Security section <a href=\"#section/Security\">here</a>.
-    */
-    'secretRecoveryPhrase': string;
-    /**
-    * Derivation paths are used to derive the public key from the secret recovery phrase. Only certain paths are accepted.  We use \"m/44/501/0/0\" by default, if it is not provided. This is the path that the Phantom and Sollet wallets use. If you provide the empty string \"\" as the value for the derivation path, then we will use the Solana CLI default value. The SolFlare recommended path is \"m/44/501/0\".  You can also arbitrarily increment the default path (\"m/44/501/0/0\") to generate more wallets (e.g., \"m/44/501/0/1\", \"m/44/501/0/2\", ...). This is how Phantom generates more wallets.  To learn more about derivation paths, check out <a href=\"https://learnmeabitcoin.com/technical/derivation-paths\" target=\"_blank\">this tutorial</a>.
-    */
-    'derivationPath'?: string;
-    /**
-    * PASSPHRASE != PASSWORD. This is NOT your Phantom password or any other password. It is an optional string you use when creating a wallet. This provides an additional layer of security because a hacker would need both the secret recovery phrase and the passphrase to access the output public key. By default, most wallet UI extensions do not use a passphrase. (You probably did not use a passphrase.) Limited to 500 characters. 
-    */
-    'passphrase'?: string;
     'network'?: MintNFTRequestNetworkEnum;
     /**
     * The candy machine contract of the candy machine from which you're minting. If you are minting from a `v1` candy machine ID, set this to `v1`. If you are minting from a `v2` candy machine ID, set this to `v2`. If you don't know which the version of your candy machine, check out <a href=\"#operation/solanaGetAccountIsCandyMachine\">this endpoint</a>. 
@@ -39,26 +29,14 @@ export class MintNFTRequest {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
+            "name": "wallet",
+            "baseName": "wallet",
+            "type": "Wallet",
+            "format": ""
+        },
+        {
             "name": "configAddress",
             "baseName": "config_address",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "secretRecoveryPhrase",
-            "baseName": "secret_recovery_phrase",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "derivationPath",
-            "baseName": "derivation_path",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "passphrase",
-            "baseName": "passphrase",
             "type": "string",
             "format": ""
         },

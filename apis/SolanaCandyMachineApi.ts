@@ -8,7 +8,6 @@ import {canConsumeForm, isCodeInRange} from '../util';
 
 
 import { CandyMachineSearchRequest } from '../models/CandyMachineSearchRequest';
-import { CandyMachineSearchResponse } from '../models/CandyMachineSearchResponse';
 import { CreateTestCandyMachineRequest } from '../models/CreateTestCandyMachineRequest';
 import { CreateTestCandyMachineResponse } from '../models/CreateTestCandyMachineResponse';
 import { GetAllNFTsResponse } from '../models/GetAllNFTsResponse';
@@ -114,7 +113,7 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  Use this endpoint to get metadata about a Metaplex candy machine. This includes the goLiveDate, itemsAvailable, and itemsRedeemed. To see what is included, expand the green successful response below.  NOTE: Supply exactly one of `candy_machine_id`, `config_address`, or `uuid`. If you provide more than one, you will receive a `400` error.   `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-metadata\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get metadata about a Metaplex candy machine. This includes the goLiveDate, itemsAvailable, and itemsRedeemed. To see what is included, expand the green successful response below.  NOTE: Supply exactly one of `candy_machine_id`, `config_address`, or `uuid`. If you provide more than one, you will receive a `400` error.   `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get a CM's metadata 
      * @param getCandyMetadataRequest 
      */
@@ -157,7 +156,7 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can list all candy machines published to Solana mainnet.  We update this data every 15 minutes.  The output is a list of config addresses, currently about 17000 in length.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/list-all-candy-machines\" target=\"_blank\">See examples (Python, JavaScript)</a>.  With this endpoint, you can list all candy machines published to Solana mainnet.  We update this data every 15 minutes.  The output is a list of config addresses, currently about 17000 in length.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * List all CMs
      */
     public async solanaListAllCandyMachines(_options?: Configuration): Promise<RequestContext> {
@@ -187,7 +186,7 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  This only works for `v1` and `v2` candy machines, and does not work for candy machines of any other type such as Magic Eden candy machines.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint. <a href=\"https://gist.github.com/joshwolff1/298e8251e43ff9b4815028683b1ca17d\" target=\"_blank\">Here's an example</a> of how to do this.  Mint transactions for candy machines that have capatcha/Civic enabled will fail. There is a gatekeeper functionality where you must manually verify through Civic and captcha in order to mint from a candy machine. In this functionality, Civic signs the transaction. Therefore, if the gatekeeper functionality is enabled, our “Mint from candy machine” endpoint will fail because it is missing a signer. If it is not enabled, then our “Mint from candy machine” endpoint will succeed. One caveat is the attribute “expireOnUse”. If this is True, then you have to solve a captcha each time. In this case, the “Mint from candy machine” endpoint will fail. If this is False, then your first verification is sufficient for further mints. In which case, after verifying manually the first time, you can use our endpoint thereafter.   You can check if the gatekeeper functionality is enabled with this <a href=\"#operation/solanaGetCandyMachineMetadata\">endpoint</a>.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Mint from a CM
      * @param mintNFTRequest 
      */
@@ -230,7 +229,7 @@ export class SolanaCandyMachineApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search candy machines by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of config addresses.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/search-candy-machines\" target=\"_blank\">See examples (Python, JavaScript)</a>.  With this endpoint, you can search candy machines by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of config addresses.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Search CMs
      * @param candyMachineSearchRequest 
      */
@@ -484,13 +483,13 @@ export class SolanaCandyMachineApiResponseProcessor {
      * @params response Response returned by the server for a request to solanaSearchCandyMachines
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async solanaSearchCandyMachines(response: ResponseContext): Promise<Array<CandyMachineSearchResponse> > {
+     public async solanaSearchCandyMachines(response: ResponseContext): Promise<Array<string> > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<CandyMachineSearchResponse> = ObjectSerializer.deserialize(
+            const body: Array<string> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<CandyMachineSearchResponse>", ""
-            ) as Array<CandyMachineSearchResponse>;
+                "Array<string>", ""
+            ) as Array<string>;
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -505,10 +504,10 @@ export class SolanaCandyMachineApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<CandyMachineSearchResponse> = ObjectSerializer.deserialize(
+            const body: Array<string> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<CandyMachineSearchResponse>", ""
-            ) as Array<CandyMachineSearchResponse>;
+                "Array<string>", ""
+            ) as Array<string>;
             return body;
         }
 

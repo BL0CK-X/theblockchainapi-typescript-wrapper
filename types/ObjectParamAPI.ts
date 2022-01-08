@@ -9,12 +9,13 @@ import { AccountIsCandyMachine } from '../models/AccountIsCandyMachine';
 import { AccountIsNFT } from '../models/AccountIsNFT';
 import { AccountValue } from '../models/AccountValue';
 import { AirdropRequest } from '../models/AirdropRequest';
+import { B58PrivateKey } from '../models/B58PrivateKey';
 import { BalanceRequest } from '../models/BalanceRequest';
 import { BalanceResponse } from '../models/BalanceResponse';
 import { CandyMachineSearchRequest } from '../models/CandyMachineSearchRequest';
-import { CandyMachineSearchResponse } from '../models/CandyMachineSearchResponse';
 import { CreateTestCandyMachineRequest } from '../models/CreateTestCandyMachineRequest';
 import { CreateTestCandyMachineResponse } from '../models/CreateTestCandyMachineResponse';
+import { GeneratePrivateKey } from '../models/GeneratePrivateKey';
 import { GetAllNFTsResponse } from '../models/GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from '../models/GetAllNFTsResponseMintedNfts';
 import { GetAllNFTsResponseUnmintedNfts } from '../models/GetAllNFTsResponseUnmintedNfts';
@@ -26,6 +27,7 @@ import { GetCandyMetadataResponse } from '../models/GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from '../models/GetCandyMetadataResponseCreators';
 import { GetFileResponse } from '../models/GetFileResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
+import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
 import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
 import { MintNFTRequest } from '../models/MintNFTRequest';
@@ -38,12 +40,16 @@ import { NFTMintRequest } from '../models/NFTMintRequest';
 import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
 import { NFTSearchRequest } from '../models/NFTSearchRequest';
 import { NFTSearchResponse } from '../models/NFTSearchResponse';
+import { PrivateKey } from '../models/PrivateKey';
 import { PublicKey } from '../models/PublicKey';
 import { SecretPhrase } from '../models/SecretPhrase';
+import { SecretRecoveryPhrase } from '../models/SecretRecoveryPhrase';
 import { Transaction } from '../models/Transaction';
+import { TransactionResult } from '../models/TransactionResult';
 import { TransferRequest } from '../models/TransferRequest';
 import { TransferResponse } from '../models/TransferResponse';
 import { UploadFileRequest } from '../models/UploadFileRequest';
+import { Wallet } from '../models/Wallet';
 
 import { ObservableFileApi } from "./ObservableAPI";
 import { FileApiRequestFactory, FileApiResponseProcessor} from "../apis/FileApi";
@@ -236,7 +242,7 @@ export class ObjectSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  Use this endpoint to get metadata about a Metaplex candy machine. This includes the goLiveDate, itemsAvailable, and itemsRedeemed. To see what is included, expand the green successful response below.  NOTE: Supply exactly one of `candy_machine_id`, `config_address`, or `uuid`. If you provide more than one, you will receive a `400` error.   `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-metadata\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to get metadata about a Metaplex candy machine. This includes the goLiveDate, itemsAvailable, and itemsRedeemed. To see what is included, expand the green successful response below.  NOTE: Supply exactly one of `candy_machine_id`, `config_address`, or `uuid`. If you provide more than one, you will receive a `400` error.   `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get a CM's metadata 
      * @param param the request object
      */
@@ -245,7 +251,7 @@ export class ObjectSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can list all candy machines published to Solana mainnet.  We update this data every 15 minutes.  The output is a list of config addresses, currently about 17000 in length.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/list-all-candy-machines\" target=\"_blank\">See examples (Python, JavaScript)</a>.  With this endpoint, you can list all candy machines published to Solana mainnet.  We update this data every 15 minutes.  The output is a list of config addresses, currently about 17000 in length.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * List all CMs
      * @param param the request object
      */
@@ -254,7 +260,7 @@ export class ObjectSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  This only works for `v1` and `v2` candy machines, and does not work for candy machines of any other type such as Magic Eden candy machines.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint. <a href=\"https://gist.github.com/joshwolff1/298e8251e43ff9b4815028683b1ca17d\" target=\"_blank\">Here's an example</a> of how to do this.  Mint transactions for candy machines that have capatcha/Civic enabled will fail. There is a gatekeeper functionality where you must manually verify through Civic and captcha in order to mint from a candy machine. In this functionality, Civic signs the transaction. Therefore, if the gatekeeper functionality is enabled, our “Mint from candy machine” endpoint will fail because it is missing a signer. If it is not enabled, then our “Mint from candy machine” endpoint will succeed. One caveat is the attribute “expireOnUse”. If this is True, then you have to solve a captcha each time. In this case, the “Mint from candy machine” endpoint will fail. If this is False, then your first verification is sufficient for further mints. In which case, after verifying manually the first time, you can use our endpoint thereafter.   You can check if the gatekeeper functionality is enabled with this <a href=\"#operation/solanaGetCandyMachineMetadata\">endpoint</a>.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Mint from a CM
      * @param param the request object
      */
@@ -263,11 +269,11 @@ export class ObjectSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search candy machines by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of config addresses.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/search-candy-machines\" target=\"_blank\">See examples (Python, JavaScript)</a>.  With this endpoint, you can search candy machines by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of config addresses.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Search CMs
      * @param param the request object
      */
-    public solanaSearchCandyMachines(param: SolanaCandyMachineApiSolanaSearchCandyMachinesRequest, options?: Configuration): Promise<Array<CandyMachineSearchResponse>> {
+    public solanaSearchCandyMachines(param: SolanaCandyMachineApiSolanaSearchCandyMachinesRequest, options?: Configuration): Promise<Array<string>> {
         return this.api.solanaSearchCandyMachines(param.candyMachineSearchRequest,  options).toPromise();
     }
 
@@ -380,7 +386,7 @@ export class ObjectSolanaNFTApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-candy-machine-id\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the candy machine ID from where the NFT came, if any. NFTs can also be minted without a candy machine.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-candy-machine-id\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the candy machine ID from where the NFT came, if any. NFTs can also be minted without a candy machine.  It's also possible that we return \"Not Found\" when the NFT actually did come from a version of a candy machine. We check for the most popular versions of candy machine, but it is possible that someone creates their own candy machine version and mints NFTs from it.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the ID of the candy machine of an NFT 
      * @param param the request object
      */
@@ -389,12 +395,48 @@ export class ObjectSolanaNFTApi {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search for NFTs by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of NFTs that match your query.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/search-nfts\" target=\"_blank\">See examples (Python, JavaScript)</a>.  With this endpoint, you can search for NFTs by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of NFTs that match your query.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Search NFTs on Solana
      * @param param the request object
      */
-    public solanaSearchNFTs(param: SolanaNFTApiSolanaSearchNFTsRequest, options?: Configuration): Promise<NFTSearchResponse> {
+    public solanaSearchNFTs(param: SolanaNFTApiSolanaSearchNFTsRequest, options?: Configuration): Promise<Array<NFTSearchResponse>> {
         return this.api.solanaSearchNFTs(param.nFTSearchRequest,  options).toPromise();
+    }
+
+}
+
+import { ObservableSolanaSPLTokenApi } from "./ObservableAPI";
+import { SolanaSPLTokenApiRequestFactory, SolanaSPLTokenApiResponseProcessor} from "../apis/SolanaSPLTokenApi";
+
+export interface SolanaSPLTokenApiSolanaGetSPLTokenRequest {
+    /**
+     * The public key of the token
+     * @type string
+     * @memberof SolanaSPLTokenApisolanaGetSPLToken
+     */
+    publicKey: string
+    /**
+     * The network ID (devnet, mainnet-beta)
+     * @type string
+     * @memberof SolanaSPLTokenApisolanaGetSPLToken
+     */
+    network: string
+}
+
+export class ObjectSolanaSPLTokenApi {
+    private api: ObservableSolanaSPLTokenApi
+
+    public constructor(configuration: Configuration, requestFactory?: SolanaSPLTokenApiRequestFactory, responseProcessor?: SolanaSPLTokenApiResponseProcessor) {
+        this.api = new ObservableSolanaSPLTokenApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-spl-token/get-spl-token\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Retrieves basic information about an SPL token given its `mint_address`.  You can see the mint addresses of popular SPL tokens <a href=\"https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json\" target=\"_blank\">here</a>.  Some example mint addresses of SPL tokens: - USDC: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v - Mango: MangoCzJ36AjZyKwVj3VnYU4GTonjfVEnJmvvWaxLac - Serum: SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt - Raydium: 4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R - wSOL: So11111111111111111111111111111111111111112 - ATLAS: ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get SPL token metadata
+     * @param param the request object
+     */
+    public solanaGetSPLToken(param: SolanaSPLTokenApiSolanaGetSPLTokenRequest, options?: Configuration): Promise<GetSPLTokenResponse> {
+        return this.api.solanaGetSPLToken(param.publicKey, param.network,  options).toPromise();
     }
 
 }
@@ -453,6 +495,15 @@ export interface SolanaWalletApiSolanaDeriveAssociatedTokenAccountAddressRequest
     mintAddress: string
 }
 
+export interface SolanaWalletApiSolanaDerivePrivateKeyRequest {
+    /**
+     * 
+     * @type GetPublicKeyRequest
+     * @memberof SolanaWalletApisolanaDerivePrivateKey
+     */
+    getPublicKeyRequest: GetPublicKeyRequest
+}
+
 export interface SolanaWalletApiSolanaDerivePublicKeyRequest {
     /**
      * 
@@ -460,6 +511,9 @@ export interface SolanaWalletApiSolanaDerivePublicKeyRequest {
      * @memberof SolanaWalletApisolanaDerivePublicKey
      */
     getPublicKeyRequest: GetPublicKeyRequest
+}
+
+export interface SolanaWalletApiSolanaGeneratePrivateKeyRequest {
 }
 
 export interface SolanaWalletApiSolanaGenerateSecretRecoveryPhraseRequest {
@@ -551,7 +605,16 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-public-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Returns a public key given a secret recovery phrase and optionally a passphrase and a derivation path.  A wallet is defined by a public key. A public key is derived from a combination of seed phrase, derivation path, and passphrase. Changing any *one* of these three will change the public key output.  *You can generate a unique public key with each combination of secret recovery phrase, passphrase, and derivation path. Thus, with a single secret recovery phrase, you can generate many public keys. If you are just starting, just supply the secret recovery phrase you generated with the Solana Wallet Secret Recovery Phrase endpoint.*  *If you are trying to get a public key that already exists (e.g., created in the Phantom wallet), make sure you use the correct derivation path and passphrase. To read more about that, see the descriptions of those parameters below.*  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-private-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Returns a private key array and a base58-encoded private key given wallet authentication.  A wallet is defined by a public key. A public key is derived from a combination of seed phrase, derivation path, and passphrase. Changing any *one* of these three will change the public key output.  *You can generate a unique public key with each combination of secret recovery phrase, passphrase, and derivation path. Thus, with a single secret recovery phrase, you can generate many public keys. If you are just starting, just supply the secret recovery phrase you generated with the Solana Wallet Secret Recovery Phrase endpoint.*  *If you are trying to get a public key that already exists (e.g., created in the Phantom wallet), make sure you use the correct derivation path and passphrase. To read more about that, see the descriptions of those parameters below.*  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Derive private key
+     * @param param the request object
+     */
+    public solanaDerivePrivateKey(param: SolanaWalletApiSolanaDerivePrivateKeyRequest, options?: Configuration): Promise<GeneratePrivateKey> {
+        return this.api.solanaDerivePrivateKey(param.getPublicKeyRequest,  options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-public-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Returns a public key given wallet authentication.  A wallet is identified by a public key. A public key is derived from a combination of seed phrase, derivation path, and passphrase. Changing any *one* of these three will change the public key output.   It can also be derived from a private key.  *You can generate a unique public key with each combination of secret recovery phrase, passphrase, and derivation path; or from a private key. Thus, with a single secret recovery phrase, you can generate many public keys; however, with a private key, you can only generate one public key. If you are just starting, generate a <a href=\"#operation/solanaGenerateSecretRecoveryPhrase\">secret recovery phrase</a> or <a href=\"#operation/solanaGeneratePrivateKey\">private key</a>.  *If you are trying to get a public key that already exists (e.g., created in the Phantom wallet), make sure you use the correct derivation path and passphrase; or just use the private key. To read more about that, see the descriptions of those parameters below.*  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Derive public key
      * @param param the request object
      */
@@ -560,7 +623,16 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/generate-secret-phrase\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a secret recovery phrase for a Solana wallet. Complete the wallet creation by using the endpoint below.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/generate-private-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a private key for a Solana wallet.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Generate private key
+     * @param param the request object
+     */
+    public solanaGeneratePrivateKey(param: SolanaWalletApiSolanaGeneratePrivateKeyRequest, options?: Configuration): Promise<GeneratePrivateKey> {
+        return this.api.solanaGeneratePrivateKey( options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/generate-secret-phrase\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a secret recovery phrase for a Solana wallet.   `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Generate secret phrase
      * @param param the request object
      */

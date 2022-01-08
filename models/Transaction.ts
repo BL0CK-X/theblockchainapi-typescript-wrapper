@@ -10,46 +10,33 @@
  * Do not edit the class manually.
  */
 
+import { TransactionResult } from './TransactionResult';
 import { HttpFile } from '../http/http';
 
 export class Transaction {
-    'blockTime'?: number;
-    'meta'?: any;
-    'slot'?: number;
-    'transaction'?: any;
-    'network'?: TransactionNetworkEnum;
+    'id'?: number;
+    'jsonrpc'?: string;
+    'result'?: TransactionResult;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "blockTime",
-            "baseName": "block_time",
+            "name": "id",
+            "baseName": "id",
             "type": "number",
             "format": ""
         },
         {
-            "name": "meta",
-            "baseName": "meta",
-            "type": "any",
+            "name": "jsonrpc",
+            "baseName": "jsonrpc",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "slot",
-            "baseName": "slot",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "transaction",
-            "baseName": "transaction",
-            "type": "any",
-            "format": ""
-        },
-        {
-            "name": "network",
-            "baseName": "network",
-            "type": "TransactionNetworkEnum",
+            "name": "result",
+            "baseName": "result",
+            "type": "TransactionResult",
             "format": ""
         }    ];
 
@@ -60,7 +47,4 @@ export class Transaction {
     public constructor() {
     }
 }
-
-
-export type TransactionNetworkEnum = "devnet" | "mainnet-beta" ;
 

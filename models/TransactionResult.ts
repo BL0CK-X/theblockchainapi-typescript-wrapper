@@ -10,24 +10,44 @@
  * Do not edit the class manually.
  */
 
-import { Wallet } from './Wallet';
 import { HttpFile } from '../http/http';
 
-export class GetPublicKeyRequest {
-    'wallet': Wallet;
+export class TransactionResult {
+    'blockTime'?: number;
+    'meta'?: any;
+    'slot'?: number;
+    'transaction'?: any;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "wallet",
-            "baseName": "wallet",
-            "type": "Wallet",
+            "name": "blockTime",
+            "baseName": "block_time",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "meta",
+            "baseName": "meta",
+            "type": "any",
+            "format": ""
+        },
+        {
+            "name": "slot",
+            "baseName": "slot",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "transaction",
+            "baseName": "transaction",
+            "type": "any",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GetPublicKeyRequest.attributeTypeMap;
+        return TransactionResult.attributeTypeMap;
     }
 
     public constructor() {

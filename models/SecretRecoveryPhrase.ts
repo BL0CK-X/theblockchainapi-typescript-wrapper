@@ -10,24 +10,46 @@
  * Do not edit the class manually.
  */
 
-import { Wallet } from './Wallet';
 import { HttpFile } from '../http/http';
 
-export class GetPublicKeyRequest {
-    'wallet': Wallet;
+export class SecretRecoveryPhrase {
+    /**
+    * The twelve word phrase that can be used to derive many public key addresses (e.g., bottom army bless castle alter habit dish embody child flame smooth zone).  To derive a public key, you need a secret recovery phrase, a derivation path, and an optional passphrase.   Alternatively, you can derive a public key with a private key.
+    */
+    'secretRecoveryPhrase': string;
+    /**
+    * Derivation paths are used to derive the public key from the secret recovery phrase. Only certain paths are accepted.  If you provide the empty string \"\" as the value for the derivation path, then we will derive your public key with the same behavior as the default behavior of the Solana CLI.  By default, we use \"m/44/501/0/0\". This is the path that the Phantom and Sollet wallets use.  You can also arbitrarily increment the default path (\"m/44/501/0/0\") to generate more wallets (e.g., \"m/44/501/0/1\", \"m/44/501/0/2\", ... AND/OR \"m/44/501/1/0\", \"m/44/501/2/0\", ...).  Phantom's Wallet increments the first digit (e.g., \"m/44/501/0/0\", \"m/44/501/1/0\", \"m/44/501/2/0\", ...) to generate more public key addresses.  The SolFlare recommended path is \"m/44/501/0\".  To learn more about derivation paths, check out <a href=\"https://learnmeabitcoin.com/technical/derivation-paths\" target=\"_blank\">this tutorial</a>.
+    */
+    'derivationPath'?: string;
+    /**
+    * PASSPHRASE != PASSWORD. This is NOT your Phantom password or any other password. It is an optional string you use when creating a wallet. This provides an additional layer of security because a hacker would need both the secret recovery phrase and the passphrase to access the output public key. By default, most wallet UI extensions do not use a passphrase. (You probably did not use a passphrase.) Limited to 500 characters. 
+    */
+    'passphrase'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "wallet",
-            "baseName": "wallet",
-            "type": "Wallet",
+            "name": "secretRecoveryPhrase",
+            "baseName": "secret_recovery_phrase",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "derivationPath",
+            "baseName": "derivation_path",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "passphrase",
+            "baseName": "passphrase",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GetPublicKeyRequest.attributeTypeMap;
+        return SecretRecoveryPhrase.attributeTypeMap;
     }
 
     public constructor() {

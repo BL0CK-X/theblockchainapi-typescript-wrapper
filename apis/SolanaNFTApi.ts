@@ -188,7 +188,7 @@ export class SolanaNFTApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-candy-machine-id\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the candy machine ID from where the NFT came, if any. NFTs can also be minted without a candy machine.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-candy-machine-id\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the candy machine ID from where the NFT came, if any. NFTs can also be minted without a candy machine.  It's also possible that we return \"Not Found\" when the NFT actually did come from a version of a candy machine. We check for the most popular versions of candy machine, but it is possible that someone creates their own candy machine version and mints NFTs from it.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the ID of the candy machine of an NFT 
      * @param getCandyMachineIDRequest 
      */
@@ -231,7 +231,7 @@ export class SolanaNFTApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * <a href=\"\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.  With this endpoint, you can search for NFTs by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of NFTs that match your query.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/search-nfts\" target=\"_blank\">See examples (Python, JavaScript)</a>.  With this endpoint, you can search for NFTs by their symbol, name of NFTs, uuid, configuration address, and update authority.  The output is a list of NFTs that match your query.  You can also provide multiple search clauses, such as the update authority (`update_authority=\"G17UmNGnMJ851x3M1JXocgpft1afcYedjPuFpo1ohhCk\"`) and symbol begins with \"Sol\" (`symbol=\"Sol\", symbol_search_method='begins_with'`).  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Search NFTs on Solana
      * @param nFTSearchRequest 
      */
@@ -487,13 +487,13 @@ export class SolanaNFTApiResponseProcessor {
      * @params response Response returned by the server for a request to solanaSearchNFTs
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async solanaSearchNFTs(response: ResponseContext): Promise<NFTSearchResponse > {
+     public async solanaSearchNFTs(response: ResponseContext): Promise<Array<NFTSearchResponse> > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: NFTSearchResponse = ObjectSerializer.deserialize(
+            const body: Array<NFTSearchResponse> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "NFTSearchResponse", ""
-            ) as NFTSearchResponse;
+                "Array<NFTSearchResponse>", ""
+            ) as Array<NFTSearchResponse>;
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -508,10 +508,10 @@ export class SolanaNFTApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: NFTSearchResponse = ObjectSerializer.deserialize(
+            const body: Array<NFTSearchResponse> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "NFTSearchResponse", ""
-            ) as NFTSearchResponse;
+                "Array<NFTSearchResponse>", ""
+            ) as Array<NFTSearchResponse>;
             return body;
         }
 

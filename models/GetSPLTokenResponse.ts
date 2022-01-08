@@ -10,24 +10,63 @@
  * Do not edit the class manually.
  */
 
-import { Wallet } from './Wallet';
 import { HttpFile } from '../http/http';
 
-export class GetPublicKeyRequest {
-    'wallet': Wallet;
+export class GetSPLTokenResponse {
+    /**
+    * The number of decimals of the token. For example, if the USDC token has 6 decimals, then you need 1 * 10e6 = 1,000,000 tokens to have 1 USDC. The purpose of this is that everything must be stored as  an integer. Thus, if there are $100 USDC in total, there must be $100 * 10e6 tokens in order for the $100 to be divisible into lower denominations than $1. 
+    */
+    'decimals'?: number;
+    /**
+    * Public key address
+    */
+    'freezeAuthority'?: string;
+    /**
+    * Public key address
+    */
+    'mintAuthority'?: string;
+    'isInitialized'?: boolean;
+    /**
+    * The supply of the token
+    */
+    'supply'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "wallet",
-            "baseName": "wallet",
-            "type": "Wallet",
+            "name": "decimals",
+            "baseName": "decimals",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "freezeAuthority",
+            "baseName": "freeze_authority",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "mintAuthority",
+            "baseName": "mint_authority",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "isInitialized",
+            "baseName": "is_initialized",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "supply",
+            "baseName": "supply",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GetPublicKeyRequest.attributeTypeMap;
+        return GetSPLTokenResponse.attributeTypeMap;
     }
 
     public constructor() {
