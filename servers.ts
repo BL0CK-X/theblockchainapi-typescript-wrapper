@@ -48,6 +48,6 @@ export class ServerConfiguration<T extends { [key: string]: string }> implements
     }
 }
 
-export const server1 = new ServerConfiguration<{  }>("https://api.theblockchainapi.com/v1", {  })
+export const server1 = new ServerConfiguration<{  }>("https://api.blockchainapi.com/v1", {  })
 
 export const servers = [server1];
