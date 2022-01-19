@@ -15,7 +15,7 @@ Method | HTTP request | Description
 # **solanaCreateNFT**
 > NFT solanaCreateNFT()
 
-<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana. Read more on this <a href=\"https://blog.theblockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  To add attributes to the NFT, add them to a JSON file and upload that to Arweave/IPFS/Filecoin. The JSON file should follow this format: <a href=\"https://docs.metaplex.com/nft-standard\" target=\"_blank\">NFT Standard.</a> (See the \"URI JSON Schema\" section in that article). Then supply the link to the JSON file in `nft_url`. You don't need to use `nft_metadata`.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+<a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana.   Read more on this <a href=\"https://blog.blockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  Note: Please see <a href=\"https://blog.blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\" target=\"_blank\">this article</a> to learn more about what `nft_upload_method` means and how storing the metadata of an NFT works.  If you're using `nft_upload_method = \"LINK\"`, then to add attributes to the NFT or an image, add them to a JSON file and upload that to Arweave/IPFS/Filecoin. See the JSON format <a href=\"https://blog.blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\">here</a>.  Then supply the link to the JSON file in `nft_url`.   NOTE: Don't use `nft_metadata`. Values provided here do not do anything at the moment. We are fixing this soon.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
 
 ### Example
 
@@ -101,7 +101,7 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.SolanaNFTApi(configuration);
 
 let body:theblockchainapi.SolanaNFTApiSolanaGetNFTRequest = {
-  // string | The network ID (devnet, mainnet-beta)
+  // 'devnet' | 'mainnet-beta' | The network ID
   network: "mainnet-beta",
   // string | The mint address of the NFT
   mintAddress: "EEr5yQpNXf7Bru6Rt5podx56HGW9CEehXqgRGh2wa71w",
@@ -117,7 +117,7 @@ apiInstance.solanaGetNFT(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **network** | [**string**] | The network ID (devnet, mainnet-beta) | defaults to undefined
+ **network** | [**&#39;devnet&#39; | &#39;mainnet-beta&#39;**]**Array<&#39;devnet&#39; &#124; &#39;mainnet-beta&#39;>** | The network ID | defaults to undefined
  **mintAddress** | [**string**] | The mint address of the NFT | defaults to undefined
 
 
@@ -212,8 +212,8 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.SolanaNFTApi(configuration);
 
 let body:theblockchainapi.SolanaNFTApiSolanaGetNFTOwnerRequest = {
-  // string | The network ID (devnet, mainnet-beta)
-  network: "mainnet-beta",
+  // 'devnet' | 'mainnet-beta' | The network ID
+  network: "devnet",
   // string | The mint address of the NFT
   mintAddress: "4zH3Rwm1QXdfTSUqsYmeUBY4QqQmQEXJVbv4ErSK736Q",
 };
@@ -228,7 +228,7 @@ apiInstance.solanaGetNFTOwner(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **network** | [**string**] | The network ID (devnet, mainnet-beta) | defaults to undefined
+ **network** | [**&#39;devnet&#39; | &#39;mainnet-beta&#39;**]**Array<&#39;devnet&#39; &#124; &#39;mainnet-beta&#39;>** | The network ID | defaults to undefined
  **mintAddress** | [**string**] | The mint address of the NFT | defaults to undefined
 
 

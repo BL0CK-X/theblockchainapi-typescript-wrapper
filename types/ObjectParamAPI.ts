@@ -12,9 +12,13 @@ import { AirdropRequest } from '../models/AirdropRequest';
 import { B58PrivateKey } from '../models/B58PrivateKey';
 import { BalanceRequest } from '../models/BalanceRequest';
 import { BalanceResponse } from '../models/BalanceResponse';
+import { BuyRequest } from '../models/BuyRequest';
+import { BuyResponse } from '../models/BuyResponse';
 import { CandyMachineSearchRequest } from '../models/CandyMachineSearchRequest';
 import { CreateTestCandyMachineRequest } from '../models/CreateTestCandyMachineRequest';
 import { CreateTestCandyMachineResponse } from '../models/CreateTestCandyMachineResponse';
+import { DelistRequest } from '../models/DelistRequest';
+import { DelistResponse } from '../models/DelistResponse';
 import { GeneratePrivateKey } from '../models/GeneratePrivateKey';
 import { GetAllNFTsResponse } from '../models/GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from '../models/GetAllNFTsResponseMintedNfts';
@@ -26,9 +30,12 @@ import { GetCandyMetadataRequest } from '../models/GetCandyMetadataRequest';
 import { GetCandyMetadataResponse } from '../models/GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from '../models/GetCandyMetadataResponseCreators';
 import { GetFileResponse } from '../models/GetFileResponse';
+import { GetNFTListingResponse } from '../models/GetNFTListingResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
+import { ListRequest } from '../models/ListRequest';
+import { ListResponse } from '../models/ListResponse';
 import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
 import { MintNFTRequest } from '../models/MintNFTRequest';
 import { MintNFTResponse } from '../models/MintNFTResponse';
@@ -173,11 +180,11 @@ export interface SolanaCandyMachineApiSolanaCreateTestCandyMachineRequest {
 
 export interface SolanaCandyMachineApiSolanaGetAllNFTsFromCandyMachineRequest {
     /**
-     * The network ID (devnet, mainnet-beta)
-     * @type string
+     * The network ID
+     * @type &#39;devnet&#39; | &#39;mainnet-beta&#39;
      * @memberof SolanaCandyMachineApisolanaGetAllNFTsFromCandyMachine
      */
-    network: string
+    network: 'devnet' | 'mainnet-beta'
     /**
      * The ID of the candy machine
      * @type string
@@ -260,7 +267,7 @@ export class ObjectSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  This only works for `v1` and `v2` candy machines, and does not work for candy machines of any other type such as Magic Eden candy machines.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint. <a href=\"https://gist.github.com/joshwolff1/298e8251e43ff9b4815028683b1ca17d\" target=\"_blank\">Here's an example</a> of how to do this.  Mint transactions for candy machines that have capatcha/Civic enabled will fail. There is a gatekeeper functionality where you must manually verify through Civic and captcha in order to mint from a candy machine. In this functionality, Civic signs the transaction. Therefore, if the gatekeeper functionality is enabled, our “Mint from candy machine” endpoint will fail because it is missing a signer. If it is not enabled, then our “Mint from candy machine” endpoint will succeed. One caveat is the attribute “expireOnUse”. If this is True, then you have to solve a captcha each time. In this case, the “Mint from candy machine” endpoint will fail. If this is False, then your first verification is sufficient for further mints. In which case, after verifying manually the first time, you can use our endpoint thereafter.   You can check if the gatekeeper functionality is enabled with this <a href=\"#operation/solanaGetCandyMachineMetadata\">endpoint</a>.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  This only works for `v1` and `v2` candy machines, and does not work for candy machines of any other type such as Magic Eden candy machines.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint. <a href=\"https://gist.github.com/joshwolff1/298e8251e43ff9b4815028683b1ca17d\" target=\"_blank\">Here's an example</a> of how to do this.  Mint transactions for candy machines that have capatcha/Civic enabled will fail. There is a gatekeeper functionality where you must manually verify through Civic and captcha in order to mint from a candy machine. In this functionality, Civic signs the transaction. Therefore, if the gatekeeper functionality is enabled, our “Mint from candy machine” endpoint will fail because it is missing a signer. If it is not enabled, then our “Mint from candy machine” endpoint will succeed. One caveat is the attribute “expireOnUse”. If this is True, then you have to solve a captcha each time. In this case, the “Mint from candy machine” endpoint will fail. If this is False, then your first verification is sufficient for further mints. In which case, after verifying manually the first time, you can use our endpoint thereafter.   You can check if the gatekeeper functionality is enabled with this <a href=\"#operation/solanaGetCandyMachineMetadata\">endpoint</a>.   `Cost: 8 Credits`  Limited to $29/mo plans and above. (<a href=\"#section/Pricing\">See Pricing</a>)  (You are able to try on the `Free` plan as well, until you run out of credits.)
      * Mint from a CM
      * @param param the request object
      */
@@ -293,11 +300,11 @@ export interface SolanaNFTApiSolanaCreateNFTRequest {
 
 export interface SolanaNFTApiSolanaGetNFTRequest {
     /**
-     * The network ID (devnet, mainnet-beta)
-     * @type string
+     * The network ID
+     * @type &#39;devnet&#39; | &#39;mainnet-beta&#39;
      * @memberof SolanaNFTApisolanaGetNFT
      */
-    network: string
+    network: 'devnet' | 'mainnet-beta'
     /**
      * The mint address of the NFT
      * @type string
@@ -311,11 +318,11 @@ export interface SolanaNFTApiSolanaGetNFTMintFeeRequest {
 
 export interface SolanaNFTApiSolanaGetNFTOwnerRequest {
     /**
-     * The network ID (devnet, mainnet-beta)
-     * @type string
+     * The network ID
+     * @type &#39;devnet&#39; | &#39;mainnet-beta&#39;
      * @memberof SolanaNFTApisolanaGetNFTOwner
      */
-    network: string
+    network: 'devnet' | 'mainnet-beta'
     /**
      * The mint address of the NFT
      * @type string
@@ -350,7 +357,7 @@ export class ObjectSolanaNFTApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana. Read more on this <a href=\"https://blog.theblockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  To add attributes to the NFT, add them to a JSON file and upload that to Arweave/IPFS/Filecoin. The JSON file should follow this format: <a href=\"https://docs.metaplex.com/nft-standard\" target=\"_blank\">NFT Standard.</a> (See the \"URI JSON Schema\" section in that article). Then supply the link to the JSON file in `nft_url`. You don't need to use `nft_metadata`.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana.   Read more on this <a href=\"https://blog.blockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  Note: Please see <a href=\"https://blog.blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\" target=\"_blank\">this article</a> to learn more about what `nft_upload_method` means and how storing the metadata of an NFT works.  If you're using `nft_upload_method = \"LINK\"`, then to add attributes to the NFT or an image, add them to a JSON file and upload that to Arweave/IPFS/Filecoin. See the JSON format <a href=\"https://blog.blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\">here</a>.  Then supply the link to the JSON file in `nft_url`.   NOTE: Don't use `nft_metadata`. Values provided here do not do anything at the moment. We are fixing this soon.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Create an NFT on Solana
      * @param param the request object
      */
@@ -401,6 +408,150 @@ export class ObjectSolanaNFTApi {
      */
     public solanaSearchNFTs(param: SolanaNFTApiSolanaSearchNFTsRequest, options?: Configuration): Promise<Array<NFTSearchResponse>> {
         return this.api.solanaSearchNFTs(param.nFTSearchRequest,  options).toPromise();
+    }
+
+}
+
+import { ObservableSolanaNFTMarketplacesApi } from "./ObservableAPI";
+import { SolanaNFTMarketplacesApiRequestFactory, SolanaNFTMarketplacesApiResponseProcessor} from "../apis/SolanaNFTMarketplacesApi";
+
+export interface SolanaNFTMarketplacesApiSolanaBuyNFTRequest {
+    /**
+     * The network ID
+     * @type &#39;devnet&#39; | &#39;mainnet-beta&#39;
+     * @memberof SolanaNFTMarketplacesApisolanaBuyNFT
+     */
+    network: 'devnet' | 'mainnet-beta'
+    /**
+     * The NFT exchange to interact with
+     * @type &#39;solsea&#39; | &#39;magic-eden&#39;
+     * @memberof SolanaNFTMarketplacesApisolanaBuyNFT
+     */
+    exchange: 'solsea' | 'magic-eden'
+    /**
+     * The mint address of the NFT you want to buy
+     * @type string
+     * @memberof SolanaNFTMarketplacesApisolanaBuyNFT
+     */
+    mintAddress: string
+    /**
+     * 
+     * @type BuyRequest
+     * @memberof SolanaNFTMarketplacesApisolanaBuyNFT
+     */
+    buyRequest?: BuyRequest
+}
+
+export interface SolanaNFTMarketplacesApiSolanaDelistNFTRequest {
+    /**
+     * The network ID
+     * @type &#39;devnet&#39; | &#39;mainnet-beta&#39;
+     * @memberof SolanaNFTMarketplacesApisolanaDelistNFT
+     */
+    network: 'devnet' | 'mainnet-beta'
+    /**
+     * The NFT exchange to interact with
+     * @type &#39;solsea&#39; | &#39;magic-eden&#39;
+     * @memberof SolanaNFTMarketplacesApisolanaDelistNFT
+     */
+    exchange: 'solsea' | 'magic-eden'
+    /**
+     * The mint address of the NFT you want to buy
+     * @type string
+     * @memberof SolanaNFTMarketplacesApisolanaDelistNFT
+     */
+    mintAddress: string
+    /**
+     * 
+     * @type DelistRequest
+     * @memberof SolanaNFTMarketplacesApisolanaDelistNFT
+     */
+    delistRequest?: DelistRequest
+}
+
+export interface SolanaNFTMarketplacesApiSolanaGetNFTListingRequest {
+    /**
+     * The network ID
+     * @type &#39;devnet&#39; | &#39;mainnet-beta&#39;
+     * @memberof SolanaNFTMarketplacesApisolanaGetNFTListing
+     */
+    network: 'devnet' | 'mainnet-beta'
+    /**
+     * The mint address of the NFT you want to buy
+     * @type string
+     * @memberof SolanaNFTMarketplacesApisolanaGetNFTListing
+     */
+    mintAddress: string
+}
+
+export interface SolanaNFTMarketplacesApiSolanaListNFTRequest {
+    /**
+     * The network ID
+     * @type &#39;devnet&#39; | &#39;mainnet-beta&#39;
+     * @memberof SolanaNFTMarketplacesApisolanaListNFT
+     */
+    network: 'devnet' | 'mainnet-beta'
+    /**
+     * The NFT exchange to interact with
+     * @type &#39;solsea&#39; | &#39;magic-eden&#39;
+     * @memberof SolanaNFTMarketplacesApisolanaListNFT
+     */
+    exchange: 'solsea' | 'magic-eden'
+    /**
+     * The mint address of the NFT you want to buy
+     * @type string
+     * @memberof SolanaNFTMarketplacesApisolanaListNFT
+     */
+    mintAddress: string
+    /**
+     * 
+     * @type ListRequest
+     * @memberof SolanaNFTMarketplacesApisolanaListNFT
+     */
+    listRequest?: ListRequest
+}
+
+export class ObjectSolanaNFTMarketplacesApi {
+    private api: ObservableSolanaNFTMarketplacesApi
+
+    public constructor(configuration: Configuration, requestFactory?: SolanaNFTMarketplacesApiRequestFactory, responseProcessor?: SolanaNFTMarketplacesApiResponseProcessor) {
+        this.api = new ObservableSolanaNFTMarketplacesApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/buy-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Buy an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  **We are not responsible for any SOL or NFT lost.**  `Cost: 25 Credits`, `Cost: 3 Credits on Devnet`  Limited to $29/mo plans and above. (<a href=\"#section/Pricing\">See Pricing</a>)  (You are able to try on the `Free` plan as well, until you run out of credits.)
+     * Buy
+     * @param param the request object
+     */
+    public solanaBuyNFT(param: SolanaNFTMarketplacesApiSolanaBuyNFTRequest, options?: Configuration): Promise<BuyResponse> {
+        return this.api.solanaBuyNFT(param.network, param.exchange, param.mintAddress, param.buyRequest,  options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/delist-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Delist an NFT from a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  **We are not responsible for any SOL or NFT lost.**  `Cost: 8 Credits`, `Cost: 3 Credits on Devnet`  Limited to $29/mo plans and above. (<a href=\"#section/Pricing\">See Pricing</a>)  (You are able to try on the `Free` plan as well, until you run out of credits.)
+     * Delist
+     * @param param the request object
+     */
+    public solanaDelistNFT(param: SolanaNFTMarketplacesApiSolanaDelistNFTRequest, options?: Configuration): Promise<DelistResponse> {
+        return this.api.solanaDelistNFT(param.network, param.exchange, param.mintAddress, param.delistRequest,  options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/get-nft-listing\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the Marketplace listing of a Solana NFT.  Currently checks for the following Solana NFT martketplaces: SolSea, Magic Eden  `Cost: 1 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get NFT Listing
+     * @param param the request object
+     */
+    public solanaGetNFTListing(param: SolanaNFTMarketplacesApiSolanaGetNFTListingRequest, options?: Configuration): Promise<GetNFTListingResponse> {
+        return this.api.solanaGetNFTListing(param.network, param.mintAddress,  options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/list-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  List an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  **We are not responsible for any SOL or NFT lost.**  `Cost: 12 Credits`, `Cost: 3 Credits on Devnet`  Limited to $29/mo plans and above. (<a href=\"#section/Pricing\">See Pricing</a>)  (You are able to try on the `Free` plan as well, until you run out of credits.)
+     * List
+     * @param param the request object
+     */
+    public solanaListNFT(param: SolanaNFTMarketplacesApiSolanaListNFTRequest, options?: Configuration): Promise<ListResponse> {
+        return this.api.solanaListNFT(param.network, param.exchange, param.mintAddress, param.listRequest,  options).toPromise();
     }
 
 }

@@ -4,6 +4,7 @@ README.md
 SolanaAccountApi.md
 SolanaCandyMachineApi.md
 SolanaNFTApi.md
+SolanaNFTMarketplacesApi.md
 SolanaSPLTokenApi.md
 SolanaTransactionApi.md
 SolanaWalletApi.md
@@ -11,6 +12,7 @@ apis/FileApi.ts
 apis/SolanaAccountApi.ts
 apis/SolanaCandyMachineApi.ts
 apis/SolanaNFTApi.ts
+apis/SolanaNFTMarketplacesApi.ts
 apis/SolanaSPLTokenApi.ts
 apis/SolanaTransactionApi.ts
 apis/SolanaWalletApi.ts
@@ -33,9 +35,13 @@ models/AirdropRequest.ts
 models/B58PrivateKey.ts
 models/BalanceRequest.ts
 models/BalanceResponse.ts
+models/BuyRequest.ts
+models/BuyResponse.ts
 models/CandyMachineSearchRequest.ts
 models/CreateTestCandyMachineRequest.ts
 models/CreateTestCandyMachineResponse.ts
+models/DelistRequest.ts
+models/DelistResponse.ts
 models/GeneratePrivateKey.ts
 models/GetAllNFTsResponse.ts
 models/GetAllNFTsResponseMintedNfts.ts
@@ -47,9 +53,12 @@ models/GetCandyMetadataRequest.ts
 models/GetCandyMetadataResponse.ts
 models/GetCandyMetadataResponseCreators.ts
 models/GetFileResponse.ts
+models/GetNFTListingResponse.ts
 models/GetPublicKeyRequest.ts
 models/GetSPLTokenResponse.ts
 models/ListNFTsResponse.ts
+models/ListRequest.ts
+models/ListResponse.ts
 models/MintNFTErrorResponse.ts
 models/MintNFTRequest.ts
 models/MintNFTResponse.ts

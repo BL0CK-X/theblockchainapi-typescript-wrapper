@@ -8,9 +8,13 @@ export * from './AirdropRequest';
 export * from './B58PrivateKey';
 export * from './BalanceRequest';
 export * from './BalanceResponse';
+export * from './BuyRequest';
+export * from './BuyResponse';
 export * from './CandyMachineSearchRequest';
 export * from './CreateTestCandyMachineRequest';
 export * from './CreateTestCandyMachineResponse';
+export * from './DelistRequest';
+export * from './DelistResponse';
 export * from './GeneratePrivateKey';
 export * from './GetAllNFTsResponse';
 export * from './GetAllNFTsResponseMintedNfts';
@@ -22,9 +26,12 @@ export * from './GetCandyMetadataRequest';
 export * from './GetCandyMetadataResponse';
 export * from './GetCandyMetadataResponseCreators';
 export * from './GetFileResponse';
+export * from './GetNFTListingResponse';
 export * from './GetPublicKeyRequest';
 export * from './GetSPLTokenResponse';
 export * from './ListNFTsResponse';
+export * from './ListRequest';
+export * from './ListResponse';
 export * from './MintNFTErrorResponse';
 export * from './MintNFTRequest';
 export * from './MintNFTResponse';
@@ -57,9 +64,13 @@ import { AirdropRequest } from './AirdropRequest';
 import { B58PrivateKey } from './B58PrivateKey';
 import { BalanceRequest , BalanceRequestUnitEnum  , BalanceRequestNetworkEnum    } from './BalanceRequest';
 import { BalanceResponse   , BalanceResponseNetworkEnum  , BalanceResponseUnitEnum   } from './BalanceResponse';
+import { BuyRequest } from './BuyRequest';
+import { BuyResponse } from './BuyResponse';
 import { CandyMachineSearchRequest , CandyMachineSearchRequestUpdateAuthoritySearchMethodEnum   , CandyMachineSearchRequestConfigAddressSearchMethodEnum   , CandyMachineSearchRequestUuidSearchMethodEnum   , CandyMachineSearchRequestSymbolSearchMethodEnum    , CandyMachineSearchRequestNftNameSearchMethodEnum  , CandyMachineSearchRequestNetworkEnum  , CandyMachineSearchRequestCandyMachineContractVersionEnum   } from './CandyMachineSearchRequest';
 import { CreateTestCandyMachineRequest , CreateTestCandyMachineRequestNetworkEnum  , CreateTestCandyMachineRequestCandyMachineContractVersionEnum    } from './CreateTestCandyMachineRequest';
 import { CreateTestCandyMachineResponse } from './CreateTestCandyMachineResponse';
+import { DelistRequest } from './DelistRequest';
+import { DelistResponse } from './DelistResponse';
 import { GeneratePrivateKey } from './GeneratePrivateKey';
 import { GetAllNFTsResponse } from './GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from './GetAllNFTsResponseMintedNfts';
@@ -71,9 +82,12 @@ import { GetCandyMetadataRequest   , GetCandyMetadataRequestNetworkEnum  , GetCa
 import { GetCandyMetadataResponse } from './GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from './GetCandyMetadataResponseCreators';
 import { GetFileResponse } from './GetFileResponse';
+import { GetNFTListingResponse, GetNFTListingResponseExchangeEnum       } from './GetNFTListingResponse';
 import { GetPublicKeyRequest } from './GetPublicKeyRequest';
 import { GetSPLTokenResponse } from './GetSPLTokenResponse';
 import { ListNFTsResponse } from './ListNFTsResponse';
+import { ListRequest } from './ListRequest';
+import { ListResponse } from './ListResponse';
 import { MintNFTErrorResponse } from './MintNFTErrorResponse';
 import { MintNFTRequest  , MintNFTRequestNetworkEnum  , MintNFTRequestCandyMachineContractVersionEnum   } from './MintNFTRequest';
 import { MintNFTResponse } from './MintNFTResponse';
@@ -134,6 +148,7 @@ let enumsMap: Set<string> = new Set<string>([
     "GetCandyMachineIDResponseCandyMachineContractVersionEnum",
     "GetCandyMetadataRequestNetworkEnum",
     "GetCandyMetadataRequestCandyMachineContractVersionEnum",
+    "GetNFTListingResponseExchangeEnum",
     "MintNFTRequestNetworkEnum",
     "MintNFTRequestCandyMachineContractVersionEnum",
     "NFTMintRequestNftUploadMethodEnum",
@@ -159,9 +174,13 @@ let typeMap: {[index: string]: any} = {
     "B58PrivateKey": B58PrivateKey,
     "BalanceRequest": BalanceRequest,
     "BalanceResponse": BalanceResponse,
+    "BuyRequest": BuyRequest,
+    "BuyResponse": BuyResponse,
     "CandyMachineSearchRequest": CandyMachineSearchRequest,
     "CreateTestCandyMachineRequest": CreateTestCandyMachineRequest,
     "CreateTestCandyMachineResponse": CreateTestCandyMachineResponse,
+    "DelistRequest": DelistRequest,
+    "DelistResponse": DelistResponse,
     "GeneratePrivateKey": GeneratePrivateKey,
     "GetAllNFTsResponse": GetAllNFTsResponse,
     "GetAllNFTsResponseMintedNfts": GetAllNFTsResponseMintedNfts,
@@ -173,9 +192,12 @@ let typeMap: {[index: string]: any} = {
     "GetCandyMetadataResponse": GetCandyMetadataResponse,
     "GetCandyMetadataResponseCreators": GetCandyMetadataResponseCreators,
     "GetFileResponse": GetFileResponse,
+    "GetNFTListingResponse": GetNFTListingResponse,
     "GetPublicKeyRequest": GetPublicKeyRequest,
     "GetSPLTokenResponse": GetSPLTokenResponse,
     "ListNFTsResponse": ListNFTsResponse,
+    "ListRequest": ListRequest,
+    "ListResponse": ListResponse,
     "MintNFTErrorResponse": MintNFTErrorResponse,
     "MintNFTRequest": MintNFTRequest,
     "MintNFTResponse": MintNFTResponse,
