@@ -19,6 +19,10 @@ import { CreateTestCandyMachineRequest } from '../models/CreateTestCandyMachineR
 import { CreateTestCandyMachineResponse } from '../models/CreateTestCandyMachineResponse';
 import { DelistRequest } from '../models/DelistRequest';
 import { DelistResponse } from '../models/DelistResponse';
+import { DoubleTransferResponse } from '../models/DoubleTransferResponse';
+import { Endpoint } from '../models/Endpoint';
+import { EndpointReference } from '../models/EndpointReference';
+import { FeePayerWallet } from '../models/FeePayerWallet';
 import { GeneratePrivateKey } from '../models/GeneratePrivateKey';
 import { GetAllNFTsResponse } from '../models/GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from '../models/GetAllNFTsResponseMintedNfts';
@@ -33,6 +37,7 @@ import { GetFileResponse } from '../models/GetFileResponse';
 import { GetNFTListingResponse } from '../models/GetNFTListingResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
+import { Group } from '../models/Group';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
 import { ListRequest } from '../models/ListRequest';
 import { ListResponse } from '../models/ListResponse';
@@ -40,6 +45,9 @@ import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
 import { MintNFTRequest } from '../models/MintNFTRequest';
 import { MintNFTResponse } from '../models/MintNFTResponse';
 import { NFT } from '../models/NFT';
+import { NFTAnalyticsRequest } from '../models/NFTAnalyticsRequest';
+import { NFTAnalyticsResponse } from '../models/NFTAnalyticsResponse';
+import { NFTAnalyticsResponseTransactionHistory } from '../models/NFTAnalyticsResponseTransactionHistory';
 import { NFTData } from '../models/NFTData';
 import { NFTMintErrorResponse } from '../models/NFTMintErrorResponse';
 import { NFTMintFee } from '../models/NFTMintFee';
@@ -47,16 +55,101 @@ import { NFTMintRequest } from '../models/NFTMintRequest';
 import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
 import { NFTSearchRequest } from '../models/NFTSearchRequest';
 import { NFTSearchResponse } from '../models/NFTSearchResponse';
+import { NFTTransaction } from '../models/NFTTransaction';
+import { ParameterSpecification } from '../models/ParameterSpecification';
 import { PrivateKey } from '../models/PrivateKey';
+import { Project } from '../models/Project';
+import { ProjectCreateRequest } from '../models/ProjectCreateRequest';
+import { ProjectDeploymentURL } from '../models/ProjectDeploymentURL';
 import { PublicKey } from '../models/PublicKey';
 import { SecretPhrase } from '../models/SecretPhrase';
 import { SecretRecoveryPhrase } from '../models/SecretRecoveryPhrase';
+import { StatItem } from '../models/StatItem';
 import { Transaction } from '../models/Transaction';
 import { TransactionResult } from '../models/TransactionResult';
 import { TransferRequest } from '../models/TransferRequest';
 import { TransferResponse } from '../models/TransferResponse';
+import { TransferResponseCompiled } from '../models/TransferResponseCompiled';
 import { UploadFileRequest } from '../models/UploadFileRequest';
 import { Wallet } from '../models/Wallet';
+
+import { ObservableEndpointApi } from "./ObservableAPI";
+import { EndpointApiRequestFactory, EndpointApiResponseProcessor} from "../apis/EndpointApi";
+
+export interface EndpointApiDeleteEndpointRequest {
+    /**
+     * 
+     * @type EndpointReference
+     * @memberof EndpointApideleteEndpoint
+     */
+    endpointReference?: EndpointReference
+}
+
+export interface EndpointApiGetEndpointRequest {
+    /**
+     * 
+     * @type EndpointReference
+     * @memberof EndpointApigetEndpoint
+     */
+    endpointReference?: EndpointReference
+}
+
+export interface EndpointApiListEndpointsRequest {
+}
+
+export interface EndpointApiSetEndpointRequest {
+    /**
+     * 
+     * @type Endpoint
+     * @memberof EndpointApisetEndpoint
+     */
+    endpoint?: Endpoint
+}
+
+export class ObjectEndpointApi {
+    private api: ObservableEndpointApi
+
+    public constructor(configuration: Configuration, requestFactory?: EndpointApiRequestFactory, responseProcessor?: EndpointApiResponseProcessor) {
+        this.api = new ObservableEndpointApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes an endpoint from a project. This endpoint removes the endpoint from the project's documentation. However, this does un-deploy the endpoint. To do so, you must <a href=\"#operation/deployProject\">deploy the project</a>.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Delete an endpoint 
+     * @param param the request object
+     */
+    public deleteEndpoint(param: EndpointApiDeleteEndpointRequest, options?: Configuration): Promise<void> {
+        return this.api.deleteEndpoint(param.endpointReference,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get an endpoint's metadata from a project.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get an endpoint's metadata 
+     * @param param the request object
+     */
+    public getEndpoint(param: EndpointApiGetEndpointRequest, options?: Configuration): Promise<Endpoint> {
+        return this.api.getEndpoint(param.endpointReference,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  List all endpoints that you have added under your account.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List all endpoints 
+     * @param param the request object
+     */
+    public listEndpoints(param: EndpointApiListEndpointsRequest, options?: Configuration): Promise<Array<Endpoint>> {
+        return this.api.listEndpoints( options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create or update an `endpoint` for a `project`.   An `endpoint` is a function that is a part of a mini-API `project`.  This endpoint adds the `endpoint` to the `project`'s documentation. However, this does not deploy the `endpoint`. To do so, you must <a href=\"#operation/deployProject\">deploy the project</a>.  All attributes except `group_name` are required if **creating** an `endpoint`.  Only `path`, `project_id`, and `version` are required if **updating** an `endpoint`.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Create / update an endpoint 
+     * @param param the request object
+     */
+    public setEndpoint(param: EndpointApiSetEndpointRequest, options?: Configuration): Promise<Endpoint> {
+        return this.api.setEndpoint(param.endpoint,  options).toPromise();
+    }
+
+}
 
 import { ObservableFileApi } from "./ObservableAPI";
 import { FileApiRequestFactory, FileApiResponseProcessor} from "../apis/FileApi";
@@ -78,6 +171,240 @@ export class ObjectFileApi {
      */
     public uploadFile(param: FileApiUploadFileRequest, options?: Configuration): Promise<GetFileResponse> {
         return this.api.uploadFile( options).toPromise();
+    }
+
+}
+
+import { ObservableProjectApi } from "./ObservableAPI";
+import { ProjectApiRequestFactory, ProjectApiResponseProcessor} from "../apis/ProjectApi";
+
+export interface ProjectApiCreateProjectRequest {
+    /**
+     * 
+     * @type ProjectCreateRequest
+     * @memberof ProjectApicreateProject
+     */
+    projectCreateRequest?: ProjectCreateRequest
+}
+
+export interface ProjectApiCreateProjectVersionRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApicreateProjectVersion
+     */
+    UNKNOWN_PARAMETER_NAME: 
+    /**
+     * The version of the project.
+     * @type 
+     * @memberof ProjectApicreateProjectVersion
+     */
+    UNKNOWN_PARAMETER_NAME2: 
+}
+
+export interface ProjectApiDeleteProjectRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApideleteProject
+     */
+    UNKNOWN_PARAMETER_NAME: 
+}
+
+export interface ProjectApiDeleteProjectVersionRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApideleteProjectVersion
+     */
+    UNKNOWN_PARAMETER_NAME: 
+    /**
+     * The version of the project.
+     * @type 
+     * @memberof ProjectApideleteProjectVersion
+     */
+    UNKNOWN_PARAMETER_NAME2: 
+}
+
+export interface ProjectApiGetProjectRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApigetProject
+     */
+    UNKNOWN_PARAMETER_NAME: 
+}
+
+export interface ProjectApiGetProjectDeploymentStatusRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApigetProjectDeploymentStatus
+     */
+    UNKNOWN_PARAMETER_NAME: 
+}
+
+export interface ProjectApiGetProjectDeploymentURLRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApigetProjectDeploymentURL
+     */
+    UNKNOWN_PARAMETER_NAME: 
+    /**
+     * 
+     * @type UNKNOWN_BASE_TYPE
+     * @memberof ProjectApigetProjectDeploymentURL
+     */
+    UNKNOWN_BASE_TYPE?: UNKNOWN_BASE_TYPE
+}
+
+export interface ProjectApiGetProjectStatsRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApigetProjectStats
+     */
+    UNKNOWN_PARAMETER_NAME: 
+}
+
+export interface ProjectApiListProjectsRequest {
+}
+
+export interface ProjectApiUpdateProjectRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApiupdateProject
+     */
+    UNKNOWN_PARAMETER_NAME: 
+    /**
+     * 
+     * @type ProjectCreateRequest
+     * @memberof ProjectApiupdateProject
+     */
+    projectCreateRequest?: ProjectCreateRequest
+}
+
+export interface ProjectApiUpdateProjectDocumentationRequest {
+    /**
+     * The ID of the project. Created and returned when a project is created.
+     * @type 
+     * @memberof ProjectApiupdateProjectDocumentation
+     */
+    UNKNOWN_PARAMETER_NAME: 
+    /**
+     * The version of the project.
+     * @type 
+     * @memberof ProjectApiupdateProjectDocumentation
+     */
+    UNKNOWN_PARAMETER_NAME2: 
+}
+
+export class ObjectProjectApi {
+    private api: ObservableProjectApi
+
+    public constructor(configuration: Configuration, requestFactory?: ProjectApiRequestFactory, responseProcessor?: ProjectApiResponseProcessor) {
+        this.api = new ObservableProjectApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  A project is an entire mini-API.  When you create a project, this initializes the project in our database and the API documentation for the project.  After initialization, you can <a href=\"#operation/createEndpoint\">add endpoints</a> to the documentation and deploy the project's mini-API to our servers. Learn more <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Create a project 
+     * @param param the request object
+     */
+    public createProject(param: ProjectApiCreateProjectRequest, options?: Configuration): Promise<Project> {
+        return this.api.createProject(param.projectCreateRequest,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create a new version for the project. The version must be higher than all existing versions. This will duplicate the existing project's latest version and auto-deploy it. To update these endpoints, simply redeploy on this project's versions.  When a project is first created, it uses the default \"0.0.1\" version.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Create a new project version 
+     * @param param the request object
+     */
+    public createProjectVersion(param: ProjectApiCreateProjectVersionRequest, options?: Configuration): Promise<Project> {
+        return this.api.createProjectVersion(param.UNKNOWN_PARAMETER_NAME, param.UNKNOWN_PARAMETER_NAME2,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes a project. This will remove the mini-API entirely from our system.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Delete a project 
+     * @param param the request object
+     */
+    public deleteProject(param: ProjectApiDeleteProjectRequest, options?: Configuration): Promise<void> {
+        return this.api.deleteProject(param.UNKNOWN_PARAMETER_NAME,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Delete a version for the project. There must always be at least one version deployed, so you cannot delete the last remaining version of the project. This will auto-deploy the project and update its documentation, if necessary.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Delete a project version 
+     * @param param the request object
+     */
+    public deleteProjectVersion(param: ProjectApiDeleteProjectVersionRequest, options?: Configuration): Promise<Project> {
+        return this.api.deleteProjectVersion(param.UNKNOWN_PARAMETER_NAME, param.UNKNOWN_PARAMETER_NAME2,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a project's metadata 
+     * @param param the request object
+     */
+    public getProject(param: ProjectApiGetProjectRequest, options?: Configuration): Promise<Project> {
+        return this.api.getProject(param.UNKNOWN_PARAMETER_NAME,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment status for the project after uploading the binary. Will be: `DEPLOYED` or NOT `DEPLOYED`.  After it is `DEPLOYED`, you can then make requests to your API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get deployment status 
+     * @param param the request object
+     */
+    public getProjectDeploymentStatus(param: ProjectApiGetProjectDeploymentStatusRequest, options?: Configuration): Promise<any> {
+        return this.api.getProjectDeploymentStatus(param.UNKNOWN_PARAMETER_NAME,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment URL for the project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get the deployment URL 
+     * @param param the request object
+     */
+    public getProjectDeploymentURL(param: ProjectApiGetProjectDeploymentURLRequest, options?: Configuration): Promise<ProjectDeploymentURL> {
+        return this.api.getProjectDeploymentURL(param.UNKNOWN_PARAMETER_NAME, param.UNKNOWN_BASE_TYPE,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the usage stats for your mini-API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a project's stats 
+     * @param param the request object
+     */
+    public getProjectStats(param: ProjectApiGetProjectStatsRequest, options?: Configuration): Promise<Array<StatItem>> {
+        return this.api.getProjectStats(param.UNKNOWN_PARAMETER_NAME,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  List all projects associated with your account.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List projects 
+     * @param param the request object
+     */
+    public listProjects(param: ProjectApiListProjectsRequest, options?: Configuration): Promise<Array<Project>> {
+        return this.api.listProjects( options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Update a project 
+     * @param param the request object
+     */
+    public updateProject(param: ProjectApiUpdateProjectRequest, options?: Configuration): Promise<Project> {
+        return this.api.updateProject(param.UNKNOWN_PARAMETER_NAME, param.projectCreateRequest,  options).toPromise();
+    }
+
+    /**
+     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's documentation.   Your project's documentation can only represent *one* version of your API.  Thus, when you call this, the `current_documentation_version` attribute of your project is set to the version supplied in the call.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Update the project's documentation 
+     * @param param the request object
+     */
+    public updateProjectDocumentation(param: ProjectApiUpdateProjectDocumentationRequest, options?: Configuration): Promise<Project> {
+        return this.api.updateProjectDocumentation(param.UNKNOWN_PARAMETER_NAME, param.UNKNOWN_PARAMETER_NAME2,  options).toPromise();
     }
 
 }
@@ -138,7 +465,7 @@ export class ObjectSolanaAccountApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-account/get-account\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the details of an account on Solana. Learn more about accounts <a href=\"https://docs.solana.com/developing/programming-model/accounts\" target=\"_blank\">here</a>.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-account/get-account\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the details of an account on Solana. Learn more about accounts <a href=\"https://docs.solana.com/developing/programming-model/accounts\" target=\"_blank\">here</a>.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the details of an account on Solana
      * @param param the request object
      */
@@ -156,7 +483,7 @@ export class ObjectSolanaAccountApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-account/get-is-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Determine whether or not a public key is an NFT `mint address`  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-account/get-is-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Determine whether or not a public key is an NFT `mint address`  `Cost: 0.5 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get if account is NFT
      * @param param the request object
      */
@@ -267,7 +594,7 @@ export class ObjectSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  This only works for `v1` and `v2` candy machines, and does not work for candy machines of any other type such as Magic Eden candy machines.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint. <a href=\"https://gist.github.com/joshwolff1/298e8251e43ff9b4815028683b1ca17d\" target=\"_blank\">Here's an example</a> of how to do this.  Mint transactions for candy machines that have capatcha/Civic enabled will fail. There is a gatekeeper functionality where you must manually verify through Civic and captcha in order to mint from a candy machine. In this functionality, Civic signs the transaction. Therefore, if the gatekeeper functionality is enabled, our “Mint from candy machine” endpoint will fail because it is missing a signer. If it is not enabled, then our “Mint from candy machine” endpoint will succeed. One caveat is the attribute “expireOnUse”. If this is True, then you have to solve a captcha each time. In this case, the “Mint from candy machine” endpoint will fail. If this is False, then your first verification is sufficient for further mints. In which case, after verifying manually the first time, you can use our endpoint thereafter.   You can check if the gatekeeper functionality is enabled with this <a href=\"#operation/solanaGetCandyMachineMetadata\">endpoint</a>.   `Cost: 8 Credits`  Limited to $29/mo plans and above. (<a href=\"#section/Pricing\">See Pricing</a>)  (You are able to try on the `Free` plan as well, until you run out of credits.)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  This only works for `v1` and `v2` candy machines, and does not work for candy machines of any other type such as Magic Eden candy machines.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint. <a href=\"https://gist.github.com/joshwolff1/298e8251e43ff9b4815028683b1ca17d\" target=\"_blank\">Here's an example</a> of how to do this.  Mint transactions for candy machines that have capatcha/Civic enabled will fail. There is a gatekeeper functionality where you must manually verify through Civic and captcha in order to mint from a candy machine. In this functionality, Civic signs the transaction. Therefore, if the gatekeeper functionality is enabled, our “Mint from candy machine” endpoint will fail because it is missing a signer. If it is not enabled, then our “Mint from candy machine” endpoint will succeed. One caveat is the attribute “expireOnUse”. If this is True, then you have to solve a captcha each time. In this case, the “Mint from candy machine” endpoint will fail. If this is False, then your first verification is sufficient for further mints. In which case, after verifying manually the first time, you can use our endpoint thereafter.   You can check if the gatekeeper functionality is enabled with this <a href=\"#operation/solanaGetCandyMachineMetadata\">endpoint</a>.   `Cost: 8 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Mint from a CM
      * @param param the request object
      */
@@ -357,7 +684,7 @@ export class ObjectSolanaNFTApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana.   Read more on this <a href=\"https://blog.blockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  Note: Please see <a href=\"https://blog.blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\" target=\"_blank\">this article</a> to learn more about what `nft_upload_method` means and how storing the metadata of an NFT works.  If you're using `nft_upload_method = \"LINK\"`, then to add attributes to the NFT or an image, add them to a JSON file and upload that to Arweave/IPFS/Filecoin. See the JSON format <a href=\"https://blog.blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\">here</a>.  Then supply the link to the JSON file in `nft_url`.   NOTE: Don't use `nft_metadata`. Values provided here do not do anything at the moment. We are fixing this soon.  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/create-an-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Create a Metaplex NFT on Solana.   Read more on this <a href=\"https://blog.blockchainapi.com/2021/11/16/a-note-on-nfts.html\" target=\"_blank\">here</a>.  Note: Please see <a href=\"https://blog.blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\" target=\"_blank\">this article</a> to learn more about what `nft_upload_method` means and how storing the metadata of an NFT works.  If you're using `nft_upload_method = \"LINK\"`, then to add attributes to the NFT or an image, add them to a JSON file and upload that to Arweave/IPFS/Filecoin. See the JSON format <a href=\"https://blog.blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\">here</a>.  Then supply the link to the JSON file in `nft_url`.   NOTE: Don't use `nft_metadata`. Values provided here do not do anything at the moment. We are fixing this soon.  `Cost: 5 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Create an NFT on Solana
      * @param param the request object
      */
@@ -366,7 +693,7 @@ export class ObjectSolanaNFTApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-metadata\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the metadata of an NFT.  If you're looking for metadata such as attributes and others, you can retrieve them from the link in the URI field of the NFT metadata returned. See the example on the right. The URI is an Arweave URL. That contains the attributes and other information about the NFT. That URL is stored on the Solana blockchain.  `Cost: 1 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-metadata\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the metadata of an NFT.  If you're looking for metadata such as attributes and others, you can retrieve them from the link in the URI field of the NFT metadata returned. See the example on the right. The URI is an Arweave URL. That contains the attributes and other information about the NFT. That URL is stored on the Solana blockchain.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get an NFT's metadata
      * @param param the request object
      */
@@ -375,7 +702,7 @@ export class ObjectSolanaNFTApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-mint-fee\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the estimated fee for minting an NFT on the Solana blockchain using the Metaplex protocol.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-mint-fee\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the estimated fee for minting an NFT on the Solana blockchain using the Metaplex protocol.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the NFT mint fee
      * @param param the request object
      */
@@ -384,7 +711,7 @@ export class ObjectSolanaNFTApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-owner\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the owner of an NFT. This returns the public key of the wallet that owns the associated token account that owns the NFT.  If you want to get the associated token account that literally owns the NFT, derive the associated token account address from the public key returned and the NFT mint address using <a href=\"#operation/solanaDeriveAssociatedTokenAccountAddress\">this endpoint</a>.  `Cost: 1 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-owner\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the owner of an NFT. This returns the public key of the wallet that owns the associated token account that owns the NFT.  If you want to get the associated token account that literally owns the NFT, derive the associated token account address from the public key returned and the NFT mint address using <a href=\"#operation/solanaDeriveAssociatedTokenAccountAddress\">this endpoint</a>.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get owner of an NFT
      * @param param the request object
      */
@@ -484,6 +811,21 @@ export interface SolanaNFTMarketplacesApiSolanaGetNFTListingRequest {
     mintAddress: string
 }
 
+export interface SolanaNFTMarketplacesApiSolanaGetNFTMarketplaceAnalyticsRequest {
+    /**
+     * 
+     * @type NFTAnalyticsRequest
+     * @memberof SolanaNFTMarketplacesApisolanaGetNFTMarketplaceAnalytics
+     */
+    nFTAnalyticsRequest?: NFTAnalyticsRequest
+}
+
+export interface SolanaNFTMarketplacesApiSolanaGetNFTMarketplaceMarketShareRequest {
+}
+
+export interface SolanaNFTMarketplacesApiSolanaGetNFTMarketplaceRecentTransactionsRequest {
+}
+
 export interface SolanaNFTMarketplacesApiSolanaListNFTRequest {
     /**
      * The network ID
@@ -519,7 +861,7 @@ export class ObjectSolanaNFTMarketplacesApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/buy-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Buy an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  **We are not responsible for any SOL or NFT lost.**  `Cost: 25 Credits`, `Cost: 3 Credits on Devnet`  Limited to $29/mo plans and above. (<a href=\"#section/Pricing\">See Pricing</a>)  (You are able to try on the `Free` plan as well, until you run out of credits.)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/buy-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Buy an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Edennpm  `Cost: 25 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Buy
      * @param param the request object
      */
@@ -528,7 +870,7 @@ export class ObjectSolanaNFTMarketplacesApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/delist-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Delist an NFT from a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  **We are not responsible for any SOL or NFT lost.**  `Cost: 8 Credits`, `Cost: 3 Credits on Devnet`  Limited to $29/mo plans and above. (<a href=\"#section/Pricing\">See Pricing</a>)  (You are able to try on the `Free` plan as well, until you run out of credits.)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/delist-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Delist an NFT from a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 8 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Delist
      * @param param the request object
      */
@@ -537,7 +879,7 @@ export class ObjectSolanaNFTMarketplacesApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/get-nft-listing\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the Marketplace listing of a Solana NFT.  Currently checks for the following Solana NFT martketplaces: SolSea, Magic Eden  `Cost: 1 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/get-nft-listing\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the Marketplace listing of a Solana NFT.  Currently checks the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 1 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get NFT Listing
      * @param param the request object
      */
@@ -546,7 +888,34 @@ export class ObjectSolanaNFTMarketplacesApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/list-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  List an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  **We are not responsible for any SOL or NFT lost.**  `Cost: 12 Credits`, `Cost: 3 Credits on Devnet`  Limited to $29/mo plans and above. (<a href=\"#section/Pricing\">See Pricing</a>)  (You are able to try on the `Free` plan as well, until you run out of credits.)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/analytics\" target=\"_blank\">See examples (Python, JavaScript)</a>.  A collection is a list of NFTs.  Any collection can thus be defined as a list of mint addresses.  This endpoint takes in a list of mint addresses (effectively, a collection), a start time (optional), and an end time (optional) and outputs the floor for that period, the volume for that period, and the transaction history for each NFT in the list (buy, list, delist, update price) for that period.  We are currently compiling a dictionary of collection names to list of mint addresses for public use. Please contribute <a href=\"https://github.com/BL0CK-X/solana-nft-collection-mint-addresses\" target=\"_blank\">here</a>.  Currently scans the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 15 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get NFT Analytics
+     * @param param the request object
+     */
+    public solanaGetNFTMarketplaceAnalytics(param: SolanaNFTMarketplacesApiSolanaGetNFTMarketplaceAnalyticsRequest, options?: Configuration): Promise<NFTAnalyticsResponse> {
+        return this.api.solanaGetNFTMarketplaceAnalytics(param.nFTAnalyticsRequest,  options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/market-share\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the Marketplace listing of a Solana NFT.  Currently checks for the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 3 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get Marketplace Market Share
+     * @param param the request object
+     */
+    public solanaGetNFTMarketplaceMarketShare(param: SolanaNFTMarketplacesApiSolanaGetNFTMarketplaceMarketShareRequest, options?: Configuration): Promise<any> {
+        return this.api.solanaGetNFTMarketplaceMarketShare( options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/recent-transactions\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get all NFT transactions across all major marketplaces in the last 30 minutes.  Currently checks for the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 15 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get Recent NFT Transactions
+     * @param param the request object
+     */
+    public solanaGetNFTMarketplaceRecentTransactions(param: SolanaNFTMarketplacesApiSolanaGetNFTMarketplaceRecentTransactionsRequest, options?: Configuration): Promise<Array<NFTTransaction>> {
+        return this.api.solanaGetNFTMarketplaceRecentTransactions( options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/list-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  List an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 12 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
      * List
      * @param param the request object
      */
@@ -618,7 +987,7 @@ export class ObjectSolanaTransactionApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-transaction/get-transaction\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the details of a transaction made on Solana.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-transaction/get-transaction\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the details of a transaction made on Solana.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the details of a transaction made on Solana
      * @param param the request object
      */
@@ -730,6 +1099,21 @@ export interface SolanaWalletApiSolanaGetTokensBelongingToWalletRequest {
     includeZeroBalanceHoldings?: boolean
 }
 
+export interface SolanaWalletApiSolanaGetWalletTransactionsRequest {
+    /**
+     * The network ID (devnet, mainnet-beta)
+     * @type string
+     * @memberof SolanaWalletApisolanaGetWalletTransactions
+     */
+    network: string
+    /**
+     * The public key of the account whose list of signatures you want to get
+     * @type string
+     * @memberof SolanaWalletApisolanaGetWalletTransactions
+     */
+    publicKey: string
+}
+
 export interface SolanaWalletApiSolanaTransferRequest {
     /**
      * 
@@ -747,7 +1131,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-associated-token-account-address\" target=\"_blank\">See example (Python, JavaScript)</a>.      *Each wallet can own tokens, but in Solana, each token is actually held by an <a href=\"https://spl.solana.com/associated-token-account\" target=\"_blank\">associated token account</a> (ATA), which is an account specific for a token owned by the wallet. When you transfer an SPL token, such as Serum, or transfer an NFT, you're transfering from an ATA you own to another person's ATA for that specific token. With this endpoint, you can derive an associated token address given a wallet and a token address.*  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-associated-token-account-address\" target=\"_blank\">See example (Python, JavaScript)</a>.      *Each wallet can own tokens, but in Solana, each token is actually held by an <a href=\"https://spl.solana.com/associated-token-account\" target=\"_blank\">associated token account</a> (ATA), which is an account specific for a token owned by the wallet. When you transfer an SPL token, such as Serum, or transfer an NFT, you're transfering from an ATA you own to another person's ATA for that specific token. With this endpoint, you can derive an associated token address given a wallet and a token address.*  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Derive an associated token account address
      * @param param the request object
      */
@@ -756,7 +1140,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-private-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Returns a private key array and a base58-encoded private key given wallet authentication.  A wallet is defined by a public key. A public key is derived from a combination of seed phrase, derivation path, and passphrase. Changing any *one* of these three will change the public key output.  *You can generate a unique public key with each combination of secret recovery phrase, passphrase, and derivation path. Thus, with a single secret recovery phrase, you can generate many public keys. If you are just starting, just supply the secret recovery phrase you generated with the Solana Wallet Secret Recovery Phrase endpoint.*  *If you are trying to get a public key that already exists (e.g., created in the Phantom wallet), make sure you use the correct derivation path and passphrase. To read more about that, see the descriptions of those parameters below.*  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-private-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Returns a private key array and a base58-encoded private key given wallet authentication.  A wallet is defined by a public key. A public key is derived from a combination of seed phrase, derivation path, and passphrase. Changing any *one* of these three will change the public key output.  *You can generate a unique public key with each combination of secret recovery phrase, passphrase, and derivation path. Thus, with a single secret recovery phrase, you can generate many public keys. If you are just starting, just supply the secret recovery phrase you generated with the Solana Wallet Secret Recovery Phrase endpoint.*  *If you are trying to get a public key that already exists (e.g., created in the Phantom wallet), make sure you use the correct derivation path and passphrase. To read more about that, see the descriptions of those parameters below.*  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Derive private key
      * @param param the request object
      */
@@ -765,7 +1149,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-public-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Returns a public key given wallet authentication.  A wallet is identified by a public key. A public key is derived from a combination of seed phrase, derivation path, and passphrase. Changing any *one* of these three will change the public key output.   It can also be derived from a private key.  *You can generate a unique public key with each combination of secret recovery phrase, passphrase, and derivation path; or from a private key. Thus, with a single secret recovery phrase, you can generate many public keys; however, with a private key, you can only generate one public key. If you are just starting, generate a <a href=\"#operation/solanaGenerateSecretRecoveryPhrase\">secret recovery phrase</a> or <a href=\"#operation/solanaGeneratePrivateKey\">private key</a>.  *If you are trying to get a public key that already exists (e.g., created in the Phantom wallet), make sure you use the correct derivation path and passphrase; or just use the private key. To read more about that, see the descriptions of those parameters below.*  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/derive-public-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Returns a public key given wallet authentication.  A wallet is identified by a public key. A public key is derived from a combination of seed phrase, derivation path, and passphrase. Changing any *one* of these three will change the public key output.   It can also be derived from a private key.  *You can generate a unique public key with each combination of secret recovery phrase, passphrase, and derivation path; or from a private key. Thus, with a single secret recovery phrase, you can generate many public keys; however, with a private key, you can only generate one public key. If you are just starting, generate a <a href=\"#operation/solanaGenerateSecretRecoveryPhrase\">secret recovery phrase</a> or <a href=\"#operation/solanaGeneratePrivateKey\">private key</a>.  *If you are trying to get a public key that already exists (e.g., created in the Phantom wallet), make sure you use the correct derivation path and passphrase; or just use the private key. To read more about that, see the descriptions of those parameters below.*  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Derive public key
      * @param param the request object
      */
@@ -774,7 +1158,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/generate-private-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a private key for a Solana wallet.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/generate-private-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a private key for a Solana wallet.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Generate private key
      * @param param the request object
      */
@@ -783,7 +1167,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/generate-secret-phrase\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a secret recovery phrase for a Solana wallet.   `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/generate-secret-phrase\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a secret recovery phrase for a Solana wallet.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Generate secret phrase
      * @param param the request object
      */
@@ -792,7 +1176,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-airdrop\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Use this endpoint to get an airdrop of SOL on the devnet (not real SOL). Amount of 0.015,  which is the minimum amount of SOL you need to mint a Metaplex NFT and then transfer it to another wallet.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-airdrop\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Use this endpoint to get an airdrop of SOL on the devnet (not real SOL). Amount of 0.015,  which is the minimum amount of SOL you need to mint a Metaplex NFT and then transfer it to another wallet.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get an airdrop on devnet
      * @param param the request object
      */
@@ -801,7 +1185,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-balance\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the balance of a wallet in SOL or any SPL token.  To get the balance of an SPL token, supply the `mint_address` of the SPL token. The list of SPL tokens can be viewed <a href=\"https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json\" target=\"_blank\">here</a>.  You can also use this endpoint to see whether or not a person owns an NFT. Just supply the `mint_address` of the NFT. A balance of \"1\" means the person owns the NFT, and a balance of \"0\" means the person does not own the NFT. This works in most cases, but we are aware of one edge case where a balance of \"0\" will show up for a person who is actually the owner of the NFT. We just recommend using the <a href=\"#operation/solanaGetNFTOwner\">getNFTOwner</a> endpoint and comparing that output to the expected address.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-balance\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the balance of a wallet in SOL or any SPL token.  To get the balance of an SPL token, supply the `mint_address` of the SPL token. The list of SPL tokens can be viewed <a href=\"https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json\" target=\"_blank\">here</a>.  You can also use this endpoint to see whether or not a person owns an NFT. Just supply the `mint_address` of the NFT. A balance of \"1\" means the person owns the NFT, and a balance of \"0\" means the person does not own the NFT. This works in most cases, but we are aware of one edge case where a balance of \"0\" will show up for a person who is actually the owner of the NFT. We just recommend using the <a href=\"#operation/solanaGetNFTOwner\">getNFTOwner</a> endpoint and comparing that output to the expected address.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get wallet's balance in SOL or any SPL
      * @param param the request object
      */
@@ -810,7 +1194,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-nfts\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the NFTs that belong to a given public key address  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-nfts\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the NFTs that belong to a given public key address  `Cost: 3 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get address's NFTs
      * @param param the request object
      */
@@ -819,7 +1203,7 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-token-holdings\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the token holdings of a given public key address  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/get-wallet-token-holdings\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the token holdings of a given public key address  `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get address's tokens and respective balances
      * @param param the request object
      */
@@ -828,11 +1212,20 @@ export class ObjectSolanaWalletApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/transfer-sol\" target=\"_blank\">See transfer SOL example (Python, JavaScript)</a>.  <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/transfer-nft\" target=\"_blank\">See transfer NFT example (can also be used for SPL token) (Python, JavaScript)</a>.  Transfer SOL, a token or an NFT to another address. If you're transferring an NFT, supply the `mint` (the address of the mint) for the `token_address`.  SENDER: Note that the wallet information (`secret_recovery_phrase`, `passphrase`, `derivation_path`) is used to authorize the sending of the tokens and identifies the source of the tokens.   RECEIVER: `recipient_address` identifies the receiver. This is entirely separate from the information used for the SENDER above. So, in this API call, there are two wallets involved, but only one (namely, the SENDER) is needed to authorize the transaction.  If you're transfering a token, supply the token address found on the explorer (e.g., see `SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt` for <a href=\"https://explorer.solana.com/address/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt\" target=\"_blank\">Serum Token</a>) for the `token_address`. If you're transferring SOL, do not supply a value for `token_address`.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-wallet/get-wallet-transactions\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the transaction signatures of a given public key address  `Cost: 1 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get address's associated transaction signatures
+     * @param param the request object
+     */
+    public solanaGetWalletTransactions(param: SolanaWalletApiSolanaGetWalletTransactionsRequest, options?: Configuration): Promise<Array<string>> {
+        return this.api.solanaGetWalletTransactions(param.network, param.publicKey,  options).toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/transfer-sol\" target=\"_blank\">See transfer SOL example (Python, JavaScript)</a>.  <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-wallet/transfer-nft\" target=\"_blank\">See transfer NFT example (can also be used for SPL token) (Python, JavaScript)</a>.  This is a powerful function. It might be slightly confusing because there are several optional parameters, so take some time to review it. This function can send SOL, send an SPL token, or send an NFT. You can set the fee payer of the transaction; you can sign and submit the transaction for confirmation; and you can select to simply return the compiled transaction so that you can submit it to the user for signing (e.g., via Phantom; no private keys required in this case).  Transfer SOL, a token or an NFT to another address. If you're transferring an NFT, supply the `mint` (the address of the mint) for the `token_address`.  SENDER: Note that the wallet information is used to authorize the sending of the tokens and identifies the source of the tokens. If `return_compiled_transaction = false`, we sign and submit the transaction (`wallet` is required in this case; do not provide a value for `sender_public_key`). If `return_compiled_transaction = true`, we compile the transaction (one of `wallet` or `sender_public_key` is required in this case; do not provide both).  RECIPIENT: `recipient_address` identifies the receiver. This is entirely separate from the information used for the SENDER above. So, in this API call, there are two wallets involved, but only one (namely, the SENDER) is needed to authorize the transaction.  FEE_PAYER: The fee payer of the transaction defaults to `wallet` (or `sender_public_key`). To set a different fee payer, provide a value for `fee_payer_wallet`.  If you're transfering a token, supply the token address found on the explorer (e.g., see `SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt` for <a href=\"https://explorer.solana.com/address/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt\" target=\"_blank\">Serum Token</a>) for the `token_address`. If you're transferring SOL, do not supply a value for `token_address`.  `Cost: 2 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Transfer SOL, a token, or an NFT to another address
      * @param param the request object
      */
-    public solanaTransfer(param: SolanaWalletApiSolanaTransferRequest, options?: Configuration): Promise<TransferResponse> {
+    public solanaTransfer(param: SolanaWalletApiSolanaTransferRequest, options?: Configuration): Promise<DoubleTransferResponse> {
         return this.api.solanaTransfer(param.transferRequest,  options).toPromise();
     }
 

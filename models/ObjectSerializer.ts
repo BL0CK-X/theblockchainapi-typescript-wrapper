@@ -15,6 +15,10 @@ export * from './CreateTestCandyMachineRequest';
 export * from './CreateTestCandyMachineResponse';
 export * from './DelistRequest';
 export * from './DelistResponse';
+export * from './DoubleTransferResponse';
+export * from './Endpoint';
+export * from './EndpointReference';
+export * from './FeePayerWallet';
 export * from './GeneratePrivateKey';
 export * from './GetAllNFTsResponse';
 export * from './GetAllNFTsResponseMintedNfts';
@@ -29,6 +33,7 @@ export * from './GetFileResponse';
 export * from './GetNFTListingResponse';
 export * from './GetPublicKeyRequest';
 export * from './GetSPLTokenResponse';
+export * from './Group';
 export * from './ListNFTsResponse';
 export * from './ListRequest';
 export * from './ListResponse';
@@ -36,6 +41,9 @@ export * from './MintNFTErrorResponse';
 export * from './MintNFTRequest';
 export * from './MintNFTResponse';
 export * from './NFT';
+export * from './NFTAnalyticsRequest';
+export * from './NFTAnalyticsResponse';
+export * from './NFTAnalyticsResponseTransactionHistory';
 export * from './NFTData';
 export * from './NFTMintErrorResponse';
 export * from './NFTMintFee';
@@ -43,14 +51,21 @@ export * from './NFTMintRequest';
 export * from './NFTOwnerResponse';
 export * from './NFTSearchRequest';
 export * from './NFTSearchResponse';
+export * from './NFTTransaction';
+export * from './ParameterSpecification';
 export * from './PrivateKey';
+export * from './Project';
+export * from './ProjectCreateRequest';
+export * from './ProjectDeploymentURL';
 export * from './PublicKey';
 export * from './SecretPhrase';
 export * from './SecretRecoveryPhrase';
+export * from './StatItem';
 export * from './Transaction';
 export * from './TransactionResult';
 export * from './TransferRequest';
 export * from './TransferResponse';
+export * from './TransferResponseCompiled';
 export * from './UploadFileRequest';
 export * from './Wallet';
 
@@ -71,6 +86,10 @@ import { CreateTestCandyMachineRequest , CreateTestCandyMachineRequestNetworkEnu
 import { CreateTestCandyMachineResponse } from './CreateTestCandyMachineResponse';
 import { DelistRequest } from './DelistRequest';
 import { DelistResponse } from './DelistResponse';
+import { DoubleTransferResponse } from './DoubleTransferResponse';
+import { Endpoint } from './Endpoint';
+import { EndpointReference } from './EndpointReference';
+import { FeePayerWallet } from './FeePayerWallet';
 import { GeneratePrivateKey } from './GeneratePrivateKey';
 import { GetAllNFTsResponse } from './GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from './GetAllNFTsResponseMintedNfts';
@@ -82,9 +101,10 @@ import { GetCandyMetadataRequest   , GetCandyMetadataRequestNetworkEnum  , GetCa
 import { GetCandyMetadataResponse } from './GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from './GetCandyMetadataResponseCreators';
 import { GetFileResponse } from './GetFileResponse';
-import { GetNFTListingResponse, GetNFTListingResponseExchangeEnum       } from './GetNFTListingResponse';
+import { GetNFTListingResponse, GetNFTListingResponseExchangeEnum        } from './GetNFTListingResponse';
 import { GetPublicKeyRequest } from './GetPublicKeyRequest';
 import { GetSPLTokenResponse } from './GetSPLTokenResponse';
+import { Group } from './Group';
 import { ListNFTsResponse } from './ListNFTsResponse';
 import { ListRequest } from './ListRequest';
 import { ListResponse } from './ListResponse';
@@ -92,6 +112,9 @@ import { MintNFTErrorResponse } from './MintNFTErrorResponse';
 import { MintNFTRequest  , MintNFTRequestNetworkEnum  , MintNFTRequestCandyMachineContractVersionEnum   } from './MintNFTRequest';
 import { MintNFTResponse } from './MintNFTResponse';
 import { NFT } from './NFT';
+import { NFTAnalyticsRequest } from './NFTAnalyticsRequest';
+import { NFTAnalyticsResponse } from './NFTAnalyticsResponse';
+import { NFTAnalyticsResponseTransactionHistory } from './NFTAnalyticsResponseTransactionHistory';
 import { NFTData } from './NFTData';
 import { NFTMintErrorResponse } from './NFTMintErrorResponse';
 import { NFTMintFee } from './NFTMintFee';
@@ -99,14 +122,21 @@ import { NFTMintRequest      , NFTMintRequestNftUploadMethodEnum        , NFTMin
 import { NFTOwnerResponse } from './NFTOwnerResponse';
 import { NFTSearchRequest , NFTSearchRequestUpdateAuthoritySearchMethodEnum   , NFTSearchRequestMintAddressSearchMethodEnum   , NFTSearchRequestNameSearchMethodEnum   , NFTSearchRequestUriSearchMethodEnum   , NFTSearchRequestSymbolSearchMethodEnum  , NFTSearchRequestNetworkEnum   } from './NFTSearchRequest';
 import { NFTSearchResponse } from './NFTSearchResponse';
+import { NFTTransaction , NFTTransactionExchangeEnum  , NFTTransactionExchangeReadableEnum   , NFTTransactionOperationEnum      } from './NFTTransaction';
+import { ParameterSpecification, ParameterSpecificationTypeEnum      } from './ParameterSpecification';
 import { PrivateKey } from './PrivateKey';
+import { Project } from './Project';
+import { ProjectCreateRequest } from './ProjectCreateRequest';
+import { ProjectDeploymentURL } from './ProjectDeploymentURL';
 import { PublicKey } from './PublicKey';
 import { SecretPhrase } from './SecretPhrase';
 import { SecretRecoveryPhrase } from './SecretRecoveryPhrase';
+import { StatItem } from './StatItem';
 import { Transaction } from './Transaction';
 import { TransactionResult } from './TransactionResult';
-import { TransferRequest   , TransferRequestNetworkEnum    } from './TransferRequest';
+import { TransferRequest   , TransferRequestNetworkEnum       } from './TransferRequest';
 import { TransferResponse } from './TransferResponse';
+import { TransferResponseCompiled } from './TransferResponseCompiled';
 import { UploadFileRequest, UploadFileRequestUploadMethodEnum   } from './UploadFileRequest';
 import { Wallet } from './Wallet';
 
@@ -159,6 +189,10 @@ let enumsMap: Set<string> = new Set<string>([
     "NFTSearchRequestUriSearchMethodEnum",
     "NFTSearchRequestSymbolSearchMethodEnum",
     "NFTSearchRequestNetworkEnum",
+    "NFTTransactionExchangeEnum",
+    "NFTTransactionExchangeReadableEnum",
+    "NFTTransactionOperationEnum",
+    "ParameterSpecificationTypeEnum",
     "TransferRequestNetworkEnum",
     "UploadFileRequestUploadMethodEnum",
 ]);
@@ -181,6 +215,10 @@ let typeMap: {[index: string]: any} = {
     "CreateTestCandyMachineResponse": CreateTestCandyMachineResponse,
     "DelistRequest": DelistRequest,
     "DelistResponse": DelistResponse,
+    "DoubleTransferResponse": DoubleTransferResponse,
+    "Endpoint": Endpoint,
+    "EndpointReference": EndpointReference,
+    "FeePayerWallet": FeePayerWallet,
     "GeneratePrivateKey": GeneratePrivateKey,
     "GetAllNFTsResponse": GetAllNFTsResponse,
     "GetAllNFTsResponseMintedNfts": GetAllNFTsResponseMintedNfts,
@@ -195,6 +233,7 @@ let typeMap: {[index: string]: any} = {
     "GetNFTListingResponse": GetNFTListingResponse,
     "GetPublicKeyRequest": GetPublicKeyRequest,
     "GetSPLTokenResponse": GetSPLTokenResponse,
+    "Group": Group,
     "ListNFTsResponse": ListNFTsResponse,
     "ListRequest": ListRequest,
     "ListResponse": ListResponse,
@@ -202,6 +241,9 @@ let typeMap: {[index: string]: any} = {
     "MintNFTRequest": MintNFTRequest,
     "MintNFTResponse": MintNFTResponse,
     "NFT": NFT,
+    "NFTAnalyticsRequest": NFTAnalyticsRequest,
+    "NFTAnalyticsResponse": NFTAnalyticsResponse,
+    "NFTAnalyticsResponseTransactionHistory": NFTAnalyticsResponseTransactionHistory,
     "NFTData": NFTData,
     "NFTMintErrorResponse": NFTMintErrorResponse,
     "NFTMintFee": NFTMintFee,
@@ -209,14 +251,21 @@ let typeMap: {[index: string]: any} = {
     "NFTOwnerResponse": NFTOwnerResponse,
     "NFTSearchRequest": NFTSearchRequest,
     "NFTSearchResponse": NFTSearchResponse,
+    "NFTTransaction": NFTTransaction,
+    "ParameterSpecification": ParameterSpecification,
     "PrivateKey": PrivateKey,
+    "Project": Project,
+    "ProjectCreateRequest": ProjectCreateRequest,
+    "ProjectDeploymentURL": ProjectDeploymentURL,
     "PublicKey": PublicKey,
     "SecretPhrase": SecretPhrase,
     "SecretRecoveryPhrase": SecretRecoveryPhrase,
+    "StatItem": StatItem,
     "Transaction": Transaction,
     "TransactionResult": TransactionResult,
     "TransferRequest": TransferRequest,
     "TransferResponse": TransferResponse,
+    "TransferResponseCompiled": TransferResponseCompiled,
     "UploadFileRequest": UploadFileRequest,
     "Wallet": Wallet,
 }

@@ -15,7 +15,7 @@ import { Transaction } from '../models/Transaction';
 export class SolanaTransactionApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-transaction/get-transaction\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the details of a transaction made on Solana.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-transaction/get-transaction\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the details of a transaction made on Solana.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the details of a transaction made on Solana
      * @param network The network ID (devnet, mainnet-beta)
      * @param txSignature The transaction signature of the transaction
