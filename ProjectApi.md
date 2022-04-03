@@ -34,7 +34,14 @@ const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiCreateProjectRequest = {
   // ProjectCreateRequest (optional)
-  projectCreateRequest: null,
+  projectCreateRequest: {
+    projectName: "projectName_example",
+    projectDescription: "projectDescription_example",
+    contactEmail: "contactEmail_example",
+    groups: [
+      null,
+    ],
+  },
 };
 
 apiInstance.createProject(body).then((data:any) => {
@@ -75,7 +82,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **createProjectVersion**
-> Project createProjectVersion(UNKNOWN_PARAMETER_NAME, UNKNOWN_PARAMETER_NAME2)
+> Project createProjectVersion()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create a new version for the project. The version must be higher than all existing versions. This will duplicate the existing project's latest version and auto-deploy it. To update these endpoints, simply redeploy on this project's versions.  When a project is first created, it uses the default \"0.0.1\" version.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -90,10 +97,10 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiCreateProjectVersionRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
-  //  | The version of the project.
-  UNKNOWN_PARAMETER_NAME2: ,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
+  // string | The version of the project.
+  version: "2",
 };
 
 apiInstance.createProjectVersion(body).then((data:any) => {
@@ -106,8 +113,8 @@ apiInstance.createProjectVersion(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
- **UNKNOWN_PARAMETER_NAME2** | ****| The version of the project. |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
+ **version** | [**string**] | The version of the project. | defaults to undefined
 
 
 ### Return type
@@ -135,7 +142,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **deleteProject**
-> void deleteProject(UNKNOWN_PARAMETER_NAME)
+> void deleteProject()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes a project. This will remove the mini-API entirely from our system.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -150,8 +157,8 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiDeleteProjectRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
 };
 
 apiInstance.deleteProject(body).then((data:any) => {
@@ -164,7 +171,7 @@ apiInstance.deleteProject(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
 
 
 ### Return type
@@ -192,7 +199,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **deleteProjectVersion**
-> Project deleteProjectVersion(UNKNOWN_PARAMETER_NAME, UNKNOWN_PARAMETER_NAME2)
+> Project deleteProjectVersion()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Delete a version for the project. There must always be at least one version deployed, so you cannot delete the last remaining version of the project. This will auto-deploy the project and update its documentation, if necessary.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -207,10 +214,10 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiDeleteProjectVersionRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
-  //  | The version of the project.
-  UNKNOWN_PARAMETER_NAME2: ,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
+  // string | The version of the project.
+  version: "2",
 };
 
 apiInstance.deleteProjectVersion(body).then((data:any) => {
@@ -223,8 +230,8 @@ apiInstance.deleteProjectVersion(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
- **UNKNOWN_PARAMETER_NAME2** | ****| The version of the project. |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
+ **version** | [**string**] | The version of the project. | defaults to undefined
 
 
 ### Return type
@@ -252,7 +259,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **getProject**
-> Project getProject(UNKNOWN_PARAMETER_NAME)
+> Project getProject()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -267,8 +274,8 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiGetProjectRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
 };
 
 apiInstance.getProject(body).then((data:any) => {
@@ -281,7 +288,7 @@ apiInstance.getProject(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
 
 
 ### Return type
@@ -309,7 +316,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **getProjectDeploymentStatus**
-> any getProjectDeploymentStatus(UNKNOWN_PARAMETER_NAME)
+> any getProjectDeploymentStatus()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment status for the project after uploading the binary. Will be: `DEPLOYED` or NOT `DEPLOYED`.  After it is `DEPLOYED`, you can then make requests to your API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -324,8 +331,8 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiGetProjectDeploymentStatusRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
 };
 
 apiInstance.getProjectDeploymentStatus(body).then((data:any) => {
@@ -338,7 +345,7 @@ apiInstance.getProjectDeploymentStatus(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
 
 
 ### Return type
@@ -366,7 +373,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **getProjectDeploymentURL**
-> ProjectDeploymentURL getProjectDeploymentURL(UNKNOWN_PARAMETER_NAME)
+> ProjectDeploymentURL getProjectDeploymentURL()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment URL for the project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -381,10 +388,12 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiGetProjectDeploymentURLRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
-  // UNKNOWN_BASE_TYPE (optional)
-  UNKNOWN_BASE_TYPE: null,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
+  // InlineObject (optional)
+  inlineObject: {
+    platform: "Darwin",
+  },
 };
 
 apiInstance.getProjectDeploymentURL(body).then((data:any) => {
@@ -397,8 +406,8 @@ apiInstance.getProjectDeploymentURL(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
- **UNKNOWN_BASE_TYPE** | **UNKNOWN_BASE_TYPE**|  |
+ **inlineObject** | **InlineObject**|  |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
 
 
 ### Return type
@@ -426,7 +435,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **getProjectStats**
-> Array<StatItem> getProjectStats(UNKNOWN_PARAMETER_NAME)
+> Array<StatItem> getProjectStats()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the usage stats for your mini-API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -441,8 +450,8 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiGetProjectStatsRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
 };
 
 apiInstance.getProjectStats(body).then((data:any) => {
@@ -455,7 +464,7 @@ apiInstance.getProjectStats(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
 
 
 ### Return type
@@ -534,7 +543,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **updateProject**
-> Project updateProject(UNKNOWN_PARAMETER_NAME)
+> Project updateProject()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -549,10 +558,17 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiUpdateProjectRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
   // ProjectCreateRequest (optional)
-  projectCreateRequest: null,
+  projectCreateRequest: {
+    projectName: "projectName_example",
+    projectDescription: "projectDescription_example",
+    contactEmail: "contactEmail_example",
+    groups: [
+      null,
+    ],
+  },
 };
 
 apiInstance.updateProject(body).then((data:any) => {
@@ -565,8 +581,8 @@ apiInstance.updateProject(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
  **projectCreateRequest** | **ProjectCreateRequest**|  |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
 
 
 ### Return type
@@ -594,7 +610,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **updateProjectDocumentation**
-> Project updateProjectDocumentation(UNKNOWN_PARAMETER_NAME, UNKNOWN_PARAMETER_NAME2)
+> Project updateProjectDocumentation()
 
 A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's documentation.   Your project's documentation can only represent *one* version of your API.  Thus, when you call this, the `current_documentation_version` attribute of your project is set to the version supplied in the call.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
 
@@ -609,10 +625,10 @@ const configuration = theblockchainapi.createConfiguration();
 const apiInstance = new theblockchainapi.ProjectApi(configuration);
 
 let body:theblockchainapi.ProjectApiUpdateProjectDocumentationRequest = {
-  //  | The ID of the project. Created and returned when a project is created.
-  UNKNOWN_PARAMETER_NAME: ,
-  //  | The version of the project.
-  UNKNOWN_PARAMETER_NAME2: ,
+  // string | The ID of the project. Created and returned when a project is created.
+  projectId: "L3cPm0cJlf5MeDXzGLQJJ4vlzndJCC",
+  // string | The version of the project.
+  version: "2",
 };
 
 apiInstance.updateProjectDocumentation(body).then((data:any) => {
@@ -625,8 +641,8 @@ apiInstance.updateProjectDocumentation(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME** | ****| The ID of the project. Created and returned when a project is created. |
- **UNKNOWN_PARAMETER_NAME2** | ****| The version of the project. |
+ **projectId** | [**string**] | The ID of the project. Created and returned when a project is created. | defaults to undefined
+ **version** | [**string**] | The version of the project. | defaults to undefined
 
 
 ### Return type

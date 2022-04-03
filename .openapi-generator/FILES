@@ -65,6 +65,7 @@ models/GetNFTListingResponse.ts
 models/GetPublicKeyRequest.ts
 models/GetSPLTokenResponse.ts
 models/Group.ts
+models/InlineObject.ts
 models/ListNFTsResponse.ts
 models/ListRequest.ts
 models/ListResponse.ts

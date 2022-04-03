@@ -7,11 +7,11 @@ import {ApiException} from './exception';
 import {canConsumeForm, isCodeInRange} from '../util';
 
 
+import { InlineObject } from '../models/InlineObject';
 import { Project } from '../models/Project';
 import { ProjectCreateRequest } from '../models/ProjectCreateRequest';
 import { ProjectDeploymentURL } from '../models/ProjectDeploymentURL';
 import { StatItem } from '../models/StatItem';
-import { UNKNOWNBASETYPE } from '../models/UNKNOWN_BASE_TYPE';
 
 /**
  * no description
@@ -64,28 +64,28 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create a new version for the project. The version must be higher than all existing versions. This will duplicate the existing project's latest version and auto-deploy it. To update these endpoints, simply redeploy on this project's versions.  When a project is first created, it uses the default \"0.0.1\" version.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Create a new project version 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
-     * @param UNKNOWN_PARAMETER_NAME2 The version of the project.
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param version The version of the project.
      */
-    public async createProjectVersion(UNKNOWN_PARAMETER_NAME: , UNKNOWN_PARAMETER_NAME2: , _options?: Configuration): Promise<RequestContext> {
+    public async createProjectVersion(projectId: string, version: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "createProjectVersion", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "createProjectVersion", "projectId");
         }
 
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME2' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME2 === null || UNKNOWN_PARAMETER_NAME2 === undefined) {
-            throw new RequiredError("ProjectApi", "createProjectVersion", "UNKNOWN_PARAMETER_NAME2");
+        // verify required parameter 'version' is not null or undefined
+        if (version === null || version === undefined) {
+            throw new RequiredError("ProjectApi", "createProjectVersion", "version");
         }
 
 
         // Path Params
         const localVarPath = '/project/{project_id}/{version}'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)))
-            .replace('{' + 'version' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME2)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)))
+            .replace('{' + 'version' + '}', encodeURIComponent(String(version)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -110,20 +110,20 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes a project. This will remove the mini-API entirely from our system.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Delete a project 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public async deleteProject(UNKNOWN_PARAMETER_NAME: , _options?: Configuration): Promise<RequestContext> {
+    public async deleteProject(projectId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "deleteProject", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "deleteProject", "projectId");
         }
 
 
         // Path Params
         const localVarPath = '/project/{project_id}'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
@@ -148,28 +148,28 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Delete a version for the project. There must always be at least one version deployed, so you cannot delete the last remaining version of the project. This will auto-deploy the project and update its documentation, if necessary.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Delete a project version 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
-     * @param UNKNOWN_PARAMETER_NAME2 The version of the project.
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param version The version of the project.
      */
-    public async deleteProjectVersion(UNKNOWN_PARAMETER_NAME: , UNKNOWN_PARAMETER_NAME2: , _options?: Configuration): Promise<RequestContext> {
+    public async deleteProjectVersion(projectId: string, version: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "deleteProjectVersion", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "deleteProjectVersion", "projectId");
         }
 
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME2' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME2 === null || UNKNOWN_PARAMETER_NAME2 === undefined) {
-            throw new RequiredError("ProjectApi", "deleteProjectVersion", "UNKNOWN_PARAMETER_NAME2");
+        // verify required parameter 'version' is not null or undefined
+        if (version === null || version === undefined) {
+            throw new RequiredError("ProjectApi", "deleteProjectVersion", "version");
         }
 
 
         // Path Params
         const localVarPath = '/project/{project_id}/{version}'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)))
-            .replace('{' + 'version' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME2)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)))
+            .replace('{' + 'version' + '}', encodeURIComponent(String(version)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
@@ -194,20 +194,20 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get a project's metadata 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public async getProject(UNKNOWN_PARAMETER_NAME: , _options?: Configuration): Promise<RequestContext> {
+    public async getProject(projectId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "getProject", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "getProject", "projectId");
         }
 
 
         // Path Params
         const localVarPath = '/project/{project_id}'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -232,20 +232,20 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment status for the project after uploading the binary. Will be: `DEPLOYED` or NOT `DEPLOYED`.  After it is `DEPLOYED`, you can then make requests to your API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get deployment status 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public async getProjectDeploymentStatus(UNKNOWN_PARAMETER_NAME: , _options?: Configuration): Promise<RequestContext> {
+    public async getProjectDeploymentStatus(projectId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "getProjectDeploymentStatus", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "getProjectDeploymentStatus", "projectId");
         }
 
 
         // Path Params
         const localVarPath = '/project/{project_id}/deploy/status'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -270,22 +270,22 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment URL for the project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the deployment URL 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
-     * @param UNKNOWN_BASE_TYPE 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param inlineObject 
      */
-    public async getProjectDeploymentURL(UNKNOWN_PARAMETER_NAME: , UNKNOWN_BASE_TYPE?: UNKNOWN_BASE_TYPE, _options?: Configuration): Promise<RequestContext> {
+    public async getProjectDeploymentURL(projectId: string, inlineObject?: InlineObject, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "getProjectDeploymentURL", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "getProjectDeploymentURL", "projectId");
         }
 
 
 
         // Path Params
         const localVarPath = '/project/{project_id}/deploy/url'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -298,7 +298,7 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(UNKNOWN_BASE_TYPE, "UNKNOWN_BASE_TYPE", ""),
+            ObjectSerializer.serialize(inlineObject, "InlineObject", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -321,20 +321,20 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the usage stats for your mini-API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get a project's stats 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public async getProjectStats(UNKNOWN_PARAMETER_NAME: , _options?: Configuration): Promise<RequestContext> {
+    public async getProjectStats(projectId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "getProjectStats", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "getProjectStats", "projectId");
         }
 
 
         // Path Params
         const localVarPath = '/project/{project_id}/stats'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -389,22 +389,22 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Update a project 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      * @param projectCreateRequest 
      */
-    public async updateProject(UNKNOWN_PARAMETER_NAME: , projectCreateRequest?: ProjectCreateRequest, _options?: Configuration): Promise<RequestContext> {
+    public async updateProject(projectId: string, projectCreateRequest?: ProjectCreateRequest, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "updateProject", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "updateProject", "projectId");
         }
 
 
 
         // Path Params
         const localVarPath = '/project/{project_id}'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -440,28 +440,28 @@ export class ProjectApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's documentation.   Your project's documentation can only represent *one* version of your API.  Thus, when you call this, the `current_documentation_version` attribute of your project is set to the version supplied in the call.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Update the project's documentation 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
-     * @param UNKNOWN_PARAMETER_NAME2 The version of the project.
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param version The version of the project.
      */
-    public async updateProjectDocumentation(UNKNOWN_PARAMETER_NAME: , UNKNOWN_PARAMETER_NAME2: , _options?: Configuration): Promise<RequestContext> {
+    public async updateProjectDocumentation(projectId: string, version: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME === null || UNKNOWN_PARAMETER_NAME === undefined) {
-            throw new RequiredError("ProjectApi", "updateProjectDocumentation", "UNKNOWN_PARAMETER_NAME");
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("ProjectApi", "updateProjectDocumentation", "projectId");
         }
 
 
-        // verify required parameter 'UNKNOWN_PARAMETER_NAME2' is not null or undefined
-        if (UNKNOWN_PARAMETER_NAME2 === null || UNKNOWN_PARAMETER_NAME2 === undefined) {
-            throw new RequiredError("ProjectApi", "updateProjectDocumentation", "UNKNOWN_PARAMETER_NAME2");
+        // verify required parameter 'version' is not null or undefined
+        if (version === null || version === undefined) {
+            throw new RequiredError("ProjectApi", "updateProjectDocumentation", "version");
         }
 
 
         // Path Params
         const localVarPath = '/project/{project_id}/{version}/documentation'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME)))
-            .replace('{' + 'version' + '}', encodeURIComponent(String(UNKNOWN_PARAMETER_NAME2)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)))
+            .replace('{' + 'version' + '}', encodeURIComponent(String(version)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);

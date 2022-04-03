@@ -38,6 +38,7 @@ import { GetNFTListingResponse } from '../models/GetNFTListingResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
 import { Group } from '../models/Group';
+import { InlineObject } from '../models/InlineObject';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
 import { ListRequest } from '../models/ListRequest';
 import { ListResponse } from '../models/ListResponse';
@@ -185,73 +186,73 @@ export class PromiseProjectApi {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create a new version for the project. The version must be higher than all existing versions. This will duplicate the existing project's latest version and auto-deploy it. To update these endpoints, simply redeploy on this project's versions.  When a project is first created, it uses the default \"0.0.1\" version.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Create a new project version 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
-     * @param UNKNOWN_PARAMETER_NAME2 The version of the project.
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param version The version of the project.
      */
-    public createProjectVersion(UNKNOWN_PARAMETER_NAME: , UNKNOWN_PARAMETER_NAME2: , _options?: Configuration): Promise<Project> {
-        const result = this.api.createProjectVersion(UNKNOWN_PARAMETER_NAME, UNKNOWN_PARAMETER_NAME2, _options);
+    public createProjectVersion(projectId: string, version: string, _options?: Configuration): Promise<Project> {
+        const result = this.api.createProjectVersion(projectId, version, _options);
         return result.toPromise();
     }
 
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes a project. This will remove the mini-API entirely from our system.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Delete a project 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public deleteProject(UNKNOWN_PARAMETER_NAME: , _options?: Configuration): Promise<void> {
-        const result = this.api.deleteProject(UNKNOWN_PARAMETER_NAME, _options);
+    public deleteProject(projectId: string, _options?: Configuration): Promise<void> {
+        const result = this.api.deleteProject(projectId, _options);
         return result.toPromise();
     }
 
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Delete a version for the project. There must always be at least one version deployed, so you cannot delete the last remaining version of the project. This will auto-deploy the project and update its documentation, if necessary.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Delete a project version 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
-     * @param UNKNOWN_PARAMETER_NAME2 The version of the project.
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param version The version of the project.
      */
-    public deleteProjectVersion(UNKNOWN_PARAMETER_NAME: , UNKNOWN_PARAMETER_NAME2: , _options?: Configuration): Promise<Project> {
-        const result = this.api.deleteProjectVersion(UNKNOWN_PARAMETER_NAME, UNKNOWN_PARAMETER_NAME2, _options);
+    public deleteProjectVersion(projectId: string, version: string, _options?: Configuration): Promise<Project> {
+        const result = this.api.deleteProjectVersion(projectId, version, _options);
         return result.toPromise();
     }
 
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get a project's metadata 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public getProject(UNKNOWN_PARAMETER_NAME: , _options?: Configuration): Promise<Project> {
-        const result = this.api.getProject(UNKNOWN_PARAMETER_NAME, _options);
+    public getProject(projectId: string, _options?: Configuration): Promise<Project> {
+        const result = this.api.getProject(projectId, _options);
         return result.toPromise();
     }
 
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment status for the project after uploading the binary. Will be: `DEPLOYED` or NOT `DEPLOYED`.  After it is `DEPLOYED`, you can then make requests to your API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get deployment status 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public getProjectDeploymentStatus(UNKNOWN_PARAMETER_NAME: , _options?: Configuration): Promise<any> {
-        const result = this.api.getProjectDeploymentStatus(UNKNOWN_PARAMETER_NAME, _options);
+    public getProjectDeploymentStatus(projectId: string, _options?: Configuration): Promise<any> {
+        const result = this.api.getProjectDeploymentStatus(projectId, _options);
         return result.toPromise();
     }
 
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment URL for the project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the deployment URL 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
-     * @param UNKNOWN_BASE_TYPE 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param inlineObject 
      */
-    public getProjectDeploymentURL(UNKNOWN_PARAMETER_NAME: , UNKNOWN_BASE_TYPE?: UNKNOWN_BASE_TYPE, _options?: Configuration): Promise<ProjectDeploymentURL> {
-        const result = this.api.getProjectDeploymentURL(UNKNOWN_PARAMETER_NAME, UNKNOWN_BASE_TYPE, _options);
+    public getProjectDeploymentURL(projectId: string, inlineObject?: InlineObject, _options?: Configuration): Promise<ProjectDeploymentURL> {
+        const result = this.api.getProjectDeploymentURL(projectId, inlineObject, _options);
         return result.toPromise();
     }
 
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the usage stats for your mini-API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get a project's stats 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public getProjectStats(UNKNOWN_PARAMETER_NAME: , _options?: Configuration): Promise<Array<StatItem>> {
-        const result = this.api.getProjectStats(UNKNOWN_PARAMETER_NAME, _options);
+    public getProjectStats(projectId: string, _options?: Configuration): Promise<Array<StatItem>> {
+        const result = this.api.getProjectStats(projectId, _options);
         return result.toPromise();
     }
 
@@ -267,22 +268,22 @@ export class PromiseProjectApi {
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Update a project 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
+     * @param projectId The ID of the project. Created and returned when a project is created.
      * @param projectCreateRequest 
      */
-    public updateProject(UNKNOWN_PARAMETER_NAME: , projectCreateRequest?: ProjectCreateRequest, _options?: Configuration): Promise<Project> {
-        const result = this.api.updateProject(UNKNOWN_PARAMETER_NAME, projectCreateRequest, _options);
+    public updateProject(projectId: string, projectCreateRequest?: ProjectCreateRequest, _options?: Configuration): Promise<Project> {
+        const result = this.api.updateProject(projectId, projectCreateRequest, _options);
         return result.toPromise();
     }
 
     /**
      * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's documentation.   Your project's documentation can only represent *one* version of your API.  Thus, when you call this, the `current_documentation_version` attribute of your project is set to the version supplied in the call.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
      * Update the project's documentation 
-     * @param UNKNOWN_PARAMETER_NAME The ID of the project. Created and returned when a project is created.
-     * @param UNKNOWN_PARAMETER_NAME2 The version of the project.
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param version The version of the project.
      */
-    public updateProjectDocumentation(UNKNOWN_PARAMETER_NAME: , UNKNOWN_PARAMETER_NAME2: , _options?: Configuration): Promise<Project> {
-        const result = this.api.updateProjectDocumentation(UNKNOWN_PARAMETER_NAME, UNKNOWN_PARAMETER_NAME2, _options);
+    public updateProjectDocumentation(projectId: string, version: string, _options?: Configuration): Promise<Project> {
+        const result = this.api.updateProjectDocumentation(projectId, version, _options);
         return result.toPromise();
     }
 

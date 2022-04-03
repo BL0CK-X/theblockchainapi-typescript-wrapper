@@ -34,6 +34,7 @@ export * from './GetNFTListingResponse';
 export * from './GetPublicKeyRequest';
 export * from './GetSPLTokenResponse';
 export * from './Group';
+export * from './InlineObject';
 export * from './ListNFTsResponse';
 export * from './ListRequest';
 export * from './ListResponse';
@@ -105,6 +106,7 @@ import { GetNFTListingResponse, GetNFTListingResponseExchangeEnum        } from 
 import { GetPublicKeyRequest } from './GetPublicKeyRequest';
 import { GetSPLTokenResponse } from './GetSPLTokenResponse';
 import { Group } from './Group';
+import { InlineObject, InlineObjectPlatformEnum   } from './InlineObject';
 import { ListNFTsResponse } from './ListNFTsResponse';
 import { ListRequest } from './ListRequest';
 import { ListResponse } from './ListResponse';
@@ -179,6 +181,7 @@ let enumsMap: Set<string> = new Set<string>([
     "GetCandyMetadataRequestNetworkEnum",
     "GetCandyMetadataRequestCandyMachineContractVersionEnum",
     "GetNFTListingResponseExchangeEnum",
+    "InlineObjectPlatformEnum",
     "MintNFTRequestNetworkEnum",
     "MintNFTRequestCandyMachineContractVersionEnum",
     "NFTMintRequestNftUploadMethodEnum",
@@ -234,6 +237,7 @@ let typeMap: {[index: string]: any} = {
     "GetPublicKeyRequest": GetPublicKeyRequest,
     "GetSPLTokenResponse": GetSPLTokenResponse,
     "Group": Group,
+    "InlineObject": InlineObject,
     "ListNFTsResponse": ListNFTsResponse,
     "ListRequest": ListRequest,
     "ListResponse": ListResponse,

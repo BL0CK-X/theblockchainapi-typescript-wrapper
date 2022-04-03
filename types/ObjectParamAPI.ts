@@ -38,6 +38,7 @@ import { GetNFTListingResponse } from '../models/GetNFTListingResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
 import { Group } from '../models/Group';
+import { InlineObject } from '../models/InlineObject';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
 import { ListRequest } from '../models/ListRequest';
 import { ListResponse } from '../models/ListResponse';
@@ -190,82 +191,82 @@ export interface ProjectApiCreateProjectRequest {
 export interface ProjectApiCreateProjectVersionRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApicreateProjectVersion
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
     /**
      * The version of the project.
-     * @type 
+     * @type string
      * @memberof ProjectApicreateProjectVersion
      */
-    UNKNOWN_PARAMETER_NAME2: 
+    version: string
 }
 
 export interface ProjectApiDeleteProjectRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApideleteProject
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
 }
 
 export interface ProjectApiDeleteProjectVersionRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApideleteProjectVersion
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
     /**
      * The version of the project.
-     * @type 
+     * @type string
      * @memberof ProjectApideleteProjectVersion
      */
-    UNKNOWN_PARAMETER_NAME2: 
+    version: string
 }
 
 export interface ProjectApiGetProjectRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApigetProject
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
 }
 
 export interface ProjectApiGetProjectDeploymentStatusRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApigetProjectDeploymentStatus
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
 }
 
 export interface ProjectApiGetProjectDeploymentURLRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApigetProjectDeploymentURL
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
     /**
      * 
-     * @type UNKNOWN_BASE_TYPE
+     * @type InlineObject
      * @memberof ProjectApigetProjectDeploymentURL
      */
-    UNKNOWN_BASE_TYPE?: UNKNOWN_BASE_TYPE
+    inlineObject?: InlineObject
 }
 
 export interface ProjectApiGetProjectStatsRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApigetProjectStats
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
 }
 
 export interface ProjectApiListProjectsRequest {
@@ -274,10 +275,10 @@ export interface ProjectApiListProjectsRequest {
 export interface ProjectApiUpdateProjectRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApiupdateProject
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
     /**
      * 
      * @type ProjectCreateRequest
@@ -289,16 +290,16 @@ export interface ProjectApiUpdateProjectRequest {
 export interface ProjectApiUpdateProjectDocumentationRequest {
     /**
      * The ID of the project. Created and returned when a project is created.
-     * @type 
+     * @type string
      * @memberof ProjectApiupdateProjectDocumentation
      */
-    UNKNOWN_PARAMETER_NAME: 
+    projectId: string
     /**
      * The version of the project.
-     * @type 
+     * @type string
      * @memberof ProjectApiupdateProjectDocumentation
      */
-    UNKNOWN_PARAMETER_NAME2: 
+    version: string
 }
 
 export class ObjectProjectApi {
@@ -323,7 +324,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public createProjectVersion(param: ProjectApiCreateProjectVersionRequest, options?: Configuration): Promise<Project> {
-        return this.api.createProjectVersion(param.UNKNOWN_PARAMETER_NAME, param.UNKNOWN_PARAMETER_NAME2,  options).toPromise();
+        return this.api.createProjectVersion(param.projectId, param.version,  options).toPromise();
     }
 
     /**
@@ -332,7 +333,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public deleteProject(param: ProjectApiDeleteProjectRequest, options?: Configuration): Promise<void> {
-        return this.api.deleteProject(param.UNKNOWN_PARAMETER_NAME,  options).toPromise();
+        return this.api.deleteProject(param.projectId,  options).toPromise();
     }
 
     /**
@@ -341,7 +342,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public deleteProjectVersion(param: ProjectApiDeleteProjectVersionRequest, options?: Configuration): Promise<Project> {
-        return this.api.deleteProjectVersion(param.UNKNOWN_PARAMETER_NAME, param.UNKNOWN_PARAMETER_NAME2,  options).toPromise();
+        return this.api.deleteProjectVersion(param.projectId, param.version,  options).toPromise();
     }
 
     /**
@@ -350,7 +351,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public getProject(param: ProjectApiGetProjectRequest, options?: Configuration): Promise<Project> {
-        return this.api.getProject(param.UNKNOWN_PARAMETER_NAME,  options).toPromise();
+        return this.api.getProject(param.projectId,  options).toPromise();
     }
 
     /**
@@ -359,7 +360,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public getProjectDeploymentStatus(param: ProjectApiGetProjectDeploymentStatusRequest, options?: Configuration): Promise<any> {
-        return this.api.getProjectDeploymentStatus(param.UNKNOWN_PARAMETER_NAME,  options).toPromise();
+        return this.api.getProjectDeploymentStatus(param.projectId,  options).toPromise();
     }
 
     /**
@@ -368,7 +369,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public getProjectDeploymentURL(param: ProjectApiGetProjectDeploymentURLRequest, options?: Configuration): Promise<ProjectDeploymentURL> {
-        return this.api.getProjectDeploymentURL(param.UNKNOWN_PARAMETER_NAME, param.UNKNOWN_BASE_TYPE,  options).toPromise();
+        return this.api.getProjectDeploymentURL(param.projectId, param.inlineObject,  options).toPromise();
     }
 
     /**
@@ -377,7 +378,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public getProjectStats(param: ProjectApiGetProjectStatsRequest, options?: Configuration): Promise<Array<StatItem>> {
-        return this.api.getProjectStats(param.UNKNOWN_PARAMETER_NAME,  options).toPromise();
+        return this.api.getProjectStats(param.projectId,  options).toPromise();
     }
 
     /**
@@ -395,7 +396,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public updateProject(param: ProjectApiUpdateProjectRequest, options?: Configuration): Promise<Project> {
-        return this.api.updateProject(param.UNKNOWN_PARAMETER_NAME, param.projectCreateRequest,  options).toPromise();
+        return this.api.updateProject(param.projectId, param.projectCreateRequest,  options).toPromise();
     }
 
     /**
@@ -404,7 +405,7 @@ export class ObjectProjectApi {
      * @param param the request object
      */
     public updateProjectDocumentation(param: ProjectApiUpdateProjectDocumentationRequest, options?: Configuration): Promise<Project> {
-        return this.api.updateProjectDocumentation(param.UNKNOWN_PARAMETER_NAME, param.UNKNOWN_PARAMETER_NAME2,  options).toPromise();
+        return this.api.updateProjectDocumentation(param.projectId, param.version,  options).toPromise();
     }
 
 }
