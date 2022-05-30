@@ -10,118 +10,26 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class GenerateSeedPhraseRequest {
     /**
-    * The public key address of the NFT 
+    * The number of words to generate. Must be one of: 12, 15, 18, 21, or 24. Avalanche's default is 24. All other chains we support default to 12. 
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
-    /**
-    * A public key address that is usually that of the person who minted the NFT 
-    */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
-    /**
-    * The metadata account of the NFT 
-    */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    'nWords'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
-            "format": ""
-        },
-        {
-            "name": "uses",
-            "baseName": "uses",
+            "name": "nWords",
+            "baseName": "n_words",
             "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return GenerateSeedPhraseRequest.attributeTypeMap;
     }
 
     public constructor() {

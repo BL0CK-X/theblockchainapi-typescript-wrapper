@@ -10,118 +10,60 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class TokenMetadataResponse {
     /**
-    * The public key address of the NFT 
+    * The symbol of the coin 
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
+    'symbol'?: string;
     /**
-    * A public key address that is usually that of the person who minted the NFT 
+    * The name of the coin 
     */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
+    'name'?: string;
+    'decimals'?: number;
     /**
-    * The metadata account of the NFT 
+    * The `mint_authority` (Solana) or `master_minter` (Ethereum) 
     */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    'minterBlockchainIdentifier'?: string;
+    'totalSupply'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
+            "name": "symbol",
+            "baseName": "symbol",
             "type": "string",
             "format": ""
         },
         {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
+            "name": "name",
+            "baseName": "name",
             "type": "string",
             "format": ""
         },
         {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
+            "name": "decimals",
+            "baseName": "decimals",
             "type": "number",
             "format": ""
         },
         {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
+            "name": "minterBlockchainIdentifier",
+            "baseName": "minter_blockchain_identifier",
             "type": "string",
             "format": ""
         },
         {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
+            "name": "totalSupply",
+            "baseName": "total_supply",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
-            "format": ""
-        },
-        {
-            "name": "uses",
-            "baseName": "uses",
-            "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return TokenMetadataResponse.attributeTypeMap;
     }
 
     public constructor() {

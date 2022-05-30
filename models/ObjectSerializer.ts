@@ -5,7 +5,10 @@ export * from './AccountIsCandyMachine';
 export * from './AccountIsNFT';
 export * from './AccountValue';
 export * from './AirdropRequest';
+export * from './AvalancheCChainPublicAddress';
+export * from './AvalancheXPChainPublicAddress';
 export * from './B58PrivateKey';
+export * from './BSCPublicAddress';
 export * from './BalanceRequest';
 export * from './BalanceResponse';
 export * from './BuyRequest';
@@ -18,8 +21,27 @@ export * from './DelistResponse';
 export * from './DoubleTransferResponse';
 export * from './Endpoint';
 export * from './EndpointReference';
+export * from './EthereumPublicAddress';
+export * from './EthereumTransaction';
+export * from './EthereumTransactionCompiledResponse';
+export * from './EthereumTransactionMadeResponse';
 export * from './FeePayerWallet';
+export * from './GeneralAirdropRequest';
+export * from './GeneralB58PrivateKey';
+export * from './GeneralBalanceRequest';
+export * from './GeneralBalanceResponse';
+export * from './GeneralFeePayerWallet';
+export * from './GeneralGeneratePrivateKeyResponse';
+export * from './GeneralPrivateKey';
+export * from './GeneralSecretPhrase';
+export * from './GeneralSecretRecoveryPhrase';
+export * from './GeneralTransaction';
+export * from './GeneralTransactionMadeResponse';
+export * from './GeneralTransactionResponse';
+export * from './GeneralTransferRequest';
+export * from './GeneralWallet';
 export * from './GeneratePrivateKey';
+export * from './GenerateSeedPhraseRequest';
 export * from './GetAllNFTsResponse';
 export * from './GetAllNFTsResponseMintedNfts';
 export * from './GetAllNFTsResponseUnmintedNfts';
@@ -29,12 +51,14 @@ export * from './GetCandyMetadataErrorResponse';
 export * from './GetCandyMetadataRequest';
 export * from './GetCandyMetadataResponse';
 export * from './GetCandyMetadataResponseCreators';
-export * from './GetFileResponse';
 export * from './GetNFTListingResponse';
 export * from './GetPublicKeyRequest';
 export * from './GetSPLTokenResponse';
 export * from './Group';
+export * from './HexPrivateKey';
 export * from './InlineObject';
+export * from './InputBlockchainIdentifier';
+export * from './InputName';
 export * from './ListNFTsResponse';
 export * from './ListRequest';
 export * from './ListResponse';
@@ -42,9 +66,7 @@ export * from './MintNFTErrorResponse';
 export * from './MintNFTRequest';
 export * from './MintNFTResponse';
 export * from './NFT';
-export * from './NFTAnalyticsRequest';
-export * from './NFTAnalyticsResponse';
-export * from './NFTAnalyticsResponseTransactionHistory';
+export * from './NFTCollection';
 export * from './NFTData';
 export * from './NFTMintErrorResponse';
 export * from './NFTMintFee';
@@ -52,7 +74,7 @@ export * from './NFTMintRequest';
 export * from './NFTOwnerResponse';
 export * from './NFTSearchRequest';
 export * from './NFTSearchResponse';
-export * from './NFTTransaction';
+export * from './NearPublicKey';
 export * from './ParameterSpecification';
 export * from './PrivateKey';
 export * from './Project';
@@ -61,14 +83,20 @@ export * from './ProjectDeploymentURL';
 export * from './PublicKey';
 export * from './SecretPhrase';
 export * from './SecretRecoveryPhrase';
+export * from './SolanaPublicKey';
+export * from './SolanaTransaction';
+export * from './SolanaTransactionCompiledResponse';
+export * from './SolanaTransactionMadeResponse';
 export * from './StatItem';
+export * from './SupplyWalletRequest';
+export * from './TokenMetadataResponse';
 export * from './Transaction';
 export * from './TransactionResult';
 export * from './TransferRequest';
 export * from './TransferResponse';
 export * from './TransferResponseCompiled';
-export * from './UploadFileRequest';
 export * from './Wallet';
+export * from './WalletIdentifiers';
 
 import { ATAResponse } from './ATAResponse';
 import { Account } from './Account';
@@ -77,7 +105,10 @@ import { AccountIsCandyMachine , AccountIsCandyMachineCandyMachineContractVersio
 import { AccountIsNFT } from './AccountIsNFT';
 import { AccountValue } from './AccountValue';
 import { AirdropRequest } from './AirdropRequest';
+import { AvalancheCChainPublicAddress } from './AvalancheCChainPublicAddress';
+import { AvalancheXPChainPublicAddress } from './AvalancheXPChainPublicAddress';
 import { B58PrivateKey } from './B58PrivateKey';
+import { BSCPublicAddress } from './BSCPublicAddress';
 import { BalanceRequest , BalanceRequestUnitEnum  , BalanceRequestNetworkEnum    } from './BalanceRequest';
 import { BalanceResponse   , BalanceResponseNetworkEnum  , BalanceResponseUnitEnum   } from './BalanceResponse';
 import { BuyRequest } from './BuyRequest';
@@ -90,8 +121,27 @@ import { DelistResponse } from './DelistResponse';
 import { DoubleTransferResponse } from './DoubleTransferResponse';
 import { Endpoint } from './Endpoint';
 import { EndpointReference } from './EndpointReference';
+import { EthereumPublicAddress } from './EthereumPublicAddress';
+import { EthereumTransaction } from './EthereumTransaction';
+import { EthereumTransactionCompiledResponse } from './EthereumTransactionCompiledResponse';
+import { EthereumTransactionMadeResponse } from './EthereumTransactionMadeResponse';
 import { FeePayerWallet } from './FeePayerWallet';
+import { GeneralAirdropRequest } from './GeneralAirdropRequest';
+import { GeneralB58PrivateKey } from './GeneralB58PrivateKey';
+import { GeneralBalanceRequest } from './GeneralBalanceRequest';
+import { GeneralBalanceResponse } from './GeneralBalanceResponse';
+import { GeneralFeePayerWallet } from './GeneralFeePayerWallet';
+import { GeneralGeneratePrivateKeyResponse } from './GeneralGeneratePrivateKeyResponse';
+import { GeneralPrivateKey } from './GeneralPrivateKey';
+import { GeneralSecretPhrase } from './GeneralSecretPhrase';
+import { GeneralSecretRecoveryPhrase } from './GeneralSecretRecoveryPhrase';
+import { GeneralTransaction } from './GeneralTransaction';
+import { GeneralTransactionMadeResponse } from './GeneralTransactionMadeResponse';
+import { GeneralTransactionResponse } from './GeneralTransactionResponse';
+import { GeneralTransferRequest } from './GeneralTransferRequest';
+import { GeneralWallet } from './GeneralWallet';
 import { GeneratePrivateKey } from './GeneratePrivateKey';
+import { GenerateSeedPhraseRequest } from './GenerateSeedPhraseRequest';
 import { GetAllNFTsResponse } from './GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from './GetAllNFTsResponseMintedNfts';
 import { GetAllNFTsResponseUnmintedNfts } from './GetAllNFTsResponseUnmintedNfts';
@@ -101,12 +151,14 @@ import { GetCandyMetadataErrorResponse } from './GetCandyMetadataErrorResponse';
 import { GetCandyMetadataRequest   , GetCandyMetadataRequestNetworkEnum  , GetCandyMetadataRequestCandyMachineContractVersionEnum   } from './GetCandyMetadataRequest';
 import { GetCandyMetadataResponse } from './GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from './GetCandyMetadataResponseCreators';
-import { GetFileResponse } from './GetFileResponse';
 import { GetNFTListingResponse, GetNFTListingResponseExchangeEnum        } from './GetNFTListingResponse';
 import { GetPublicKeyRequest } from './GetPublicKeyRequest';
 import { GetSPLTokenResponse } from './GetSPLTokenResponse';
 import { Group } from './Group';
+import { HexPrivateKey } from './HexPrivateKey';
 import { InlineObject, InlineObjectPlatformEnum   } from './InlineObject';
+import { InputBlockchainIdentifier } from './InputBlockchainIdentifier';
+import { InputName } from './InputName';
 import { ListNFTsResponse } from './ListNFTsResponse';
 import { ListRequest } from './ListRequest';
 import { ListResponse } from './ListResponse';
@@ -114,17 +166,15 @@ import { MintNFTErrorResponse } from './MintNFTErrorResponse';
 import { MintNFTRequest  , MintNFTRequestNetworkEnum  , MintNFTRequestCandyMachineContractVersionEnum   } from './MintNFTRequest';
 import { MintNFTResponse } from './MintNFTResponse';
 import { NFT } from './NFT';
-import { NFTAnalyticsRequest } from './NFTAnalyticsRequest';
-import { NFTAnalyticsResponse } from './NFTAnalyticsResponse';
-import { NFTAnalyticsResponseTransactionHistory } from './NFTAnalyticsResponseTransactionHistory';
+import { NFTCollection } from './NFTCollection';
 import { NFTData } from './NFTData';
 import { NFTMintErrorResponse } from './NFTMintErrorResponse';
 import { NFTMintFee } from './NFTMintFee';
-import { NFTMintRequest      , NFTMintRequestNftUploadMethodEnum        , NFTMintRequestNetworkEnum   } from './NFTMintRequest';
+import { NFTMintRequest     , NFTMintRequestUploadMethodEnum           , NFTMintRequestNetworkEnum   } from './NFTMintRequest';
 import { NFTOwnerResponse } from './NFTOwnerResponse';
 import { NFTSearchRequest , NFTSearchRequestUpdateAuthoritySearchMethodEnum   , NFTSearchRequestMintAddressSearchMethodEnum   , NFTSearchRequestNameSearchMethodEnum   , NFTSearchRequestUriSearchMethodEnum   , NFTSearchRequestSymbolSearchMethodEnum  , NFTSearchRequestNetworkEnum   } from './NFTSearchRequest';
 import { NFTSearchResponse } from './NFTSearchResponse';
-import { NFTTransaction , NFTTransactionExchangeEnum  , NFTTransactionExchangeReadableEnum   , NFTTransactionOperationEnum      } from './NFTTransaction';
+import { NearPublicKey } from './NearPublicKey';
 import { ParameterSpecification, ParameterSpecificationTypeEnum      } from './ParameterSpecification';
 import { PrivateKey } from './PrivateKey';
 import { Project } from './Project';
@@ -133,14 +183,20 @@ import { ProjectDeploymentURL } from './ProjectDeploymentURL';
 import { PublicKey } from './PublicKey';
 import { SecretPhrase } from './SecretPhrase';
 import { SecretRecoveryPhrase } from './SecretRecoveryPhrase';
+import { SolanaPublicKey } from './SolanaPublicKey';
+import { SolanaTransaction } from './SolanaTransaction';
+import { SolanaTransactionCompiledResponse } from './SolanaTransactionCompiledResponse';
+import { SolanaTransactionMadeResponse } from './SolanaTransactionMadeResponse';
 import { StatItem } from './StatItem';
+import { SupplyWalletRequest } from './SupplyWalletRequest';
+import { TokenMetadataResponse } from './TokenMetadataResponse';
 import { Transaction } from './Transaction';
 import { TransactionResult } from './TransactionResult';
 import { TransferRequest   , TransferRequestNetworkEnum       } from './TransferRequest';
 import { TransferResponse } from './TransferResponse';
 import { TransferResponseCompiled } from './TransferResponseCompiled';
-import { UploadFileRequest, UploadFileRequestUploadMethodEnum   } from './UploadFileRequest';
 import { Wallet } from './Wallet';
+import { WalletIdentifiers } from './WalletIdentifiers';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -184,7 +240,7 @@ let enumsMap: Set<string> = new Set<string>([
     "InlineObjectPlatformEnum",
     "MintNFTRequestNetworkEnum",
     "MintNFTRequestCandyMachineContractVersionEnum",
-    "NFTMintRequestNftUploadMethodEnum",
+    "NFTMintRequestUploadMethodEnum",
     "NFTMintRequestNetworkEnum",
     "NFTSearchRequestUpdateAuthoritySearchMethodEnum",
     "NFTSearchRequestMintAddressSearchMethodEnum",
@@ -192,12 +248,8 @@ let enumsMap: Set<string> = new Set<string>([
     "NFTSearchRequestUriSearchMethodEnum",
     "NFTSearchRequestSymbolSearchMethodEnum",
     "NFTSearchRequestNetworkEnum",
-    "NFTTransactionExchangeEnum",
-    "NFTTransactionExchangeReadableEnum",
-    "NFTTransactionOperationEnum",
     "ParameterSpecificationTypeEnum",
     "TransferRequestNetworkEnum",
-    "UploadFileRequestUploadMethodEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {
@@ -208,7 +260,10 @@ let typeMap: {[index: string]: any} = {
     "AccountIsNFT": AccountIsNFT,
     "AccountValue": AccountValue,
     "AirdropRequest": AirdropRequest,
+    "AvalancheCChainPublicAddress": AvalancheCChainPublicAddress,
+    "AvalancheXPChainPublicAddress": AvalancheXPChainPublicAddress,
     "B58PrivateKey": B58PrivateKey,
+    "BSCPublicAddress": BSCPublicAddress,
     "BalanceRequest": BalanceRequest,
     "BalanceResponse": BalanceResponse,
     "BuyRequest": BuyRequest,
@@ -221,8 +276,27 @@ let typeMap: {[index: string]: any} = {
     "DoubleTransferResponse": DoubleTransferResponse,
     "Endpoint": Endpoint,
     "EndpointReference": EndpointReference,
+    "EthereumPublicAddress": EthereumPublicAddress,
+    "EthereumTransaction": EthereumTransaction,
+    "EthereumTransactionCompiledResponse": EthereumTransactionCompiledResponse,
+    "EthereumTransactionMadeResponse": EthereumTransactionMadeResponse,
     "FeePayerWallet": FeePayerWallet,
+    "GeneralAirdropRequest": GeneralAirdropRequest,
+    "GeneralB58PrivateKey": GeneralB58PrivateKey,
+    "GeneralBalanceRequest": GeneralBalanceRequest,
+    "GeneralBalanceResponse": GeneralBalanceResponse,
+    "GeneralFeePayerWallet": GeneralFeePayerWallet,
+    "GeneralGeneratePrivateKeyResponse": GeneralGeneratePrivateKeyResponse,
+    "GeneralPrivateKey": GeneralPrivateKey,
+    "GeneralSecretPhrase": GeneralSecretPhrase,
+    "GeneralSecretRecoveryPhrase": GeneralSecretRecoveryPhrase,
+    "GeneralTransaction": GeneralTransaction,
+    "GeneralTransactionMadeResponse": GeneralTransactionMadeResponse,
+    "GeneralTransactionResponse": GeneralTransactionResponse,
+    "GeneralTransferRequest": GeneralTransferRequest,
+    "GeneralWallet": GeneralWallet,
     "GeneratePrivateKey": GeneratePrivateKey,
+    "GenerateSeedPhraseRequest": GenerateSeedPhraseRequest,
     "GetAllNFTsResponse": GetAllNFTsResponse,
     "GetAllNFTsResponseMintedNfts": GetAllNFTsResponseMintedNfts,
     "GetAllNFTsResponseUnmintedNfts": GetAllNFTsResponseUnmintedNfts,
@@ -232,12 +306,14 @@ let typeMap: {[index: string]: any} = {
     "GetCandyMetadataRequest": GetCandyMetadataRequest,
     "GetCandyMetadataResponse": GetCandyMetadataResponse,
     "GetCandyMetadataResponseCreators": GetCandyMetadataResponseCreators,
-    "GetFileResponse": GetFileResponse,
     "GetNFTListingResponse": GetNFTListingResponse,
     "GetPublicKeyRequest": GetPublicKeyRequest,
     "GetSPLTokenResponse": GetSPLTokenResponse,
     "Group": Group,
+    "HexPrivateKey": HexPrivateKey,
     "InlineObject": InlineObject,
+    "InputBlockchainIdentifier": InputBlockchainIdentifier,
+    "InputName": InputName,
     "ListNFTsResponse": ListNFTsResponse,
     "ListRequest": ListRequest,
     "ListResponse": ListResponse,
@@ -245,9 +321,7 @@ let typeMap: {[index: string]: any} = {
     "MintNFTRequest": MintNFTRequest,
     "MintNFTResponse": MintNFTResponse,
     "NFT": NFT,
-    "NFTAnalyticsRequest": NFTAnalyticsRequest,
-    "NFTAnalyticsResponse": NFTAnalyticsResponse,
-    "NFTAnalyticsResponseTransactionHistory": NFTAnalyticsResponseTransactionHistory,
+    "NFTCollection": NFTCollection,
     "NFTData": NFTData,
     "NFTMintErrorResponse": NFTMintErrorResponse,
     "NFTMintFee": NFTMintFee,
@@ -255,7 +329,7 @@ let typeMap: {[index: string]: any} = {
     "NFTOwnerResponse": NFTOwnerResponse,
     "NFTSearchRequest": NFTSearchRequest,
     "NFTSearchResponse": NFTSearchResponse,
-    "NFTTransaction": NFTTransaction,
+    "NearPublicKey": NearPublicKey,
     "ParameterSpecification": ParameterSpecification,
     "PrivateKey": PrivateKey,
     "Project": Project,
@@ -264,14 +338,20 @@ let typeMap: {[index: string]: any} = {
     "PublicKey": PublicKey,
     "SecretPhrase": SecretPhrase,
     "SecretRecoveryPhrase": SecretRecoveryPhrase,
+    "SolanaPublicKey": SolanaPublicKey,
+    "SolanaTransaction": SolanaTransaction,
+    "SolanaTransactionCompiledResponse": SolanaTransactionCompiledResponse,
+    "SolanaTransactionMadeResponse": SolanaTransactionMadeResponse,
     "StatItem": StatItem,
+    "SupplyWalletRequest": SupplyWalletRequest,
+    "TokenMetadataResponse": TokenMetadataResponse,
     "Transaction": Transaction,
     "TransactionResult": TransactionResult,
     "TransferRequest": TransferRequest,
     "TransferResponse": TransferResponse,
     "TransferResponseCompiled": TransferResponseCompiled,
-    "UploadFileRequest": UploadFileRequest,
     "Wallet": Wallet,
+    "WalletIdentifiers": WalletIdentifiers,
 }
 
 export class ObjectSerializer {

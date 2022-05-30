@@ -10,118 +10,36 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class NFTCollection {
     /**
-    * The public key address of the NFT 
+    * A `0` or `1` indicating whether or not the associated collection is verified. 
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
+    'verified'?: number;
     /**
-    * A public key address that is usually that of the person who minted the NFT 
+    * Will return `11111111111111111111111111111111` if no associated `collection_id`. Otherwise it will return the `collection_id`, which is a public key representing the verified Metaplex collection. See more [here](https://collections.metaplex.com). 
     */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
-    /**
-    * The metadata account of the NFT 
-    */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    'key'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
+            "name": "verified",
+            "baseName": "verified",
             "type": "number",
             "format": ""
         },
         {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
+            "name": "key",
+            "baseName": "key",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
-            "format": ""
-        },
-        {
-            "name": "uses",
-            "baseName": "uses",
-            "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return NFTCollection.attributeTypeMap;
     }
 
     public constructor() {

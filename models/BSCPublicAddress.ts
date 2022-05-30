@@ -10,118 +10,36 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class BSCPublicAddress {
     /**
-    * The public key address of the NFT 
+    * The public address in hex form of the wallet. This is commonly used in Ethereum, Binance, and Avalanche C-Chain. (e.g., `0xB2b2d42C3adA171633E36b427F062f85A642F453`) 
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
+    'hexPublicAddress'?: string;
     /**
-    * A public key address that is usually that of the person who minted the NFT 
+    * To public key in hex form of the wallet. This is hashed to get the hex public address. (e.g, `0x0f7182c2c2f79aca13847bed68c67662c021df868ee5d20a78df6095e4cd162610c63ec9050989a3755a18255cdd707e50678bfd762db3f0feea647610e974c4`) 
     */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
-    /**
-    * The metadata account of the NFT 
-    */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    'hexPublicKey'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
+            "name": "hexPublicAddress",
+            "baseName": "hex_public_address",
             "type": "string",
             "format": ""
         },
         {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
+            "name": "hexPublicKey",
+            "baseName": "hex_public_key",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
-            "format": ""
-        },
-        {
-            "name": "uses",
-            "baseName": "uses",
-            "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return BSCPublicAddress.attributeTypeMap;
     }
 
     public constructor() {

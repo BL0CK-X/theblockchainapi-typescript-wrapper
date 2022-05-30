@@ -8,38 +8,46 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
-import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
+import { GeneralTransaction } from '../models/GeneralTransaction';
 
 /**
  * no description
  */
-export class SolanaSPLTokenApiRequestFactory extends BaseAPIRequestFactory {
+export class TransactionApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-spl-token/get-spl-token\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Retrieves basic information about an SPL token given its `mint_address`.  You can see the mint addresses of popular SPL tokens <a href=\"https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json\" target=\"_blank\">here</a>.  Some example mint addresses of SPL tokens: - USDC: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v - Mango: MangoCzJ36AjZyKwVj3VnYU4GTonjfVEnJmvvWaxLac - Serum: SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt - Raydium: 4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R - wSOL: So11111111111111111111111111111111111111112 - ATLAS: ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get SPL token metadata
-     * @param publicKey The public key of the token
-     * @param network The network ID (devnet, mainnet-beta)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/transaction/get-transaction\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the details of a transaction made on the specified blockchain.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get the details of a transaction made on a blockchain
+     * @param blockchain The blockchain you want to use 
+     * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
+     * @param transactionBlockchainIdentifier The transaction signature of the transaction.  Examples: - Solana: &#x60;5wHu1qwD7q5ifaN5nwdcDqNFo53GJqa7nLp2BeeEpcHCusb4GzARz4GjgzsEHMkBMgCJMGa6GSQ1VG96Exv8kt2W&#x60; - Ethereum: &#x60;0x5f36b787daa57bfe8568d69e24eae54ccb00720c6edfc826bd4a7b19c525eef4&#x60;
      */
-    public async solanaGetSPLToken(publicKey: string, network: string, _options?: Configuration): Promise<RequestContext> {
+    public async getTransaction(blockchain: 'ethereum' | 'solana', network: string, transactionBlockchainIdentifier: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'publicKey' is not null or undefined
-        if (publicKey === null || publicKey === undefined) {
-            throw new RequiredError("SolanaSPLTokenApi", "solanaGetSPLToken", "publicKey");
+        // verify required parameter 'blockchain' is not null or undefined
+        if (blockchain === null || blockchain === undefined) {
+            throw new RequiredError("TransactionApi", "getTransaction", "blockchain");
         }
 
 
         // verify required parameter 'network' is not null or undefined
         if (network === null || network === undefined) {
-            throw new RequiredError("SolanaSPLTokenApi", "solanaGetSPLToken", "network");
+            throw new RequiredError("TransactionApi", "getTransaction", "network");
+        }
+
+
+        // verify required parameter 'transactionBlockchainIdentifier' is not null or undefined
+        if (transactionBlockchainIdentifier === null || transactionBlockchainIdentifier === undefined) {
+            throw new RequiredError("TransactionApi", "getTransaction", "transactionBlockchainIdentifier");
         }
 
 
         // Path Params
-        const localVarPath = '/solana/spl-token/{network}/{public_key}'
-            .replace('{' + 'public_key' + '}', encodeURIComponent(String(publicKey)))
-            .replace('{' + 'network' + '}', encodeURIComponent(String(network)));
+        const localVarPath = '/{blockchain}/transaction/{network}/{transaction_blockchain_identifier}'
+            .replace('{' + 'blockchain' + '}', encodeURIComponent(String(blockchain)))
+            .replace('{' + 'network' + '}', encodeURIComponent(String(network)))
+            .replace('{' + 'transaction_blockchain_identifier' + '}', encodeURIComponent(String(transactionBlockchainIdentifier)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -68,26 +76,26 @@ export class SolanaSPLTokenApiRequestFactory extends BaseAPIRequestFactory {
 
 }
 
-export class SolanaSPLTokenApiResponseProcessor {
+export class TransactionApiResponseProcessor {
 
     /**
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to solanaGetSPLToken
+     * @params response Response returned by the server for a request to getTransaction
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async solanaGetSPLToken(response: ResponseContext): Promise<GetSPLTokenResponse > {
+     public async getTransaction(response: ResponseContext): Promise<GeneralTransaction > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: GetSPLTokenResponse = ObjectSerializer.deserialize(
+            const body: GeneralTransaction = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "GetSPLTokenResponse", ""
-            ) as GetSPLTokenResponse;
+                "GeneralTransaction", ""
+            ) as GeneralTransaction;
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Bad request (check response message)", undefined, response.headers);
+            throw new ApiException<undefined>(response.httpStatusCode, "Invalid input or issue retrieving transaction. See response for details", undefined, response.headers);
         }
         if (isCodeInRange("401", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "Invalid API key pair in headers", undefined, response.headers);
@@ -96,15 +104,15 @@ export class SolanaSPLTokenApiResponseProcessor {
             throw new ApiException<undefined>(response.httpStatusCode, "Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;.", undefined, response.headers);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Account not found / not initialized with this public key address.", undefined, response.headers);
+            throw new ApiException<undefined>(response.httpStatusCode, "Task not found.", undefined, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: GetSPLTokenResponse = ObjectSerializer.deserialize(
+            const body: GeneralTransaction = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "GetSPLTokenResponse", ""
-            ) as GetSPLTokenResponse;
+                "GeneralTransaction", ""
+            ) as GeneralTransaction;
             return body;
         }
 

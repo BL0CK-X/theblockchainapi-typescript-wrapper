@@ -10,118 +10,26 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class GeneralB58PrivateKey {
     /**
-    * The public key address of the NFT 
+    * A private key corresponds to exactly one public key address. A private key can be used to move assets out of the wallet and sign transaction with the corresponding public key.  A base58-encoded private key is a base58-encoded version of the typical private key. It is represented as a string (e.g., `4waBTVeAVWEAczSdx36uMrR19668ACgQDs7r386vrUes3UCzvXCQ2FPSCVGb1zJrwcULgpNzgABreyQaWSpGBwfx`).  <a href=\"https://phantom.app\" target=\"_blank\">Phantom</a> is a popular wallet interface on Solana that allows you to export your private key in this format.  You can use `b58_private_key` for Chains: `solana`, `near`
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
-    /**
-    * A public key address that is usually that of the person who minted the NFT 
-    */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
-    /**
-    * The metadata account of the NFT 
-    */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    'b58PrivateKey': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
+            "name": "b58PrivateKey",
+            "baseName": "b58_private_key",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
-            "format": ""
-        },
-        {
-            "name": "uses",
-            "baseName": "uses",
-            "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return GeneralB58PrivateKey.attributeTypeMap;
     }
 
     public constructor() {

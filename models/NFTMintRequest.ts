@@ -14,31 +14,39 @@ import { Wallet } from './Wallet';
 import { HttpFile } from '../http/http';
 
 export class NFTMintRequest {
-    'wallet': Wallet;
+    'wallet'?: Wallet;
+    /**
+    * If `true`, the transaction to mint the NFT will not be submitted or signed. It will be returned to you in a raw form that you can then sign with a wallet (e.g., Phantom) or code. No `wallet` authentication information is required (thus, you do you have to supply a seed phrase or private key). See a Python example [here](https://github.com/BL0CK-X/blockchain-api/blob/main/third-party-api-examples/me-buy-sell.py). If `false` (the default option), then `wallet` is required. We sign and submit the transaction for you, which uses your wallet to mint the NFT. No further action is required on your part, and the NFT is minted. Read more on security [here](#section/Security). 
+    */
+    'returnCompiledTransaction'?: boolean;
     /**
     * The name of the token. Limited to 32 characters. Stored on the blockchain.
     */
-    'nftName'?: string;
+    'name'?: string;
     /**
     * The symbol of the token. Limited to 10 characters. Stored on the blockchain.
     */
-    'nftSymbol'?: string;
+    'symbol'?: string;
     /**
-    * The description of the token. Limited to 2000 characters. Not stored on the blockchain.  This is stored in S3 in a bucket we own, and the link to that file is stored on the blockchain.  If you provide your own link, the link is also stored in that S3 file, which is publicly accessible. However, if you choose the NFT upload method \"LINK\" instead of \"S3\", then we upload the link you  provide for nft_url directly to the blockchain, and S3 is not used at all. Thus, when you provide the \"LINK\" option, the value nft_description is ignored and not used. The Metaplex API does not provide functionality to store any data about your NFT besides a URL. 
+    * The description of the NFT. Limited to 2000 characters. Not stored on the blockchain.         If you are providing your own `uri` (see above), then you do not need to provide this.  If you are not providing your own `uri` and you do not provide this, then there wills simply be no description.  Only provide a value for `description` if the `upload_method` is set to `S3` (see the description for `upload_method` above).
     */
-    'nftDescription'?: string;
+    'description'?: string;
     /**
-    * The URL you provided. Limited to 200 characters. This does not need to be a valid URL. Whether or not this is  stored on the blockchain depends on which upload method you choose. If you choose LINK, then this is stored on the  blockchain directly. If you choose S3, then this link is embedded in a public S3 text file that also contains the metadata, the name,  the symbol, and the description of the NFT. 
+    * When you choose `S3`, all of the `name`, `description`, `symbol`, `uri_metadata`, and `image_url` are put into a JSON dictionary and uploaded to S3 as a JSON file.  This is uploaded to an AWS S3 bucket we own, and is an option we provide at no charge. The S3 link to this file is stored in the NFT's account on the blockchain. Learn more  <a href=\"https://blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\" target=\"_blank\">here</a>.  When you choose `URI`, the `uri` you provide is stored on the blockchain, and the `uri_metadata`, `description`, and `image_url` are ignored and not stored anywhere. `S3` is NOT involved in this case.   An example of a `uri` you would provide is an Arweave URL, like this: `https://arweave.net/_Y8tETU3FbAFZSM1wXNeWPweWwrW9K6oSF1SYi_bH9A`.
     */
-    'nftUrl'?: string;
+    'uploadMethod'?: NFTMintRequestUploadMethodEnum;
     /**
-    * Any data you provide. Must be a string and properly encoded json. Will be viewable on S3. Limited to 2000 bytes. Not stored on the blockchain.  This is stored in S3 in a bucket we own, and the link to that file is stored on the blockchain.  If you provide your own link, the link is also stored in that S3 file, which is publicly accessible. However, if you choose the NFT upload method \"LINK\" instead of \"S3\", then we upload the link you  provide for nft_url directly to the blockchain, and S3 is not used at all. Thus, when you provide the \"LINK\" option, the value nft_metadata is ignored and not used. The Metaplex API does not provide functionality to store any data about your NFT besides a URL. 
+    * The `uri` you provide is stored on the blockchain, and the `uri_metadata`, `description`, and `image_url` are ignored and not stored anywhere. `S3` is NOT involved in this case.   Read more <a href=\"https://blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\" target=\"_blank\">here</a>.  An example of a `uri` you would provide is an Arweave URL, like this: `https://arweave.net/_Y8tETU3FbAFZSM1wXNeWPweWwrW9K6oSF1SYi_bH9A`.  Only provide a value for `uri` if the `upload_method` is set to `URI` (see the description for `upload_method` above).
     */
-    'nftMetadata'?: string;
+    'uri'?: string;
     /**
-    * When you choose S3, all of the nft_description, nft_name, nft_symbol, nft_metadata, and nft_url are put into a json dictionary and uploaded to S3 as a text file.  This is uploaded to an AWS S3 bucket we own, and is an option we provide at no charge. The S3 link to this file is stored on the NFT on the blockchain.   When you choose LINK, the nft_url you provide is stored on the blockchain, and the nft_metadata and nft_description are ignored and not stored anywhere. S3 is then NOT used. 
+    * The URL of the image of the NFT.         If you are providing your own `uri` (see above), then you do not need to provide this.  If you are not providing your own `uri` and you do not provide this, then there wills simply be no image.  Only provide a value for `image_url` if the `upload_method` is set to `S3` (see the description for `upload_method` above).
     */
-    'nftUploadMethod'?: NFTMintRequestNftUploadMethodEnum;
+    'imageUrl'?: string;
+    /**
+    * The off-chain metadata.        If you are providing your own `uri` (see above), then you do not need to provide this.  If you are not providing your own `uri` and you do not provide this, then there wills simply be no image.  Only provide a value for `uri_metadata` if the `upload_method` is set to `S3` (see the description for `upload_method` above).  Learn more about how to format this metadata <a href=\"https://blockchainapi.com/2022/01/18/how-to-format-off-chain-nft-metadata.html\" target=\"_blank\">here</a>.
+    */
+    'uriMetadata'?: any;
     /**
     * Indicates whether or not the NFT created is mutable. If mutable, the NFT can be updated later. Once set to immutable, the NFT is unable to be changed. 
     */
@@ -56,7 +64,7 @@ export class NFTMintRequest {
     */
     'creators'?: Array<string>;
     /**
-    * A JSON encoded string representing an array / list.  The share of the royalty that each creator gets. Valid values range from 0 to 100.  Sum of the values must equal 100.  Only integer value accepted. Length of the share list must match length of the list of creators. 
+    * A JSON encoded string representing an array / list.  The share of the royalty that each creator gets. Valid values range from 0 to 100. Sum of the values must equal 100.  Only integer value accepted. Length of the share list must match length of the list of creators. 
     */
     'share'?: Array<number>;
     /**
@@ -78,39 +86,51 @@ export class NFTMintRequest {
             "format": ""
         },
         {
-            "name": "nftName",
-            "baseName": "nft_name",
+            "name": "returnCompiledTransaction",
+            "baseName": "return_compiled_transaction",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "name",
+            "baseName": "name",
             "type": "string",
             "format": ""
         },
         {
-            "name": "nftSymbol",
-            "baseName": "nft_symbol",
+            "name": "symbol",
+            "baseName": "symbol",
             "type": "string",
             "format": ""
         },
         {
-            "name": "nftDescription",
-            "baseName": "nft_description",
+            "name": "description",
+            "baseName": "description",
             "type": "string",
             "format": ""
         },
         {
-            "name": "nftUrl",
-            "baseName": "nft_url",
+            "name": "uploadMethod",
+            "baseName": "upload_method",
+            "type": "NFTMintRequestUploadMethodEnum",
+            "format": ""
+        },
+        {
+            "name": "uri",
+            "baseName": "uri",
             "type": "string",
             "format": ""
         },
         {
-            "name": "nftMetadata",
-            "baseName": "nft_metadata",
+            "name": "imageUrl",
+            "baseName": "image_url",
             "type": "string",
             "format": ""
         },
         {
-            "name": "nftUploadMethod",
-            "baseName": "nft_upload_method",
-            "type": "NFTMintRequestNftUploadMethodEnum",
+            "name": "uriMetadata",
+            "baseName": "uri_metadata",
+            "type": "any",
             "format": ""
         },
         {
@@ -165,6 +185,6 @@ export class NFTMintRequest {
 }
 
 
-export type NFTMintRequestNftUploadMethodEnum = "S3" | "LINK" ;
+export type NFTMintRequestUploadMethodEnum = "S3" | "URI" ;
 export type NFTMintRequestNetworkEnum = "devnet" | "mainnet-beta" ;
 

@@ -10,118 +10,56 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class GeneralBalanceRequest {
     /**
-    * The public key address of the NFT 
+    * The address / public key of the wallet you're querying.  Examples: - Solana: `GKNcUmNacSJo4S2Kq3DuYRYRGw3sNUfJ4tyqd198t6vQ` - Ethereum: `0xa84b9478d203cd25dF722e83C87590f8028f6aAA`
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
+    'blockchainIdentifier'?: string;
     /**
-    * A public key address that is usually that of the person who minted the NFT 
+    * The `unit` parameter is only applicable if you are trying to retrieve the balance of the native token (e.g., SOL, ETH, BNB).   Applicable units: - Solana: `lamport`, `sol` (1 SOL = 1e9 Lamports) - Ethereum: `wei`, `gwei`, `eth`
     */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
+    'unit'?: string;
     /**
-    * The metadata account of the NFT 
+    * The network of the blockchain you selected  - Solana: `devnet`, `mainnet-beta` - Ethereum: `ropsten`, `mainnet`  Defaults when not provided (not applicable to path parameters): - Solana: `devnet` - Ethereum: `ropsten`
     */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    'network'?: string;
+    /**
+    * The `token_blockchain_identifier` identifies the token you wish to transfer.  - If you're transferring a native blockchain currency (e.g., SOL, ETH, BNB), then simply do not supply this value. - If you're transfering an NFT, then supply the token address of the NFT. On Solana, this is the `mint_address` or `mint` (the address of the mint). - If you're transfering a token, supply the token address. For Solana, you can find on this on the Solana Explorer (e.g., see `SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt` for <a href=\"https://explorer.solana.com/address/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt\" target=\"_blank\">Serum Token</a>) for the `token_address`.  Examples: - Ethereum: `0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48` - Solana: `CK1LHEANTu7RFqN3XMzo2AnZhyus2W1vue1njrxLEM1d`
+    */
+    'tokenBlockchainIdentifier'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
+            "name": "blockchainIdentifier",
+            "baseName": "blockchain_identifier",
             "type": "string",
             "format": ""
         },
         {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
+            "name": "unit",
+            "baseName": "unit",
             "type": "string",
             "format": ""
         },
         {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
+            "name": "network",
+            "baseName": "network",
             "type": "string",
             "format": ""
         },
         {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
+            "name": "tokenBlockchainIdentifier",
+            "baseName": "token_blockchain_identifier",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
-            "format": ""
-        },
-        {
-            "name": "uses",
-            "baseName": "uses",
-            "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return GeneralBalanceRequest.attributeTypeMap;
     }
 
     public constructor() {

@@ -7,5 +7,5 @@ export * from "./apis/exception";
 export * from "./servers";
 
 export { PromiseMiddleware as Middleware } from './middleware';
-export { PromiseEndpointApi as EndpointApi,  PromiseFileApi as FileApi,  PromiseProjectApi as ProjectApi,  PromiseSolanaAccountApi as SolanaAccountApi,  PromiseSolanaCandyMachineApi as SolanaCandyMachineApi,  PromiseSolanaNFTApi as SolanaNFTApi,  PromiseSolanaNFTMarketplacesApi as SolanaNFTMarketplacesApi,  PromiseSolanaSPLTokenApi as SolanaSPLTokenApi,  PromiseSolanaTransactionApi as SolanaTransactionApi,  PromiseSolanaWalletApi as SolanaWalletApi } from './types/PromiseAPI';
+export { PromiseEndpointApi as EndpointApi,  PromiseNameServiceApi as NameServiceApi,  PromiseProjectApi as ProjectApi,  PromiseSolanaAccountApi as SolanaAccountApi,  PromiseSolanaCandyMachineApi as SolanaCandyMachineApi,  PromiseSolanaNFTApi as SolanaNFTApi,  PromiseSolanaNFTMarketplacesApi as SolanaNFTMarketplacesApi,  PromiseSolanaSPLTokenApi as SolanaSPLTokenApi,  PromiseSolanaTransactionApi as SolanaTransactionApi,  PromiseSolanaWalletApi as SolanaWalletApi,  PromiseTokenApi as TokenApi,  PromiseTransactionApi as TransactionApi,  PromiseWalletApi as WalletApi } from './types/PromiseAPI';
 

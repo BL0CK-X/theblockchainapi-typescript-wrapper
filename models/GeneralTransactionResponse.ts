@@ -10,118 +10,135 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
+import { EthereumTransactionCompiledResponse } from './EthereumTransactionCompiledResponse';
+import { EthereumTransactionMadeResponse } from './EthereumTransactionMadeResponse';
+import { SolanaTransactionCompiledResponse } from './SolanaTransactionCompiledResponse';
+import { SolanaTransactionMadeResponse } from './SolanaTransactionMadeResponse';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class GeneralTransactionResponse {
     /**
-    * The public key address of the NFT 
+    * The identifier of the transaction
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
+    'transactionBlockchainIdentifier'?: string;
     /**
-    * A public key address that is usually that of the person who minted the NFT 
+    * Whether or not the transaction was confirmed
     */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
+    'transactionConfirmed'?: boolean;
     /**
-    * The metadata account of the NFT 
+    * A base58 encoded byte array in string representation. Really easy to submit to Phantom. See <a href=\"https://github.com/BL0CK-X/blockchain-api/blob/main/examples/tutorials/phantom_tutorials/transfer_solana.html\" target=\"_blank\">here</a> for an example on how to submit it to a Phantom wallet for signing.
     */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    'b58CompiledTransaction'?: string;
+    /**
+    * An array of integers representing the bytes of the transaction
+    */
+    'compiledTransaction'?: any;
+    /**
+    * Indicates the chain that the transaction was compiled for (e.g., ropsten or mainnet). 
+    */
+    'chainId'?: string;
+    /**
+    * The transaction data 
+    */
+    'data'?: string;
+    /**
+    * The address expected to sign and submit the transaction 
+    */
+    '_from'?: string;
+    /**
+    * The contract. This should match your provided value for `token_blockchain_identifier`. 
+    */
+    'to'?: string;
+    'gas'?: number;
+    'maxFeePerGas'?: number;
+    'maxPriorityFeePerGas'?: number;
+    'nonce'?: number;
+    'value'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
+            "name": "transactionBlockchainIdentifier",
+            "baseName": "transaction_blockchain_identifier",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "transactionConfirmed",
+            "baseName": "transaction_confirmed",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "b58CompiledTransaction",
+            "baseName": "b58_compiled_transaction",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "compiledTransaction",
+            "baseName": "compiled_transaction",
+            "type": "any",
+            "format": ""
+        },
+        {
+            "name": "chainId",
+            "baseName": "chain_id",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "data",
             "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
             "type": "string",
             "format": ""
         },
         {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
+            "name": "_from",
+            "baseName": "from",
             "type": "string",
             "format": ""
         },
         {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
+            "name": "to",
+            "baseName": "to",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "gas",
+            "baseName": "gas",
             "type": "number",
             "format": ""
         },
         {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
+            "name": "maxFeePerGas",
+            "baseName": "max_fee_per_gas",
             "type": "number",
             "format": ""
         },
         {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
+            "name": "maxPriorityFeePerGas",
+            "baseName": "max_priority_fee_per_gas",
             "type": "number",
             "format": ""
         },
         {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
+            "name": "nonce",
+            "baseName": "nonce",
+            "type": "number",
             "format": ""
         },
         {
-            "name": "uses",
-            "baseName": "uses",
+            "name": "value",
+            "baseName": "value",
             "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return GeneralTransactionResponse.attributeTypeMap;
     }
 
     public constructor() {

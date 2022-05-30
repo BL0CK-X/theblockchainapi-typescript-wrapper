@@ -9,7 +9,10 @@ import { AccountIsCandyMachine } from '../models/AccountIsCandyMachine';
 import { AccountIsNFT } from '../models/AccountIsNFT';
 import { AccountValue } from '../models/AccountValue';
 import { AirdropRequest } from '../models/AirdropRequest';
+import { AvalancheCChainPublicAddress } from '../models/AvalancheCChainPublicAddress';
+import { AvalancheXPChainPublicAddress } from '../models/AvalancheXPChainPublicAddress';
 import { B58PrivateKey } from '../models/B58PrivateKey';
+import { BSCPublicAddress } from '../models/BSCPublicAddress';
 import { BalanceRequest } from '../models/BalanceRequest';
 import { BalanceResponse } from '../models/BalanceResponse';
 import { BuyRequest } from '../models/BuyRequest';
@@ -22,8 +25,27 @@ import { DelistResponse } from '../models/DelistResponse';
 import { DoubleTransferResponse } from '../models/DoubleTransferResponse';
 import { Endpoint } from '../models/Endpoint';
 import { EndpointReference } from '../models/EndpointReference';
+import { EthereumPublicAddress } from '../models/EthereumPublicAddress';
+import { EthereumTransaction } from '../models/EthereumTransaction';
+import { EthereumTransactionCompiledResponse } from '../models/EthereumTransactionCompiledResponse';
+import { EthereumTransactionMadeResponse } from '../models/EthereumTransactionMadeResponse';
 import { FeePayerWallet } from '../models/FeePayerWallet';
+import { GeneralAirdropRequest } from '../models/GeneralAirdropRequest';
+import { GeneralB58PrivateKey } from '../models/GeneralB58PrivateKey';
+import { GeneralBalanceRequest } from '../models/GeneralBalanceRequest';
+import { GeneralBalanceResponse } from '../models/GeneralBalanceResponse';
+import { GeneralFeePayerWallet } from '../models/GeneralFeePayerWallet';
+import { GeneralGeneratePrivateKeyResponse } from '../models/GeneralGeneratePrivateKeyResponse';
+import { GeneralPrivateKey } from '../models/GeneralPrivateKey';
+import { GeneralSecretPhrase } from '../models/GeneralSecretPhrase';
+import { GeneralSecretRecoveryPhrase } from '../models/GeneralSecretRecoveryPhrase';
+import { GeneralTransaction } from '../models/GeneralTransaction';
+import { GeneralTransactionMadeResponse } from '../models/GeneralTransactionMadeResponse';
+import { GeneralTransactionResponse } from '../models/GeneralTransactionResponse';
+import { GeneralTransferRequest } from '../models/GeneralTransferRequest';
+import { GeneralWallet } from '../models/GeneralWallet';
 import { GeneratePrivateKey } from '../models/GeneratePrivateKey';
+import { GenerateSeedPhraseRequest } from '../models/GenerateSeedPhraseRequest';
 import { GetAllNFTsResponse } from '../models/GetAllNFTsResponse';
 import { GetAllNFTsResponseMintedNfts } from '../models/GetAllNFTsResponseMintedNfts';
 import { GetAllNFTsResponseUnmintedNfts } from '../models/GetAllNFTsResponseUnmintedNfts';
@@ -33,12 +55,14 @@ import { GetCandyMetadataErrorResponse } from '../models/GetCandyMetadataErrorRe
 import { GetCandyMetadataRequest } from '../models/GetCandyMetadataRequest';
 import { GetCandyMetadataResponse } from '../models/GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from '../models/GetCandyMetadataResponseCreators';
-import { GetFileResponse } from '../models/GetFileResponse';
 import { GetNFTListingResponse } from '../models/GetNFTListingResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
 import { Group } from '../models/Group';
+import { HexPrivateKey } from '../models/HexPrivateKey';
 import { InlineObject } from '../models/InlineObject';
+import { InputBlockchainIdentifier } from '../models/InputBlockchainIdentifier';
+import { InputName } from '../models/InputName';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
 import { ListRequest } from '../models/ListRequest';
 import { ListResponse } from '../models/ListResponse';
@@ -46,9 +70,7 @@ import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
 import { MintNFTRequest } from '../models/MintNFTRequest';
 import { MintNFTResponse } from '../models/MintNFTResponse';
 import { NFT } from '../models/NFT';
-import { NFTAnalyticsRequest } from '../models/NFTAnalyticsRequest';
-import { NFTAnalyticsResponse } from '../models/NFTAnalyticsResponse';
-import { NFTAnalyticsResponseTransactionHistory } from '../models/NFTAnalyticsResponseTransactionHistory';
+import { NFTCollection } from '../models/NFTCollection';
 import { NFTData } from '../models/NFTData';
 import { NFTMintErrorResponse } from '../models/NFTMintErrorResponse';
 import { NFTMintFee } from '../models/NFTMintFee';
@@ -56,7 +78,7 @@ import { NFTMintRequest } from '../models/NFTMintRequest';
 import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
 import { NFTSearchRequest } from '../models/NFTSearchRequest';
 import { NFTSearchResponse } from '../models/NFTSearchResponse';
-import { NFTTransaction } from '../models/NFTTransaction';
+import { NearPublicKey } from '../models/NearPublicKey';
 import { ParameterSpecification } from '../models/ParameterSpecification';
 import { PrivateKey } from '../models/PrivateKey';
 import { Project } from '../models/Project';
@@ -65,14 +87,20 @@ import { ProjectDeploymentURL } from '../models/ProjectDeploymentURL';
 import { PublicKey } from '../models/PublicKey';
 import { SecretPhrase } from '../models/SecretPhrase';
 import { SecretRecoveryPhrase } from '../models/SecretRecoveryPhrase';
+import { SolanaPublicKey } from '../models/SolanaPublicKey';
+import { SolanaTransaction } from '../models/SolanaTransaction';
+import { SolanaTransactionCompiledResponse } from '../models/SolanaTransactionCompiledResponse';
+import { SolanaTransactionMadeResponse } from '../models/SolanaTransactionMadeResponse';
 import { StatItem } from '../models/StatItem';
+import { SupplyWalletRequest } from '../models/SupplyWalletRequest';
+import { TokenMetadataResponse } from '../models/TokenMetadataResponse';
 import { Transaction } from '../models/Transaction';
 import { TransactionResult } from '../models/TransactionResult';
 import { TransferRequest } from '../models/TransferRequest';
 import { TransferResponse } from '../models/TransferResponse';
 import { TransferResponseCompiled } from '../models/TransferResponseCompiled';
-import { UploadFileRequest } from '../models/UploadFileRequest';
 import { Wallet } from '../models/Wallet';
+import { WalletIdentifiers } from '../models/WalletIdentifiers';
 import { ObservableEndpointApi } from './ObservableAPI';
 
 import { EndpointApiRequestFactory, EndpointApiResponseProcessor} from "../apis/EndpointApi";
@@ -131,26 +159,42 @@ export class PromiseEndpointApi {
 
 
 
-import { ObservableFileApi } from './ObservableAPI';
+import { ObservableNameServiceApi } from './ObservableAPI';
 
-import { FileApiRequestFactory, FileApiResponseProcessor} from "../apis/FileApi";
-export class PromiseFileApi {
-    private api: ObservableFileApi
+import { NameServiceApiRequestFactory, NameServiceApiResponseProcessor} from "../apis/NameServiceApi";
+export class PromiseNameServiceApi {
+    private api: ObservableNameServiceApi
 
     public constructor(
         configuration: Configuration,
-        requestFactory?: FileApiRequestFactory,
-        responseProcessor?: FileApiResponseProcessor
+        requestFactory?: NameServiceApiRequestFactory,
+        responseProcessor?: NameServiceApiResponseProcessor
     ) {
-        this.api = new ObservableFileApi(configuration, requestFactory, responseProcessor);
+        this.api = new ObservableNameServiceApi(configuration, requestFactory, responseProcessor);
     }
 
     /**
-     * Easily upload a file to any of IPFS, Arweave, and Filecoin. Not publicly available. Please sign up for <a href=\"https://forms.gle/N4KSqcptpSrHQ1427\" target=\"_blank\">the waitlist</a>.
-     * Upload a file
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the blockchain identifier from a name.  e.g., Input `vitalik.eth` and output `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get the identifier
+     * @param blockchain The blockchain you want to use 
+     * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
+     * @param inputName 
      */
-    public uploadFile(_options?: Configuration): Promise<GetFileResponse> {
-        const result = this.api.uploadFile(_options);
+    public getBlockchainIdentifierFromName(blockchain: 'ethereum' | 'solana', network: string, inputName?: InputName, _options?: Configuration): Promise<InputBlockchainIdentifier> {
+        const result = this.api.getBlockchainIdentifierFromName(blockchain, network, inputName, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the name from a blockchain identifier.  e.g., Input `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` and output `vitalik.eth`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get the name
+     * @param blockchain The blockchain you want to use 
+     * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
+     * @param blockchainIdentifier The identifier of the token (e.g., &#x60;mint_address&#x60; on &#x60;Solana&#x60; or &#x60;token_address&#x60; on &#x60;Ethereum&#x60;) 
+     * @param inputBlockchainIdentifier 
+     */
+    public getNameForBlockchainIdentifier(blockchain: 'ethereum' | 'solana', network: string, blockchainIdentifier: 'ethereum' | 'solana', inputBlockchainIdentifier?: InputBlockchainIdentifier, _options?: Configuration): Promise<InputName> {
+        const result = this.api.getNameForBlockchainIdentifier(blockchain, network, blockchainIdentifier, inputBlockchainIdentifier, _options);
         return result.toPromise();
     }
 
@@ -518,14 +562,14 @@ export class PromiseSolanaNFTMarketplacesApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/buy-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Buy an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Edennpm  `Cost: 25 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/buy-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Buy an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 25 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Buy
      * @param network The network ID
      * @param exchange The NFT exchange to interact with
      * @param mintAddress The mint address of the NFT you want to buy
      * @param buyRequest 
      */
-    public solanaBuyNFT(network: 'devnet' | 'mainnet-beta', exchange: 'solsea' | 'magic-eden', mintAddress: string, buyRequest?: BuyRequest, _options?: Configuration): Promise<BuyResponse> {
+    public solanaBuyNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, buyRequest?: BuyRequest, _options?: Configuration): Promise<BuyResponse> {
         const result = this.api.solanaBuyNFT(network, exchange, mintAddress, buyRequest, _options);
         return result.toPromise();
     }
@@ -538,7 +582,7 @@ export class PromiseSolanaNFTMarketplacesApi {
      * @param mintAddress The mint address of the NFT you want to buy
      * @param delistRequest 
      */
-    public solanaDelistNFT(network: 'devnet' | 'mainnet-beta', exchange: 'solsea' | 'magic-eden', mintAddress: string, delistRequest?: DelistRequest, _options?: Configuration): Promise<DelistResponse> {
+    public solanaDelistNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, delistRequest?: DelistRequest, _options?: Configuration): Promise<DelistResponse> {
         const result = this.api.solanaDelistNFT(network, exchange, mintAddress, delistRequest, _options);
         return result.toPromise();
     }
@@ -555,34 +599,6 @@ export class PromiseSolanaNFTMarketplacesApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/analytics\" target=\"_blank\">See examples (Python, JavaScript)</a>.  A collection is a list of NFTs.  Any collection can thus be defined as a list of mint addresses.  This endpoint takes in a list of mint addresses (effectively, a collection), a start time (optional), and an end time (optional) and outputs the floor for that period, the volume for that period, and the transaction history for each NFT in the list (buy, list, delist, update price) for that period.  We are currently compiling a dictionary of collection names to list of mint addresses for public use. Please contribute <a href=\"https://github.com/BL0CK-X/solana-nft-collection-mint-addresses\" target=\"_blank\">here</a>.  Currently scans the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 15 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get NFT Analytics
-     * @param nFTAnalyticsRequest 
-     */
-    public solanaGetNFTMarketplaceAnalytics(nFTAnalyticsRequest?: NFTAnalyticsRequest, _options?: Configuration): Promise<NFTAnalyticsResponse> {
-        const result = this.api.solanaGetNFTMarketplaceAnalytics(nFTAnalyticsRequest, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/market-share\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the Marketplace listing of a Solana NFT.  Currently checks for the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 3 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get Marketplace Market Share
-     */
-    public solanaGetNFTMarketplaceMarketShare(_options?: Configuration): Promise<any> {
-        const result = this.api.solanaGetNFTMarketplaceMarketShare(_options);
-        return result.toPromise();
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/recent-transactions\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get all NFT transactions across all major marketplaces in the last 30 minutes.  Currently checks for the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 15 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get Recent NFT Transactions
-     */
-    public solanaGetNFTMarketplaceRecentTransactions(_options?: Configuration): Promise<Array<NFTTransaction>> {
-        const result = this.api.solanaGetNFTMarketplaceRecentTransactions(_options);
-        return result.toPromise();
-    }
-
-    /**
      * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/list-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  List an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 12 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
      * List
      * @param network The network ID
@@ -590,7 +606,7 @@ export class PromiseSolanaNFTMarketplacesApi {
      * @param mintAddress The mint address of the NFT you want to buy
      * @param listRequest 
      */
-    public solanaListNFT(network: 'devnet' | 'mainnet-beta', exchange: 'solsea' | 'magic-eden', mintAddress: string, listRequest?: ListRequest, _options?: Configuration): Promise<ListResponse> {
+    public solanaListNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, listRequest?: ListRequest, _options?: Configuration): Promise<ListResponse> {
         const result = this.api.solanaListNFT(network, exchange, mintAddress, listRequest, _options);
         return result.toPromise();
     }
@@ -785,6 +801,174 @@ export class PromiseSolanaWalletApi {
      */
     public solanaTransfer(transferRequest?: TransferRequest, _options?: Configuration): Promise<DoubleTransferResponse> {
         const result = this.api.solanaTransfer(transferRequest, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableTokenApi } from './ObservableAPI';
+
+import { TokenApiRequestFactory, TokenApiResponseProcessor} from "../apis/TokenApi";
+export class PromiseTokenApi {
+    private api: ObservableTokenApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: TokenApiRequestFactory,
+        responseProcessor?: TokenApiResponseProcessor
+    ) {
+        this.api = new ObservableTokenApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the metadata of a token.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a token's metadata
+     * @param blockchain The blockchain you want to use 
+     * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
+     * @param tokenBlockchainIdentifier The identifier of the token (e.g., &#x60;mint_address&#x60; on &#x60;Solana&#x60; or &#x60;token_address&#x60; on &#x60;Ethereum&#x60;) 
+     */
+    public getTokenMetadata(blockchain: 'ethereum' | 'solana', network: string, tokenBlockchainIdentifier: 'ethereum' | 'solana', _options?: Configuration): Promise<TokenMetadataResponse> {
+        const result = this.api.getTokenMetadata(blockchain, network, tokenBlockchainIdentifier, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      List all tokens.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List all tokens
+     * @param blockchain The blockchain you want to use 
+     * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
+     */
+    public listAllTokens(blockchain: 'solana', network: string, _options?: Configuration): Promise<Array<TokenMetadataResponse>> {
+        const result = this.api.listAllTokens(blockchain, network, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableTransactionApi } from './ObservableAPI';
+
+import { TransactionApiRequestFactory, TransactionApiResponseProcessor} from "../apis/TransactionApi";
+export class PromiseTransactionApi {
+    private api: ObservableTransactionApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: TransactionApiRequestFactory,
+        responseProcessor?: TransactionApiResponseProcessor
+    ) {
+        this.api = new ObservableTransactionApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/transaction/get-transaction\" target=\"_blank\">See examples (Python, JavaScript)</a>.      Get the details of a transaction made on the specified blockchain.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get the details of a transaction made on a blockchain
+     * @param blockchain The blockchain you want to use 
+     * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
+     * @param transactionBlockchainIdentifier The transaction signature of the transaction.  Examples: - Solana: &#x60;5wHu1qwD7q5ifaN5nwdcDqNFo53GJqa7nLp2BeeEpcHCusb4GzARz4GjgzsEHMkBMgCJMGa6GSQ1VG96Exv8kt2W&#x60; - Ethereum: &#x60;0x5f36b787daa57bfe8568d69e24eae54ccb00720c6edfc826bd4a7b19c525eef4&#x60;
+     */
+    public getTransaction(blockchain: 'ethereum' | 'solana', network: string, transactionBlockchainIdentifier: string, _options?: Configuration): Promise<GeneralTransaction> {
+        const result = this.api.getTransaction(blockchain, network, transactionBlockchainIdentifier, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableWalletApi } from './ObservableAPI';
+
+import { WalletApiRequestFactory, WalletApiResponseProcessor} from "../apis/WalletApi";
+export class PromiseWalletApi {
+    private api: ObservableWalletApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: WalletApiRequestFactory,
+        responseProcessor?: WalletApiResponseProcessor
+    ) {
+        this.api = new ObservableWalletApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/wallet/derive-private-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely derive a private key for a wallet.   For example, if you have a seed phrase and want to derive the corresponding private key, use this endpoint.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Derive private key
+     * @param blockchain The blockchain you want to use 
+     * @param supplyWalletRequest 
+     */
+    public derivePrivateKey(blockchain: 'avalanche' | 'binance_smart_chain' | 'ethereum' | 'near' | 'solana', supplyWalletRequest: SupplyWalletRequest, _options?: Configuration): Promise<GeneralGeneratePrivateKeyResponse> {
+        const result = this.api.derivePrivateKey(blockchain, supplyWalletRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/wallet/derive-wallet-identifier\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Derive the identifier for a wallet.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Derive wallet identifier
+     * @param blockchain The blockchain you want to use 
+     * @param supplyWalletRequest 
+     */
+    public deriveWalletIdentifier(blockchain: 'avalanche' | 'binance_smart_chain' | 'ethereum' | 'near' | 'solana', supplyWalletRequest: SupplyWalletRequest, _options?: Configuration): Promise<WalletIdentifiers> {
+        const result = this.api.deriveWalletIdentifier(blockchain, supplyWalletRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/wallet/generate-private-key\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a private key for a wallet.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Generate private key
+     * @param blockchain The blockchain you want to use 
+     */
+    public generatePrivateKey(blockchain: 'avalanche' | 'binance_smart_chain' | 'ethereum' | 'near' | 'solana', _options?: Configuration): Promise<GeneralGeneratePrivateKeyResponse> {
+        const result = this.api.generatePrivateKey(blockchain, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/wallet/generate-secret-phrase\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to securely and randomly generate a seed phrase for a wallet.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Generate seed phrase
+     * @param blockchain The blockchain you want to use 
+     * @param generateSeedPhraseRequest 
+     */
+    public generateSeedPhrase(blockchain: 'avalanche' | 'binance_smart_chain' | 'ethereum' | 'near' | 'solana', generateSeedPhraseRequest?: GenerateSeedPhraseRequest, _options?: Configuration): Promise<GeneralSecretPhrase> {
+        const result = this.api.generateSeedPhrase(blockchain, generateSeedPhraseRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/wallet/get-airdrop\" target=\"_blank\">See examples (Python, JavaScript)</a>.      - Ethereum: Receive an airdrop of 0.001 ETH on Ropsten (not real ETH).  - Solana: Use this endpoint to get an airdrop of SOL on the devnet (not real SOL). Amount of 0.015, which is the minimum amount of SOL you need to mint an NFT and then transfer it to another wallet.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get an airdrop
+     * @param blockchain The blockchain you want to use 
+     * @param generalAirdropRequest 
+     */
+    public getAirdrop(blockchain: 'ethereum' | 'solana', generalAirdropRequest?: GeneralAirdropRequest, _options?: Configuration): Promise<GeneralTransactionMadeResponse> {
+        const result = this.api.getAirdrop(blockchain, generalAirdropRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/wallet/get-wallet-balance\" target=\"_blank\">See examples (Python, JavaScript)</a>.      See the balance of a wallet in the native blockchain currency (e.g., ETH, SOL) or any token (e.g., ERC-20, NFTs, SPL, etc.).  To get the balance of a specific token, supply the `token_blockchain_identifier` of the token.   You can also use this endpoint to see whether or not a person owns an NFT. Just supply the `token_blockchain_identifier` of the NFT. A balance of \"1\" means the person owns the NFT, and a balance of \"0\" means the person does not own the NFT.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get wallet's balance of X
+     * @param blockchain The blockchain you want to use 
+     * @param generalBalanceRequest 
+     */
+    public getBalance(blockchain: 'ethereum' | 'solana', generalBalanceRequest?: GeneralBalanceRequest, _options?: Configuration): Promise<GeneralBalanceResponse> {
+        const result = this.api.getBalance(blockchain, generalBalanceRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/wallet/transfer-crypto-token-or-nft\" target=\"_blank\">See transfer ETH/SOL/crypto example (Python, JavaScript)</a>.  <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/wallet/transfer-crypto-token-or-nft\" target=\"_blank\">See transfer NFT/token example (Python, JavaScript)</a>.  This is a powerful function. It might be slightly confusing because there are several optional parameters, so take some time to review it.   This function can send - The native currency of the selected blockchain (e.g., SOL, ETH, BNB, etc.) - A token (e.g., an SPL token, ERC-20 token, etc.) - An NFT  You can sign and submit the transaction for confirmation; and you can select to simply return the compiled transaction so that you can submit it to the user for signing (e.g., via Phantom or Metamask; no private keys required in this case).  If you're transferring an NFT or a token, supply its respective `token_blockchain_identifier`.  SENDER: Note that the wallet information is used to authorize the sending of the tokens and identifies the source of the tokens. If `return_compiled_transaction = false`, we sign and submit the transaction (`wallet` is required in this case; do not provide a value for `sender_blockchain_identifier`). If `return_compiled_transaction = true`, we compile the transaction (`sender_blockchain_identifier` is required in this case; do not provide `wallet`).  RECIPIENT: `recipient_blockchain_identifier` identifies the receiver. This is entirely separate from the information used for the SENDER above. So, in this API call, there are two wallets involved, but only one (namely, the SENDER) is needed to authorize the transaction (if you want us to sign and submitting it).  FEE_PAYER (Solana only): The fee payer of the transaction defaults to `wallet` (or `sender_blockchain_identifier`). To set a different fee payer, provide a value for `fee_payer_wallet`.  `Cost: 2 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Transfer crypto, a token, or an NFT to another wallet
+     * @param blockchain The blockchain you want to use 
+     * @param generalTransferRequest 
+     */
+    public transfer(blockchain: 'ethereum' | 'solana', generalTransferRequest?: GeneralTransferRequest, _options?: Configuration): Promise<GeneralTransactionResponse> {
+        const result = this.api.transfer(blockchain, generalTransferRequest, _options);
         return result.toPromise();
     }
 

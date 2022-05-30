@@ -16,6 +16,14 @@ import { HttpFile } from '../http/http';
 export class BuyRequest {
     'wallet': Wallet;
     /**
+    * Whether or not to skip the provided checks (e.g., Is this NFT not listed? Is this NFT listed for a different price than you set?) and proceed with the transaction. 
+    */
+    'skipChecks'?: boolean;
+    /**
+    * The public key of the seller. Only required if providing `skip_checks`. Otherwise, don't provide it. 
+    */
+    'sellerPublicKey'?: string;
+    /**
     * The number of lamports you are expecting to purchase the NFT for. We check the price of the NFT before  purchasing it to ensure that it matches your expectation. There are 1e9 (1 billion) Lamports in a SOL. 
     */
     'nftPrice': number;
@@ -27,6 +35,18 @@ export class BuyRequest {
             "name": "wallet",
             "baseName": "wallet",
             "type": "Wallet",
+            "format": ""
+        },
+        {
+            "name": "skipChecks",
+            "baseName": "skip_checks",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "sellerPublicKey",
+            "baseName": "seller_public_key",
+            "type": "string",
             "format": ""
         },
         {

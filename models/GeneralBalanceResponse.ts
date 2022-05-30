@@ -10,118 +10,66 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class GeneralBalanceResponse {
     /**
-    * The public key address of the NFT 
+    * The balance of the token in the wallet 
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
+    'balance': number;
     /**
-    * A public key address that is usually that of the person who minted the NFT 
+    * Not included if retreiving native token (e.g., SOL, ETH, BNB, etc.) balance 
     */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
+    'integerBalance'?: number;
     /**
-    * The metadata account of the NFT 
+    * Not included if retreiving native token (e.g., SOL, ETH, BNB, etc.) balance. 
     */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    'decimals'?: number;
+    /**
+    * The network of the blockchain you selected  - Solana: `devnet`, `mainnet-beta` - Ethereum: `ropsten`, `mainnet`  Defaults when not provided (not applicable to path parameters): - Solana: `devnet` - Ethereum: `ropsten`
+    */
+    'network': string;
+    /**
+    * Not included if retreiving a token / NFT balance 
+    */
+    'unit'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
+            "name": "balance",
+            "baseName": "balance",
             "type": "number",
             "format": ""
         },
         {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
+            "name": "integerBalance",
+            "baseName": "integer_balance",
             "type": "number",
             "format": ""
         },
         {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
+            "name": "decimals",
+            "baseName": "decimals",
             "type": "number",
             "format": ""
         },
         {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
+            "name": "network",
+            "baseName": "network",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "uses",
-            "baseName": "uses",
-            "type": "number",
+            "name": "unit",
+            "baseName": "unit",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return GeneralBalanceResponse.attributeTypeMap;
     }
 
     public constructor() {

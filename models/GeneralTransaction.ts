@@ -10,118 +10,179 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
+import { EthereumTransaction } from './EthereumTransaction';
+import { SolanaTransaction } from './SolanaTransaction';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
-    /**
-    * The public key address of the NFT 
-    */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
-    /**
-    * A public key address that is usually that of the person who minted the NFT 
-    */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
-    /**
-    * The metadata account of the NFT 
-    */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+export class GeneralTransaction {
+    'accessList'?: any;
+    'blockHash'?: string;
+    'blockNumber'?: string;
+    'chainId'?: string;
+    '_from'?: string;
+    'gas'?: string;
+    'gasPrice'?: string;
+    'hash'?: string;
+    'input'?: string;
+    'maxFeePerGas'?: string;
+    'maxPriorityFeePerGas'?: string;
+    'nonce'?: string;
+    'r'?: string;
+    's'?: string;
+    'to'?: string;
+    'transactionIndex'?: string;
+    'type'?: string;
+    'v'?: string;
+    'value'?: string;
+    'blockTime'?: number;
+    'meta'?: any;
+    'slot'?: number;
+    'transaction'?: any;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "NFTData",
+            "name": "accessList",
+            "baseName": "access_list",
+            "type": "any",
             "format": ""
         },
         {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
+            "name": "blockHash",
+            "baseName": "block_hash",
             "type": "string",
             "format": ""
         },
         {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
+            "name": "blockNumber",
+            "baseName": "block_number",
             "type": "string",
             "format": ""
         },
         {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
+            "name": "chainId",
+            "baseName": "chain_id",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "_from",
+            "baseName": "from",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "gas",
+            "baseName": "gas",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "gasPrice",
+            "baseName": "gas_price",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "hash",
+            "baseName": "hash",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "input",
+            "baseName": "input",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "maxFeePerGas",
+            "baseName": "max_fee_per_gas",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "maxPriorityFeePerGas",
+            "baseName": "max_priority_fee_per_gas",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "nonce",
+            "baseName": "nonce",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "r",
+            "baseName": "r",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "s",
+            "baseName": "s",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "to",
+            "baseName": "to",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "transactionIndex",
+            "baseName": "transaction_index",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "v",
+            "baseName": "v",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "value",
+            "baseName": "value",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "blockTime",
+            "baseName": "block_time",
             "type": "number",
             "format": ""
         },
         {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
-            "type": "string",
+            "name": "meta",
+            "baseName": "meta",
+            "type": "any",
             "format": ""
         },
         {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
+            "name": "slot",
+            "baseName": "slot",
             "type": "number",
             "format": ""
         },
         {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
-            "format": ""
-        },
-        {
-            "name": "uses",
-            "baseName": "uses",
-            "type": "number",
+            "name": "transaction",
+            "baseName": "transaction",
+            "type": "any",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return GeneralTransaction.attributeTypeMap;
     }
 
     public constructor() {

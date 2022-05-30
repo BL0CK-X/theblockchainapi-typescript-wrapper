@@ -10,118 +10,91 @@
  * Do not edit the class manually.
  */
 
-import { NFTCollection } from './NFTCollection';
-import { NFTData } from './NFTData';
 import { HttpFile } from '../http/http';
 
-export class NFT {
-    'data'?: NFTData;
-    'isMutable'?: boolean;
+export class EthereumTransactionCompiledResponse {
     /**
-    * The public key address of the NFT 
+    * Indicates the chain that the transaction was compiled for (e.g., ropsten or mainnet). 
     */
-    'mint'?: string;
-    'primarySaleHappened'?: boolean;
+    'chainId'?: string;
     /**
-    * A public key address that is usually that of the person who minted the NFT 
+    * The transaction data 
     */
-    'updateAuthority'?: string;
-    'sellerFeeBasisPoints'?: number;
-    'mintSecretRecoveryPhrase'?: string;
-    'explorerUrl'?: string;
+    'data'?: string;
     /**
-    * The metadata account of the NFT 
+    * The address expected to sign and submit the transaction 
     */
-    'metadataAccount'?: string;
-    'editionNonce'?: number;
-    'tokenStandard'?: number;
-    'collection'?: NFTCollection;
-    'uses'?: number;
+    '_from'?: string;
+    /**
+    * The contract. This should match your provided value for `token_blockchain_identifier`. 
+    */
+    'to'?: string;
+    'gas'?: number;
+    'maxFeePerGas'?: number;
+    'maxPriorityFeePerGas'?: number;
+    'nonce'?: number;
+    'value'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
+            "name": "chainId",
+            "baseName": "chain_id",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "data",
             "baseName": "data",
-            "type": "NFTData",
-            "format": ""
-        },
-        {
-            "name": "isMutable",
-            "baseName": "is_mutable",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "mint",
-            "baseName": "mint",
             "type": "string",
             "format": ""
         },
         {
-            "name": "primarySaleHappened",
-            "baseName": "primary_sale_happened",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "updateAuthority",
-            "baseName": "update_authority",
+            "name": "_from",
+            "baseName": "from",
             "type": "string",
             "format": ""
         },
         {
-            "name": "sellerFeeBasisPoints",
-            "baseName": "seller_fee_basis_points",
+            "name": "to",
+            "baseName": "to",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "gas",
+            "baseName": "gas",
             "type": "number",
             "format": ""
         },
         {
-            "name": "mintSecretRecoveryPhrase",
-            "baseName": "mint_secret_recovery_phrase",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "explorerUrl",
-            "baseName": "explorer_url",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataAccount",
-            "baseName": "metadata_account",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "editionNonce",
-            "baseName": "edition_nonce",
+            "name": "maxFeePerGas",
+            "baseName": "max_fee_per_gas",
             "type": "number",
             "format": ""
         },
         {
-            "name": "tokenStandard",
-            "baseName": "token_standard",
+            "name": "maxPriorityFeePerGas",
+            "baseName": "max_priority_fee_per_gas",
             "type": "number",
             "format": ""
         },
         {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "NFTCollection",
+            "name": "nonce",
+            "baseName": "nonce",
+            "type": "number",
             "format": ""
         },
         {
-            "name": "uses",
-            "baseName": "uses",
+            "name": "value",
+            "baseName": "value",
             "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return NFT.attributeTypeMap;
+        return EthereumTransactionCompiledResponse.attributeTypeMap;
     }
 
     public constructor() {

@@ -64,6 +64,7 @@ export class APISecretKeyAuthentication implements SecurityAuthentication {
 
 
 export type AuthMethods = {
+    "default"?: SecurityAuthentication,
     "APIKeyID"?: SecurityAuthentication,
     "APISecretKey"?: SecurityAuthentication
 }
@@ -74,6 +75,7 @@ export type HttpBearerConfiguration = { tokenProvider: TokenProvider };
 export type OAuth2Configuration = { accessToken: string };
 
 export type AuthMethodsConfiguration = {
+    "default"?: SecurityAuthentication,
     "APIKeyID"?: ApiKeyConfiguration,
     "APISecretKey"?: ApiKeyConfiguration
 }
@@ -88,6 +90,7 @@ export function configureAuthMethods(config: AuthMethodsConfiguration | undefine
     if (!config) {
         return authMethods;
     }
+    authMethods["default"] = config["default"]
 
     if (config["APIKeyID"]) {
         authMethods["APIKeyID"] = new APIKeyIDAuthentication(
