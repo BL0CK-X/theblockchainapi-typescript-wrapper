@@ -218,12 +218,6 @@ export interface NameServiceApiGetNameForBlockchainIdentifierRequest {
      */
     network: string
     /**
-     * The identifier of the token (e.g., &#x60;mint_address&#x60; on &#x60;Solana&#x60; or &#x60;token_address&#x60; on &#x60;Ethereum&#x60;) 
-     * @type &#39;ethereum&#39; | &#39;solana&#39;
-     * @memberof NameServiceApigetNameForBlockchainIdentifier
-     */
-    blockchainIdentifier: 'ethereum' | 'solana'
-    /**
      * 
      * @type InputBlockchainIdentifier
      * @memberof NameServiceApigetNameForBlockchainIdentifier
@@ -253,7 +247,7 @@ export class ObjectNameServiceApi {
      * @param param the request object
      */
     public getNameForBlockchainIdentifier(param: NameServiceApiGetNameForBlockchainIdentifierRequest, options?: Configuration): Promise<InputName> {
-        return this.api.getNameForBlockchainIdentifier(param.blockchain, param.network, param.blockchainIdentifier, param.inputBlockchainIdentifier,  options).toPromise();
+        return this.api.getNameForBlockchainIdentifier(param.blockchain, param.network, param.inputBlockchainIdentifier,  options).toPromise();
     }
 
 }

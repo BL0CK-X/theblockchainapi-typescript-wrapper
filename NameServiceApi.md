@@ -94,8 +94,6 @@ let body:theblockchainapi.NameServiceApiGetNameForBlockchainIdentifierRequest = 
   blockchain: "ethereum",
   // string | The network of the blockchain you selected  - Solana: `devnet`, `mainnet-beta` - Ethereum: `ropsten`, `mainnet`  Defaults when not provided (not applicable to path parameters): - Solana: `devnet` - Ethereum: `ropsten`
   network: "ropsten",
-  // 'ethereum' | 'solana' | The identifier of the token (e.g., `mint_address` on `Solana` or `token_address` on `Ethereum`) 
-  blockchainIdentifier: "ethereum",
   // InputBlockchainIdentifier (optional)
   inputBlockchainIdentifier: {
     blockchainIdentifier: "blockchainIdentifier_example",
@@ -115,7 +113,6 @@ Name | Type | Description  | Notes
  **inputBlockchainIdentifier** | **InputBlockchainIdentifier**|  |
  **blockchain** | [**&#39;ethereum&#39; | &#39;solana&#39;**]**Array<&#39;ethereum&#39; &#124; &#39;solana&#39;>** | The blockchain you want to use  | defaults to undefined
  **network** | [**string**] | The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60; | defaults to undefined
- **blockchainIdentifier** | [**&#39;ethereum&#39; | &#39;solana&#39;**]**Array<&#39;ethereum&#39; &#124; &#39;solana&#39;>** | The identifier of the token (e.g., &#x60;mint_address&#x60; on &#x60;Solana&#x60; or &#x60;token_address&#x60; on &#x60;Ethereum&#x60;)  | defaults to undefined
 
 
 ### Return type

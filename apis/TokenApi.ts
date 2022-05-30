@@ -101,7 +101,7 @@ export class TokenApiRequestFactory extends BaseAPIRequestFactory {
             .replace('{' + 'network' + '}', encodeURIComponent(String(network)));
 
         // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
 

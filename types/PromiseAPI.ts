@@ -190,11 +190,10 @@ export class PromiseNameServiceApi {
      * Get the name
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
-     * @param blockchainIdentifier The identifier of the token (e.g., &#x60;mint_address&#x60; on &#x60;Solana&#x60; or &#x60;token_address&#x60; on &#x60;Ethereum&#x60;) 
      * @param inputBlockchainIdentifier 
      */
-    public getNameForBlockchainIdentifier(blockchain: 'ethereum' | 'solana', network: string, blockchainIdentifier: 'ethereum' | 'solana', inputBlockchainIdentifier?: InputBlockchainIdentifier, _options?: Configuration): Promise<InputName> {
-        const result = this.api.getNameForBlockchainIdentifier(blockchain, network, blockchainIdentifier, inputBlockchainIdentifier, _options);
+    public getNameForBlockchainIdentifier(blockchain: 'ethereum' | 'solana', network: string, inputBlockchainIdentifier?: InputBlockchainIdentifier, _options?: Configuration): Promise<InputName> {
+        const result = this.api.getNameForBlockchainIdentifier(blockchain, network, inputBlockchainIdentifier, _options);
         return result.toPromise();
     }
 

@@ -85,10 +85,9 @@ export class NameServiceApiRequestFactory extends BaseAPIRequestFactory {
      * Get the name
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
-     * @param blockchainIdentifier The identifier of the token (e.g., &#x60;mint_address&#x60; on &#x60;Solana&#x60; or &#x60;token_address&#x60; on &#x60;Ethereum&#x60;) 
      * @param inputBlockchainIdentifier 
      */
-    public async getNameForBlockchainIdentifier(blockchain: 'ethereum' | 'solana', network: string, blockchainIdentifier: 'ethereum' | 'solana', inputBlockchainIdentifier?: InputBlockchainIdentifier, _options?: Configuration): Promise<RequestContext> {
+    public async getNameForBlockchainIdentifier(blockchain: 'ethereum' | 'solana', network: string, inputBlockchainIdentifier?: InputBlockchainIdentifier, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'blockchain' is not null or undefined
@@ -103,18 +102,11 @@ export class NameServiceApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'blockchainIdentifier' is not null or undefined
-        if (blockchainIdentifier === null || blockchainIdentifier === undefined) {
-            throw new RequiredError("NameServiceApi", "getNameForBlockchainIdentifier", "blockchainIdentifier");
-        }
-
-
 
         // Path Params
         const localVarPath = '/{blockchain}/{network}/name_service/blockchain_identifier_to_name'
             .replace('{' + 'blockchain' + '}', encodeURIComponent(String(blockchain)))
-            .replace('{' + 'network' + '}', encodeURIComponent(String(network)))
-            .replace('{' + 'blockchain_identifier' + '}', encodeURIComponent(String(blockchainIdentifier)));
+            .replace('{' + 'network' + '}', encodeURIComponent(String(network)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
