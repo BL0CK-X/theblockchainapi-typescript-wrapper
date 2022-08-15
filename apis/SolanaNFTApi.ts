@@ -14,6 +14,7 @@ import { NFT } from '../models/NFT';
 import { NFTMintErrorResponse } from '../models/NFTMintErrorResponse';
 import { NFTMintFee } from '../models/NFTMintFee';
 import { NFTMintRequest } from '../models/NFTMintRequest';
+import { NFTOwnerAdvancedResponse } from '../models/NFTOwnerAdvancedResponse';
 import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
 import { NFTSearchRequest } from '../models/NFTSearchRequest';
 import { NFTSearchResponse } from '../models/NFTSearchResponse';
@@ -180,6 +181,57 @@ export class SolanaNFTApiRequestFactory extends BaseAPIRequestFactory {
 
         // Path Params
         const localVarPath = '/solana/nft/{network}/{mint_address}/owner'
+            .replace('{' + 'network' + '}', encodeURIComponent(String(network)))
+            .replace('{' + 'mint_address' + '}', encodeURIComponent(String(mintAddress)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["APIKeyID"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["APISecretKey"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-owner\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the owner, state, listed price, and listed marketplace (if any) of an NFT.   Here's are a couple of example responses: ``` {     'contract': {         'contract_blockchain_identifier': 'M2mx93ekt1fmXSVkTrUL9xVFHkmME8HTUi5Cyc5aF7K',          'contract_id': 'magic-eden-v2',          'contract_name': 'Magic Eden v2',          'contract_type': 'marketplace'     },      'owner': '25UJMR3FiMM6noQtPEaCJ6eDU2YQ7myDhikVQXmMuSRW',      'price': 50000000,      'state': 'listing' } ```  ``` {     'contract': null,      'owner': 'C37PJiJU8WTgoUoFqmB1Maw8hkuENDZoGDQA1pm54Fdd',      'price': null,      'state': 'holding' } ```  This function will return whether the NFT is `listed`, `loaned` (Yawww NFT loans), `otc`, `staked`, `burned`, or `held`.  If listed, it will return the contract, the readable name of the contract (e.g., Magic Eden, OpenSea), the contract ID (if any; e.g., open-sea), the owner, and the listed price. From this, you can get the floor of a collection. We currently support Magic Eden (v1, v2), Exchange.Art (auction, singles), CoralCube, Solanart (v1, v2), Yawww Loans, Yawww OTC, OpenSea, Fractal, SolSea, and AlphaArt.   If loaned, it will return the loan requester as the owner, the loan amount, and the loan contract. We only support the Yawww loaning contract.  If listed on an OTC marketplace, it will return the same information as `listed`. OTC is used to distinguish between marketplaces that respect royalties (OTC) and those that don't (normal ones). The only `OTC` contract we track is Yawwww, at the moment. We do not yet track Solanart v3.  If staked, it will return the owner and the staking contract public key.  If burned, it will return the `burner` as the `owner`.  If held, it will simply return the owner.  If you want to get the literal owner, which may or may not be the same as the owner returned here, call the simplified [get NFT owner function](/#tag/Solana-NFT/operation/solanaGetNFTOwner). For example, Bob might own the NFT, but if it is listed on Magic Eden, then the NFT is held in escrow and \"owned\" by Magic Eden. The simplified function will return Magic Eden as the owner (the literal owner). This advanced function will tell you the implied owner, which would be Bob.  `Cost: 1.0 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get owner of an NFT (advanced)
+     * @param network The network ID
+     * @param mintAddress The mint address of the NFT
+     */
+    public async solanaGetNFTOwnerAdvanced(network: 'devnet' | 'mainnet-beta', mintAddress: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'network' is not null or undefined
+        if (network === null || network === undefined) {
+            throw new RequiredError("SolanaNFTApi", "solanaGetNFTOwnerAdvanced", "network");
+        }
+
+
+        // verify required parameter 'mintAddress' is not null or undefined
+        if (mintAddress === null || mintAddress === undefined) {
+            throw new RequiredError("SolanaNFTApi", "solanaGetNFTOwnerAdvanced", "mintAddress");
+        }
+
+
+        // Path Params
+        const localVarPath = '/solana/nft/{network}/{mint_address}/owner_advanced'
             .replace('{' + 'network' + '}', encodeURIComponent(String(network)))
             .replace('{' + 'mint_address' + '}', encodeURIComponent(String(mintAddress)));
 
@@ -464,6 +516,47 @@ export class SolanaNFTApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "NFTOwnerResponse", ""
             ) as NFTOwnerResponse;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to solanaGetNFTOwnerAdvanced
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async solanaGetNFTOwnerAdvanced(response: ResponseContext): Promise<NFTOwnerAdvancedResponse > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: NFTOwnerAdvancedResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NFTOwnerAdvancedResponse", ""
+            ) as NFTOwnerAdvancedResponse;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Bad request (check response message)", undefined, response.headers);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Invalid API key pair in headers", undefined, response.headers);
+        }
+        if (isCodeInRange("402", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "Payment required. Occurs when you run out of API requests. Upgrade &lt;a href&#x3D;\&quot;https://dashboard.theblockchainapi.com/billing\&quot; target&#x3D;\&quot;_blank\&quot;&gt;here&lt;/a&gt;.", undefined, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            throw new ApiException<undefined>(response.httpStatusCode, "The doesn&#39;t exist", undefined, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: NFTOwnerAdvancedResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NFTOwnerAdvancedResponse", ""
+            ) as NFTOwnerAdvancedResponse;
             return body;
         }
 

@@ -15,16 +15,16 @@ import { B58PrivateKey } from '../models/B58PrivateKey';
 import { BSCPublicAddress } from '../models/BSCPublicAddress';
 import { BalanceRequest } from '../models/BalanceRequest';
 import { BalanceResponse } from '../models/BalanceResponse';
-import { BuyRequest } from '../models/BuyRequest';
-import { BuyResponse } from '../models/BuyResponse';
+import { CCPayment } from '../models/CCPayment';
+import { CCPaymentBlockchainPaymentDetails } from '../models/CCPaymentBlockchainPaymentDetails';
+import { CCProject } from '../models/CCProject';
+import { CCProjectCreateRequest } from '../models/CCProjectCreateRequest';
+import { CCProjectCreateRequestCustomerIdToCollect } from '../models/CCProjectCreateRequestCustomerIdToCollect';
+import { CCProjectCreateRequestPayoutMethod } from '../models/CCProjectCreateRequestPayoutMethod';
+import { CCWebhook } from '../models/CCWebhook';
+import { CCWebhookValidateRequest } from '../models/CCWebhookValidateRequest';
 import { CandyMachineSearchRequest } from '../models/CandyMachineSearchRequest';
-import { CreateTestCandyMachineRequest } from '../models/CreateTestCandyMachineRequest';
-import { CreateTestCandyMachineResponse } from '../models/CreateTestCandyMachineResponse';
-import { DelistRequest } from '../models/DelistRequest';
-import { DelistResponse } from '../models/DelistResponse';
 import { DoubleTransferResponse } from '../models/DoubleTransferResponse';
-import { Endpoint } from '../models/Endpoint';
-import { EndpointReference } from '../models/EndpointReference';
 import { EthereumPublicAddress } from '../models/EthereumPublicAddress';
 import { EthereumTransaction } from '../models/EthereumTransaction';
 import { EthereumTransactionCompiledResponse } from '../models/EthereumTransactionCompiledResponse';
@@ -55,35 +55,25 @@ import { GetCandyMetadataErrorResponse } from '../models/GetCandyMetadataErrorRe
 import { GetCandyMetadataRequest } from '../models/GetCandyMetadataRequest';
 import { GetCandyMetadataResponse } from '../models/GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from '../models/GetCandyMetadataResponseCreators';
-import { GetNFTListingResponse } from '../models/GetNFTListingResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
-import { Group } from '../models/Group';
 import { HexPrivateKey } from '../models/HexPrivateKey';
-import { InlineObject } from '../models/InlineObject';
 import { InputBlockchainIdentifier } from '../models/InputBlockchainIdentifier';
 import { InputName } from '../models/InputName';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
-import { ListRequest } from '../models/ListRequest';
-import { ListResponse } from '../models/ListResponse';
-import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
-import { MintNFTRequest } from '../models/MintNFTRequest';
-import { MintNFTResponse } from '../models/MintNFTResponse';
 import { NFT } from '../models/NFT';
 import { NFTCollection } from '../models/NFTCollection';
 import { NFTData } from '../models/NFTData';
 import { NFTMintErrorResponse } from '../models/NFTMintErrorResponse';
 import { NFTMintFee } from '../models/NFTMintFee';
 import { NFTMintRequest } from '../models/NFTMintRequest';
+import { NFTOwnerAdvancedResponse } from '../models/NFTOwnerAdvancedResponse';
+import { NFTOwnerAdvancedResponseContract } from '../models/NFTOwnerAdvancedResponseContract';
 import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
 import { NFTSearchRequest } from '../models/NFTSearchRequest';
 import { NFTSearchResponse } from '../models/NFTSearchResponse';
 import { NearPublicKey } from '../models/NearPublicKey';
-import { ParameterSpecification } from '../models/ParameterSpecification';
 import { PrivateKey } from '../models/PrivateKey';
-import { Project } from '../models/Project';
-import { ProjectCreateRequest } from '../models/ProjectCreateRequest';
-import { ProjectDeploymentURL } from '../models/ProjectDeploymentURL';
 import { PublicKey } from '../models/PublicKey';
 import { SecretPhrase } from '../models/SecretPhrase';
 import { SecretRecoveryPhrase } from '../models/SecretRecoveryPhrase';
@@ -91,7 +81,6 @@ import { SolanaPublicKey } from '../models/SolanaPublicKey';
 import { SolanaTransaction } from '../models/SolanaTransaction';
 import { SolanaTransactionCompiledResponse } from '../models/SolanaTransactionCompiledResponse';
 import { SolanaTransactionMadeResponse } from '../models/SolanaTransactionMadeResponse';
-import { StatItem } from '../models/StatItem';
 import { SupplyWalletRequest } from '../models/SupplyWalletRequest';
 import { TokenMetadataResponse } from '../models/TokenMetadataResponse';
 import { Transaction } from '../models/Transaction';
@@ -101,56 +90,169 @@ import { TransferResponse } from '../models/TransferResponse';
 import { TransferResponseCompiled } from '../models/TransferResponseCompiled';
 import { Wallet } from '../models/Wallet';
 import { WalletIdentifiers } from '../models/WalletIdentifiers';
-import { ObservableEndpointApi } from './ObservableAPI';
+import { ObservableCCPaymentApi } from './ObservableAPI';
 
-import { EndpointApiRequestFactory, EndpointApiResponseProcessor} from "../apis/EndpointApi";
-export class PromiseEndpointApi {
-    private api: ObservableEndpointApi
+import { CCPaymentApiRequestFactory, CCPaymentApiResponseProcessor} from "../apis/CCPaymentApi";
+export class PromiseCCPaymentApi {
+    private api: ObservableCCPaymentApi
 
     public constructor(
         configuration: Configuration,
-        requestFactory?: EndpointApiRequestFactory,
-        responseProcessor?: EndpointApiResponseProcessor
+        requestFactory?: CCPaymentApiRequestFactory,
+        responseProcessor?: CCPaymentApiResponseProcessor
     ) {
-        this.api = new ObservableEndpointApi(configuration, requestFactory, responseProcessor);
+        this.api = new ObservableCCPaymentApi(configuration, requestFactory, responseProcessor);
     }
 
     /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes an endpoint from a project. This endpoint removes the endpoint from the project's documentation. However, this does un-deploy the endpoint. To do so, you must <a href=\"#operation/deployProject\">deploy the project</a>.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Delete an endpoint 
-     * @param endpointReference 
+     * Retrieve a specific payment, either by its `payment_id` or `payment_validation_code`.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a payment 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param paymentIdentifier You can supply either &#x60;payment_id&#x60; or &#x60;payment_validation_code&#x60;.  The &#x60;payment_id&#x60; is only visible by you and uniquely identifies a payment.  The &#x60;payment_validation_code&#x60; is shown exclusively to the customer and the owner of the project. It can be used to redeem a payment. You can verify a payment by pulling the payment with the &#x60;payment_validation_code&#x60;.
      */
-    public deleteEndpoint(endpointReference?: EndpointReference, _options?: Configuration): Promise<void> {
-        const result = this.api.deleteEndpoint(endpointReference, _options);
+    public getCCPayment(projectId: string, paymentIdentifier: string, _options?: Configuration): Promise<CCPayment> {
+        const result = this.api.getCCPayment(projectId, paymentIdentifier, _options);
         return result.toPromise();
     }
 
     /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get an endpoint's metadata from a project.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get an endpoint's metadata 
-     * @param endpointReference 
+     * List all payments associated with your account (across all projects).  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List all payments  
      */
-    public getEndpoint(endpointReference?: EndpointReference, _options?: Configuration): Promise<Endpoint> {
-        const result = this.api.getEndpoint(endpointReference, _options);
+    public listAllCCPayments(_options?: Configuration): Promise<Array<CCPayment>> {
+        const result = this.api.listAllCCPayments(_options);
         return result.toPromise();
     }
 
     /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  List all endpoints that you have added under your account.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * List all endpoints 
+     * List all payments associated with a project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List a project's payments 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param UNKNOWN_PARAMETER_NAME Filter payments by a user&#39;s wallet identifier (i.e., Solana public key) 
      */
-    public listEndpoints(_options?: Configuration): Promise<Array<Endpoint>> {
-        const result = this.api.listEndpoints(_options);
+    public listCCProjectPayments(projectId: string, UNKNOWN_PARAMETER_NAME?: , _options?: Configuration): Promise<Array<CCPayment>> {
+        const result = this.api.listCCProjectPayments(projectId, UNKNOWN_PARAMETER_NAME, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableCCProjectApi } from './ObservableAPI';
+
+import { CCProjectApiRequestFactory, CCProjectApiResponseProcessor} from "../apis/CCProjectApi";
+export class PromiseCCProjectApi {
+    private api: ObservableCCProjectApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: CCProjectApiRequestFactory,
+        responseProcessor?: CCProjectApiResponseProcessor
+    ) {
+        this.api = new ObservableCCProjectApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * A project represents that project or company that is accepting payments.  A project can have products, which can have multiple plans (prices) each.  To create a project, you just need to supply a name and a Solana public key to receive payments.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Create a project 
+     * @param cCProjectCreateRequest 
+     */
+    public createCCProject(cCProjectCreateRequest?: CCProjectCreateRequest, _options?: Configuration): Promise<CCProject> {
+        const result = this.api.createCCProject(cCProjectCreateRequest, _options);
         return result.toPromise();
     }
 
     /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create or update an `endpoint` for a `project`.   An `endpoint` is a function that is a part of a mini-API `project`.  This endpoint adds the `endpoint` to the `project`'s documentation. However, this does not deploy the `endpoint`. To do so, you must <a href=\"#operation/deployProject\">deploy the project</a>.  All attributes except `group_name` are required if **creating** an `endpoint`.  Only `path`, `project_id`, and `version` are required if **updating** an `endpoint`.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create / update an endpoint 
-     * @param endpoint 
+     * Delete a project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Delete a project 
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public setEndpoint(endpoint?: Endpoint, _options?: Configuration): Promise<Endpoint> {
-        const result = this.api.setEndpoint(endpoint, _options);
+    public deleteCCProject(projectId: string, _options?: Configuration): Promise<void> {
+        const result = this.api.deleteCCProject(projectId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Retrieve a project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a project 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     */
+    public getCCProject(projectId: string, _options?: Configuration): Promise<CCProject> {
+        const result = this.api.getCCProject(projectId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * List all projects associated with an account.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List projects 
+     */
+    public listCCProjects(_options?: Configuration): Promise<Array<CCProject>> {
+        const result = this.api.listCCProjects(_options);
+        return result.toPromise();
+    }
+
+    /**
+     * Retrieve a project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Update a project 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param cCProject 
+     */
+    public updateCCProject(projectId: string, cCProject?: CCProject, _options?: Configuration): Promise<CCProject> {
+        const result = this.api.updateCCProject(projectId, cCProject, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableCCWebhookApi } from './ObservableAPI';
+
+import { CCWebhookApiRequestFactory, CCWebhookApiResponseProcessor} from "../apis/CCWebhookApi";
+export class PromiseCCWebhookApi {
+    private api: ObservableCCWebhookApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: CCWebhookApiRequestFactory,
+        responseProcessor?: CCWebhookApiResponseProcessor
+    ) {
+        this.api = new ObservableCCWebhookApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Retrieve the details of a webhook sent to you.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a webhook 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param webhookIdentifier The ID of the webhook. Created and returned when a webhook is sent.
+     */
+    public getCCWebhook(projectId: string, webhookIdentifier: string, _options?: Configuration): Promise<CCWebhook> {
+        const result = this.api.getCCWebhook(projectId, webhookIdentifier, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * List all webhooks sent to you and their respective responses from your server.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List project's webhooks 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     */
+    public listCCProjectWebhooks(projectId: string, _options?: Configuration): Promise<Array<CCWebhook>> {
+        const result = this.api.listCCProjectWebhooks(projectId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Validate whether a webhook you received was actually sent from us.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Validate a webhook 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param webhookIdentifier The ID of the webhook. Created and returned when a webhook is sent.
+     * @param cCWebhookValidateRequest 
+     */
+    public validateCCWebhook(projectId: string, webhookIdentifier: string, cCWebhookValidateRequest?: CCWebhookValidateRequest, _options?: Configuration): Promise<void> {
+        const result = this.api.validateCCWebhook(projectId, webhookIdentifier, cCWebhookValidateRequest, _options);
         return result.toPromise();
     }
 
@@ -174,7 +276,7 @@ export class PromiseNameServiceApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the blockchain identifier from a name.  e.g., Input `vitalik.eth` and output `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/name-service/name-to-blockchain-identifier\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the blockchain identifier from a name.  e.g., Input `vitalik.eth` and output `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the identifier
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
@@ -186,7 +288,7 @@ export class PromiseNameServiceApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the name from a blockchain identifier.  e.g., Input `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` and output `vitalik.eth`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/name-service/blockchain-identifier-to-name\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the name from a blockchain identifier.  e.g., Input `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` and output `vitalik.eth`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the name
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
@@ -194,139 +296,6 @@ export class PromiseNameServiceApi {
      */
     public getNameForBlockchainIdentifier(blockchain: 'ethereum' | 'solana', network: string, inputBlockchainIdentifier?: InputBlockchainIdentifier, _options?: Configuration): Promise<InputName> {
         const result = this.api.getNameForBlockchainIdentifier(blockchain, network, inputBlockchainIdentifier, _options);
-        return result.toPromise();
-    }
-
-
-}
-
-
-
-import { ObservableProjectApi } from './ObservableAPI';
-
-import { ProjectApiRequestFactory, ProjectApiResponseProcessor} from "../apis/ProjectApi";
-export class PromiseProjectApi {
-    private api: ObservableProjectApi
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: ProjectApiRequestFactory,
-        responseProcessor?: ProjectApiResponseProcessor
-    ) {
-        this.api = new ObservableProjectApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  A project is an entire mini-API.  When you create a project, this initializes the project in our database and the API documentation for the project.  After initialization, you can <a href=\"#operation/createEndpoint\">add endpoints</a> to the documentation and deploy the project's mini-API to our servers. Learn more <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create a project 
-     * @param projectCreateRequest 
-     */
-    public createProject(projectCreateRequest?: ProjectCreateRequest, _options?: Configuration): Promise<Project> {
-        const result = this.api.createProject(projectCreateRequest, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create a new version for the project. The version must be higher than all existing versions. This will duplicate the existing project's latest version and auto-deploy it. To update these endpoints, simply redeploy on this project's versions.  When a project is first created, it uses the default \"0.0.1\" version.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create a new project version 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param version The version of the project.
-     */
-    public createProjectVersion(projectId: string, version: string, _options?: Configuration): Promise<Project> {
-        const result = this.api.createProjectVersion(projectId, version, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes a project. This will remove the mini-API entirely from our system.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Delete a project 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     */
-    public deleteProject(projectId: string, _options?: Configuration): Promise<void> {
-        const result = this.api.deleteProject(projectId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Delete a version for the project. There must always be at least one version deployed, so you cannot delete the last remaining version of the project. This will auto-deploy the project and update its documentation, if necessary.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Delete a project version 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param version The version of the project.
-     */
-    public deleteProjectVersion(projectId: string, version: string, _options?: Configuration): Promise<Project> {
-        const result = this.api.deleteProjectVersion(projectId, version, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get a project's metadata 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     */
-    public getProject(projectId: string, _options?: Configuration): Promise<Project> {
-        const result = this.api.getProject(projectId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment status for the project after uploading the binary. Will be: `DEPLOYED` or NOT `DEPLOYED`.  After it is `DEPLOYED`, you can then make requests to your API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get deployment status 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     */
-    public getProjectDeploymentStatus(projectId: string, _options?: Configuration): Promise<any> {
-        const result = this.api.getProjectDeploymentStatus(projectId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment URL for the project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the deployment URL 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param inlineObject 
-     */
-    public getProjectDeploymentURL(projectId: string, inlineObject?: InlineObject, _options?: Configuration): Promise<ProjectDeploymentURL> {
-        const result = this.api.getProjectDeploymentURL(projectId, inlineObject, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the usage stats for your mini-API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get a project's stats 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     */
-    public getProjectStats(projectId: string, _options?: Configuration): Promise<Array<StatItem>> {
-        const result = this.api.getProjectStats(projectId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  List all projects associated with your account.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * List projects 
-     */
-    public listProjects(_options?: Configuration): Promise<Array<Project>> {
-        const result = this.api.listProjects(_options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Update a project 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param projectCreateRequest 
-     */
-    public updateProject(projectId: string, projectCreateRequest?: ProjectCreateRequest, _options?: Configuration): Promise<Project> {
-        const result = this.api.updateProject(projectId, projectCreateRequest, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's documentation.   Your project's documentation can only represent *one* version of your API.  Thus, when you call this, the `current_documentation_version` attribute of your project is set to the version supplied in the call.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Update the project's documentation 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param version The version of the project.
-     */
-    public updateProjectDocumentation(projectId: string, version: string, _options?: Configuration): Promise<Project> {
-        const result = this.api.updateProjectDocumentation(projectId, version, _options);
         return result.toPromise();
     }
 
@@ -402,16 +371,6 @@ export class PromiseSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/create-test-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.   Use this endpoint to create a test candy machine so that you can test your minting bot.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create a test CM
-     * @param createTestCandyMachineRequest 
-     */
-    public solanaCreateTestCandyMachine(createTestCandyMachineRequest?: CreateTestCandyMachineRequest, _options?: Configuration): Promise<CreateTestCandyMachineResponse> {
-        const result = this.api.solanaCreateTestCandyMachine(createTestCandyMachineRequest, _options);
-        return result.toPromise();
-    }
-
-    /**
      * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-all-nfts\" target=\"_blank\"> See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of all NFTs (minted and unminted) from a Solana Candy Machine.  This works for `v1` and `v2` candy machines.   *However*, for `v2` only the value for `all_nfts` is provided. To determine which are minted and unminted follow this example.  You do not need to specify `v1` or `v2` for this endpoint as it will automatically determine it from the candy machine ID.  See example for how to get the list of NFT hashes <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-hash-table\" target=\"_blank\">here</a>.    `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get CM's NFTs  
      * @param network The network ID
@@ -438,16 +397,6 @@ export class PromiseSolanaCandyMachineApi {
      */
     public solanaListAllCandyMachines(_options?: Configuration): Promise<any> {
         const result = this.api.solanaListAllCandyMachines(_options);
-        return result.toPromise();
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  This only works for `v1` and `v2` candy machines, and does not work for candy machines of any other type such as Magic Eden candy machines.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint. <a href=\"https://gist.github.com/joshwolff1/298e8251e43ff9b4815028683b1ca17d\" target=\"_blank\">Here's an example</a> of how to do this.  Mint transactions for candy machines that have capatcha/Civic enabled will fail. There is a gatekeeper functionality where you must manually verify through Civic and captcha in order to mint from a candy machine. In this functionality, Civic signs the transaction. Therefore, if the gatekeeper functionality is enabled, our “Mint from candy machine” endpoint will fail because it is missing a signer. If it is not enabled, then our “Mint from candy machine” endpoint will succeed. One caveat is the attribute “expireOnUse”. If this is True, then you have to solve a captcha each time. In this case, the “Mint from candy machine” endpoint will fail. If this is False, then your first verification is sufficient for further mints. In which case, after verifying manually the first time, you can use our endpoint thereafter.   You can check if the gatekeeper functionality is enabled with this <a href=\"#operation/solanaGetCandyMachineMetadata\">endpoint</a>.   `Cost: 8 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Mint from a CM
-     * @param mintNFTRequest 
-     */
-    public solanaMintFromCandyMachine(mintNFTRequest?: MintNFTRequest, _options?: Configuration): Promise<MintNFTResponse> {
-        const result = this.api.solanaMintFromCandyMachine(mintNFTRequest, _options);
         return result.toPromise();
     }
 
@@ -522,6 +471,17 @@ export class PromiseSolanaNFTApi {
     }
 
     /**
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-owner\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the owner, state, listed price, and listed marketplace (if any) of an NFT.   Here's are a couple of example responses: ``` {     'contract': {         'contract_blockchain_identifier': 'M2mx93ekt1fmXSVkTrUL9xVFHkmME8HTUi5Cyc5aF7K',          'contract_id': 'magic-eden-v2',          'contract_name': 'Magic Eden v2',          'contract_type': 'marketplace'     },      'owner': '25UJMR3FiMM6noQtPEaCJ6eDU2YQ7myDhikVQXmMuSRW',      'price': 50000000,      'state': 'listing' } ```  ``` {     'contract': null,      'owner': 'C37PJiJU8WTgoUoFqmB1Maw8hkuENDZoGDQA1pm54Fdd',      'price': null,      'state': 'holding' } ```  This function will return whether the NFT is `listed`, `loaned` (Yawww NFT loans), `otc`, `staked`, `burned`, or `held`.  If listed, it will return the contract, the readable name of the contract (e.g., Magic Eden, OpenSea), the contract ID (if any; e.g., open-sea), the owner, and the listed price. From this, you can get the floor of a collection. We currently support Magic Eden (v1, v2), Exchange.Art (auction, singles), CoralCube, Solanart (v1, v2), Yawww Loans, Yawww OTC, OpenSea, Fractal, SolSea, and AlphaArt.   If loaned, it will return the loan requester as the owner, the loan amount, and the loan contract. We only support the Yawww loaning contract.  If listed on an OTC marketplace, it will return the same information as `listed`. OTC is used to distinguish between marketplaces that respect royalties (OTC) and those that don't (normal ones). The only `OTC` contract we track is Yawwww, at the moment. We do not yet track Solanart v3.  If staked, it will return the owner and the staking contract public key.  If burned, it will return the `burner` as the `owner`.  If held, it will simply return the owner.  If you want to get the literal owner, which may or may not be the same as the owner returned here, call the simplified [get NFT owner function](/#tag/Solana-NFT/operation/solanaGetNFTOwner). For example, Bob might own the NFT, but if it is listed on Magic Eden, then the NFT is held in escrow and \"owned\" by Magic Eden. The simplified function will return Magic Eden as the owner (the literal owner). This advanced function will tell you the implied owner, which would be Bob.  `Cost: 1.0 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get owner of an NFT (advanced)
+     * @param network The network ID
+     * @param mintAddress The mint address of the NFT
+     */
+    public solanaGetNFTOwnerAdvanced(network: 'devnet' | 'mainnet-beta', mintAddress: string, _options?: Configuration): Promise<NFTOwnerAdvancedResponse> {
+        const result = this.api.solanaGetNFTOwnerAdvanced(network, mintAddress, _options);
+        return result.toPromise();
+    }
+
+    /**
      * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-candy-machine-id\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the candy machine ID from where the NFT came, if any. NFTs can also be minted without a candy machine.  It's also possible that we return \"Not Found\" when the NFT actually did come from a version of a candy machine. We check for the most popular versions of candy machine, but it is possible that someone creates their own candy machine version and mints NFTs from it.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the ID of the candy machine of an NFT 
      * @param getCandyMachineIDRequest 
@@ -538,75 +498,6 @@ export class PromiseSolanaNFTApi {
      */
     public solanaSearchNFTs(nFTSearchRequest?: NFTSearchRequest, _options?: Configuration): Promise<Array<NFTSearchResponse>> {
         const result = this.api.solanaSearchNFTs(nFTSearchRequest, _options);
-        return result.toPromise();
-    }
-
-
-}
-
-
-
-import { ObservableSolanaNFTMarketplacesApi } from './ObservableAPI';
-
-import { SolanaNFTMarketplacesApiRequestFactory, SolanaNFTMarketplacesApiResponseProcessor} from "../apis/SolanaNFTMarketplacesApi";
-export class PromiseSolanaNFTMarketplacesApi {
-    private api: ObservableSolanaNFTMarketplacesApi
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: SolanaNFTMarketplacesApiRequestFactory,
-        responseProcessor?: SolanaNFTMarketplacesApiResponseProcessor
-    ) {
-        this.api = new ObservableSolanaNFTMarketplacesApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/buy-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Buy an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 25 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Buy
-     * @param network The network ID
-     * @param exchange The NFT exchange to interact with
-     * @param mintAddress The mint address of the NFT you want to buy
-     * @param buyRequest 
-     */
-    public solanaBuyNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, buyRequest?: BuyRequest, _options?: Configuration): Promise<BuyResponse> {
-        const result = this.api.solanaBuyNFT(network, exchange, mintAddress, buyRequest, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/delist-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Delist an NFT from a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 8 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Delist
-     * @param network The network ID
-     * @param exchange The NFT exchange to interact with
-     * @param mintAddress The mint address of the NFT you want to buy
-     * @param delistRequest 
-     */
-    public solanaDelistNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, delistRequest?: DelistRequest, _options?: Configuration): Promise<DelistResponse> {
-        const result = this.api.solanaDelistNFT(network, exchange, mintAddress, delistRequest, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/get-nft-listing\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the Marketplace listing of a Solana NFT.  Currently checks the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 1 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get NFT Listing
-     * @param network The network ID
-     * @param mintAddress The mint address of the NFT you want to buy
-     */
-    public solanaGetNFTListing(network: 'devnet' | 'mainnet-beta', mintAddress: string, _options?: Configuration): Promise<GetNFTListingResponse> {
-        const result = this.api.solanaGetNFTListing(network, mintAddress, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/list-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  List an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 12 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * List
-     * @param network The network ID
-     * @param exchange The NFT exchange to interact with
-     * @param mintAddress The mint address of the NFT you want to buy
-     * @param listRequest 
-     */
-    public solanaListNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, listRequest?: ListRequest, _options?: Configuration): Promise<ListResponse> {
-        const result = this.api.solanaListNFT(network, exchange, mintAddress, listRequest, _options);
         return result.toPromise();
     }
 
@@ -823,7 +714,7 @@ export class PromiseTokenApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the metadata of a token.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/tokens/get-token-metadata\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the metadata of a token.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get a token's metadata
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
@@ -835,7 +726,7 @@ export class PromiseTokenApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      List all tokens.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/tokens/get-all-tokens\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      List all tokens.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * List all tokens
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;

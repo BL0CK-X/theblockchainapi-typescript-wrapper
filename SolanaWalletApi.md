@@ -618,6 +618,7 @@ const apiInstance = new theblockchainapi.SolanaWalletApi(configuration);
 let body:theblockchainapi.SolanaWalletApiSolanaTransferRequest = {
   // TransferRequest (optional)
   transferRequest: {
+    waitForConfirmation: true,
     recipientAddress: "recipientAddress_example",
     wallet: null,
     tokenAddress: "tokenAddress_example",

@@ -16,16 +16,16 @@ import { B58PrivateKey } from '../models/B58PrivateKey';
 import { BSCPublicAddress } from '../models/BSCPublicAddress';
 import { BalanceRequest } from '../models/BalanceRequest';
 import { BalanceResponse } from '../models/BalanceResponse';
-import { BuyRequest } from '../models/BuyRequest';
-import { BuyResponse } from '../models/BuyResponse';
+import { CCPayment } from '../models/CCPayment';
+import { CCPaymentBlockchainPaymentDetails } from '../models/CCPaymentBlockchainPaymentDetails';
+import { CCProject } from '../models/CCProject';
+import { CCProjectCreateRequest } from '../models/CCProjectCreateRequest';
+import { CCProjectCreateRequestCustomerIdToCollect } from '../models/CCProjectCreateRequestCustomerIdToCollect';
+import { CCProjectCreateRequestPayoutMethod } from '../models/CCProjectCreateRequestPayoutMethod';
+import { CCWebhook } from '../models/CCWebhook';
+import { CCWebhookValidateRequest } from '../models/CCWebhookValidateRequest';
 import { CandyMachineSearchRequest } from '../models/CandyMachineSearchRequest';
-import { CreateTestCandyMachineRequest } from '../models/CreateTestCandyMachineRequest';
-import { CreateTestCandyMachineResponse } from '../models/CreateTestCandyMachineResponse';
-import { DelistRequest } from '../models/DelistRequest';
-import { DelistResponse } from '../models/DelistResponse';
 import { DoubleTransferResponse } from '../models/DoubleTransferResponse';
-import { Endpoint } from '../models/Endpoint';
-import { EndpointReference } from '../models/EndpointReference';
 import { EthereumPublicAddress } from '../models/EthereumPublicAddress';
 import { EthereumTransaction } from '../models/EthereumTransaction';
 import { EthereumTransactionCompiledResponse } from '../models/EthereumTransactionCompiledResponse';
@@ -56,35 +56,25 @@ import { GetCandyMetadataErrorResponse } from '../models/GetCandyMetadataErrorRe
 import { GetCandyMetadataRequest } from '../models/GetCandyMetadataRequest';
 import { GetCandyMetadataResponse } from '../models/GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from '../models/GetCandyMetadataResponseCreators';
-import { GetNFTListingResponse } from '../models/GetNFTListingResponse';
 import { GetPublicKeyRequest } from '../models/GetPublicKeyRequest';
 import { GetSPLTokenResponse } from '../models/GetSPLTokenResponse';
-import { Group } from '../models/Group';
 import { HexPrivateKey } from '../models/HexPrivateKey';
-import { InlineObject } from '../models/InlineObject';
 import { InputBlockchainIdentifier } from '../models/InputBlockchainIdentifier';
 import { InputName } from '../models/InputName';
 import { ListNFTsResponse } from '../models/ListNFTsResponse';
-import { ListRequest } from '../models/ListRequest';
-import { ListResponse } from '../models/ListResponse';
-import { MintNFTErrorResponse } from '../models/MintNFTErrorResponse';
-import { MintNFTRequest } from '../models/MintNFTRequest';
-import { MintNFTResponse } from '../models/MintNFTResponse';
 import { NFT } from '../models/NFT';
 import { NFTCollection } from '../models/NFTCollection';
 import { NFTData } from '../models/NFTData';
 import { NFTMintErrorResponse } from '../models/NFTMintErrorResponse';
 import { NFTMintFee } from '../models/NFTMintFee';
 import { NFTMintRequest } from '../models/NFTMintRequest';
+import { NFTOwnerAdvancedResponse } from '../models/NFTOwnerAdvancedResponse';
+import { NFTOwnerAdvancedResponseContract } from '../models/NFTOwnerAdvancedResponseContract';
 import { NFTOwnerResponse } from '../models/NFTOwnerResponse';
 import { NFTSearchRequest } from '../models/NFTSearchRequest';
 import { NFTSearchResponse } from '../models/NFTSearchResponse';
 import { NearPublicKey } from '../models/NearPublicKey';
-import { ParameterSpecification } from '../models/ParameterSpecification';
 import { PrivateKey } from '../models/PrivateKey';
-import { Project } from '../models/Project';
-import { ProjectCreateRequest } from '../models/ProjectCreateRequest';
-import { ProjectDeploymentURL } from '../models/ProjectDeploymentURL';
 import { PublicKey } from '../models/PublicKey';
 import { SecretPhrase } from '../models/SecretPhrase';
 import { SecretRecoveryPhrase } from '../models/SecretRecoveryPhrase';
@@ -92,7 +82,6 @@ import { SolanaPublicKey } from '../models/SolanaPublicKey';
 import { SolanaTransaction } from '../models/SolanaTransaction';
 import { SolanaTransactionCompiledResponse } from '../models/SolanaTransactionCompiledResponse';
 import { SolanaTransactionMadeResponse } from '../models/SolanaTransactionMadeResponse';
-import { StatItem } from '../models/StatItem';
 import { SupplyWalletRequest } from '../models/SupplyWalletRequest';
 import { TokenMetadataResponse } from '../models/TokenMetadataResponse';
 import { Transaction } from '../models/Transaction';
@@ -103,29 +92,30 @@ import { TransferResponseCompiled } from '../models/TransferResponseCompiled';
 import { Wallet } from '../models/Wallet';
 import { WalletIdentifiers } from '../models/WalletIdentifiers';
 
-import { EndpointApiRequestFactory, EndpointApiResponseProcessor} from "../apis/EndpointApi";
-export class ObservableEndpointApi {
-    private requestFactory: EndpointApiRequestFactory;
-    private responseProcessor: EndpointApiResponseProcessor;
+import { CCPaymentApiRequestFactory, CCPaymentApiResponseProcessor} from "../apis/CCPaymentApi";
+export class ObservableCCPaymentApi {
+    private requestFactory: CCPaymentApiRequestFactory;
+    private responseProcessor: CCPaymentApiResponseProcessor;
     private configuration: Configuration;
 
     public constructor(
         configuration: Configuration,
-        requestFactory?: EndpointApiRequestFactory,
-        responseProcessor?: EndpointApiResponseProcessor
+        requestFactory?: CCPaymentApiRequestFactory,
+        responseProcessor?: CCPaymentApiResponseProcessor
     ) {
         this.configuration = configuration;
-        this.requestFactory = requestFactory || new EndpointApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new EndpointApiResponseProcessor();
+        this.requestFactory = requestFactory || new CCPaymentApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new CCPaymentApiResponseProcessor();
     }
 
     /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes an endpoint from a project. This endpoint removes the endpoint from the project's documentation. However, this does un-deploy the endpoint. To do so, you must <a href=\"#operation/deployProject\">deploy the project</a>.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Delete an endpoint 
-     * @param endpointReference 
+     * Retrieve a specific payment, either by its `payment_id` or `payment_validation_code`.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a payment 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param paymentIdentifier You can supply either &#x60;payment_id&#x60; or &#x60;payment_validation_code&#x60;.  The &#x60;payment_id&#x60; is only visible by you and uniquely identifies a payment.  The &#x60;payment_validation_code&#x60; is shown exclusively to the customer and the owner of the project. It can be used to redeem a payment. You can verify a payment by pulling the payment with the &#x60;payment_validation_code&#x60;.
      */
-    public deleteEndpoint(endpointReference?: EndpointReference, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.deleteEndpoint(endpointReference, _options);
+    public getCCPayment(projectId: string, paymentIdentifier: string, _options?: Configuration): Observable<CCPayment> {
+        const requestContextPromise = this.requestFactory.getCCPayment(projectId, paymentIdentifier, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -139,17 +129,16 @@ export class ObservableEndpointApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteEndpoint(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getCCPayment(rsp)));
             }));
     }
 
     /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get an endpoint's metadata from a project.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get an endpoint's metadata 
-     * @param endpointReference 
+     * List all payments associated with your account (across all projects).  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List all payments  
      */
-    public getEndpoint(endpointReference?: EndpointReference, _options?: Configuration): Observable<Endpoint> {
-        const requestContextPromise = this.requestFactory.getEndpoint(endpointReference, _options);
+    public listAllCCPayments(_options?: Configuration): Observable<Array<CCPayment>> {
+        const requestContextPromise = this.requestFactory.listAllCCPayments(_options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -163,16 +152,18 @@ export class ObservableEndpointApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getEndpoint(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.listAllCCPayments(rsp)));
             }));
     }
 
     /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  List all endpoints that you have added under your account.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * List all endpoints 
+     * List all payments associated with a project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List a project's payments 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param UNKNOWN_PARAMETER_NAME Filter payments by a user&#39;s wallet identifier (i.e., Solana public key) 
      */
-    public listEndpoints(_options?: Configuration): Observable<Array<Endpoint>> {
-        const requestContextPromise = this.requestFactory.listEndpoints(_options);
+    public listCCProjectPayments(projectId: string, UNKNOWN_PARAMETER_NAME?: , _options?: Configuration): Observable<Array<CCPayment>> {
+        const requestContextPromise = this.requestFactory.listCCProjectPayments(projectId, UNKNOWN_PARAMETER_NAME, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -186,17 +177,59 @@ export class ObservableEndpointApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.listEndpoints(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.listCCProjectPayments(rsp)));
+            }));
+    }
+
+}
+
+import { CCProjectApiRequestFactory, CCProjectApiResponseProcessor} from "../apis/CCProjectApi";
+export class ObservableCCProjectApi {
+    private requestFactory: CCProjectApiRequestFactory;
+    private responseProcessor: CCProjectApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: CCProjectApiRequestFactory,
+        responseProcessor?: CCProjectApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new CCProjectApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new CCProjectApiResponseProcessor();
+    }
+
+    /**
+     * A project represents that project or company that is accepting payments.  A project can have products, which can have multiple plans (prices) each.  To create a project, you just need to supply a name and a Solana public key to receive payments.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Create a project 
+     * @param cCProjectCreateRequest 
+     */
+    public createCCProject(cCProjectCreateRequest?: CCProjectCreateRequest, _options?: Configuration): Observable<CCProject> {
+        const requestContextPromise = this.requestFactory.createCCProject(cCProjectCreateRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.createCCProject(rsp)));
             }));
     }
 
     /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create or update an `endpoint` for a `project`.   An `endpoint` is a function that is a part of a mini-API `project`.  This endpoint adds the `endpoint` to the `project`'s documentation. However, this does not deploy the `endpoint`. To do so, you must <a href=\"#operation/deployProject\">deploy the project</a>.  All attributes except `group_name` are required if **creating** an `endpoint`.  Only `path`, `project_id`, and `version` are required if **updating** an `endpoint`.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create / update an endpoint 
-     * @param endpoint 
+     * Delete a project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Delete a project 
+     * @param projectId The ID of the project. Created and returned when a project is created.
      */
-    public setEndpoint(endpoint?: Endpoint, _options?: Configuration): Observable<Endpoint> {
-        const requestContextPromise = this.requestFactory.setEndpoint(endpoint, _options);
+    public deleteCCProject(projectId: string, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.deleteCCProject(projectId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -210,7 +243,172 @@ export class ObservableEndpointApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.setEndpoint(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteCCProject(rsp)));
+            }));
+    }
+
+    /**
+     * Retrieve a project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a project 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     */
+    public getCCProject(projectId: string, _options?: Configuration): Observable<CCProject> {
+        const requestContextPromise = this.requestFactory.getCCProject(projectId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getCCProject(rsp)));
+            }));
+    }
+
+    /**
+     * List all projects associated with an account.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List projects 
+     */
+    public listCCProjects(_options?: Configuration): Observable<Array<CCProject>> {
+        const requestContextPromise = this.requestFactory.listCCProjects(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.listCCProjects(rsp)));
+            }));
+    }
+
+    /**
+     * Retrieve a project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Update a project 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param cCProject 
+     */
+    public updateCCProject(projectId: string, cCProject?: CCProject, _options?: Configuration): Observable<CCProject> {
+        const requestContextPromise = this.requestFactory.updateCCProject(projectId, cCProject, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateCCProject(rsp)));
+            }));
+    }
+
+}
+
+import { CCWebhookApiRequestFactory, CCWebhookApiResponseProcessor} from "../apis/CCWebhookApi";
+export class ObservableCCWebhookApi {
+    private requestFactory: CCWebhookApiRequestFactory;
+    private responseProcessor: CCWebhookApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: CCWebhookApiRequestFactory,
+        responseProcessor?: CCWebhookApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new CCWebhookApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new CCWebhookApiResponseProcessor();
+    }
+
+    /**
+     * Retrieve the details of a webhook sent to you.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get a webhook 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param webhookIdentifier The ID of the webhook. Created and returned when a webhook is sent.
+     */
+    public getCCWebhook(projectId: string, webhookIdentifier: string, _options?: Configuration): Observable<CCWebhook> {
+        const requestContextPromise = this.requestFactory.getCCWebhook(projectId, webhookIdentifier, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getCCWebhook(rsp)));
+            }));
+    }
+
+    /**
+     * List all webhooks sent to you and their respective responses from your server.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * List project's webhooks 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     */
+    public listCCProjectWebhooks(projectId: string, _options?: Configuration): Observable<Array<CCWebhook>> {
+        const requestContextPromise = this.requestFactory.listCCProjectWebhooks(projectId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.listCCProjectWebhooks(rsp)));
+            }));
+    }
+
+    /**
+     * Validate whether a webhook you received was actually sent from us.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Validate a webhook 
+     * @param projectId The ID of the project. Created and returned when a project is created.
+     * @param webhookIdentifier The ID of the webhook. Created and returned when a webhook is sent.
+     * @param cCWebhookValidateRequest 
+     */
+    public validateCCWebhook(projectId: string, webhookIdentifier: string, cCWebhookValidateRequest?: CCWebhookValidateRequest, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.validateCCWebhook(projectId, webhookIdentifier, cCWebhookValidateRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.validateCCWebhook(rsp)));
             }));
     }
 
@@ -233,7 +431,7 @@ export class ObservableNameServiceApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the blockchain identifier from a name.  e.g., Input `vitalik.eth` and output `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/name-service/name-to-blockchain-identifier\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the blockchain identifier from a name.  e.g., Input `vitalik.eth` and output `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the identifier
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
@@ -259,7 +457,7 @@ export class ObservableNameServiceApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the name from a blockchain identifier.  e.g., Input `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` and output `vitalik.eth`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/name-service/blockchain-identifier-to-name\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the name from a blockchain identifier.  e.g., Input `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` and output `vitalik.eth`  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the name
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
@@ -281,292 +479,6 @@ export class ObservableNameServiceApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getNameForBlockchainIdentifier(rsp)));
-            }));
-    }
-
-}
-
-import { ProjectApiRequestFactory, ProjectApiResponseProcessor} from "../apis/ProjectApi";
-export class ObservableProjectApi {
-    private requestFactory: ProjectApiRequestFactory;
-    private responseProcessor: ProjectApiResponseProcessor;
-    private configuration: Configuration;
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: ProjectApiRequestFactory,
-        responseProcessor?: ProjectApiResponseProcessor
-    ) {
-        this.configuration = configuration;
-        this.requestFactory = requestFactory || new ProjectApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new ProjectApiResponseProcessor();
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  A project is an entire mini-API.  When you create a project, this initializes the project in our database and the API documentation for the project.  After initialization, you can <a href=\"#operation/createEndpoint\">add endpoints</a> to the documentation and deploy the project's mini-API to our servers. Learn more <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create a project 
-     * @param projectCreateRequest 
-     */
-    public createProject(projectCreateRequest?: ProjectCreateRequest, _options?: Configuration): Observable<Project> {
-        const requestContextPromise = this.requestFactory.createProject(projectCreateRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.createProject(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Create a new version for the project. The version must be higher than all existing versions. This will duplicate the existing project's latest version and auto-deploy it. To update these endpoints, simply redeploy on this project's versions.  When a project is first created, it uses the default \"0.0.1\" version.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create a new project version 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param version The version of the project.
-     */
-    public createProjectVersion(projectId: string, version: string, _options?: Configuration): Observable<Project> {
-        const requestContextPromise = this.requestFactory.createProjectVersion(projectId, version, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.createProjectVersion(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Deletes a project. This will remove the mini-API entirely from our system.   `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Delete a project 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     */
-    public deleteProject(projectId: string, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.deleteProject(projectId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteProject(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Delete a version for the project. There must always be at least one version deployed, so you cannot delete the last remaining version of the project. This will auto-deploy the project and update its documentation, if necessary.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Delete a project version 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param version The version of the project.
-     */
-    public deleteProjectVersion(projectId: string, version: string, _options?: Configuration): Observable<Project> {
-        const requestContextPromise = this.requestFactory.deleteProjectVersion(projectId, version, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteProjectVersion(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get a project's metadata 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     */
-    public getProject(projectId: string, _options?: Configuration): Observable<Project> {
-        const requestContextPromise = this.requestFactory.getProject(projectId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProject(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment status for the project after uploading the binary. Will be: `DEPLOYED` or NOT `DEPLOYED`.  After it is `DEPLOYED`, you can then make requests to your API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get deployment status 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     */
-    public getProjectDeploymentStatus(projectId: string, _options?: Configuration): Observable<any> {
-        const requestContextPromise = this.requestFactory.getProjectDeploymentStatus(projectId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProjectDeploymentStatus(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the deployment URL for the project.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get the deployment URL 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param inlineObject 
-     */
-    public getProjectDeploymentURL(projectId: string, inlineObject?: InlineObject, _options?: Configuration): Observable<ProjectDeploymentURL> {
-        const requestContextPromise = this.requestFactory.getProjectDeploymentURL(projectId, inlineObject, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProjectDeploymentURL(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Get the usage stats for your mini-API.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get a project's stats 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     */
-    public getProjectStats(projectId: string, _options?: Configuration): Observable<Array<StatItem>> {
-        const requestContextPromise = this.requestFactory.getProjectStats(projectId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProjectStats(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  List all projects associated with your account.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * List projects 
-     */
-    public listProjects(_options?: Configuration): Observable<Array<Project>> {
-        const requestContextPromise = this.requestFactory.listProjects(_options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.listProjects(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's metadata. None of these parameters are required. Just provide the parameters that you would like to update.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Update a project 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param projectCreateRequest 
-     */
-    public updateProject(projectId: string, projectCreateRequest?: ProjectCreateRequest, _options?: Configuration): Observable<Project> {
-        const requestContextPromise = this.requestFactory.updateProject(projectId, projectCreateRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateProject(rsp)));
-            }));
-    }
-
-    /**
-     * A complete example and walkthrough of the program can be found <a href=\"https://github.com/BL0CK-X/api-developer-program\" target=\"_blank\">here</a>.  Update your project's documentation.   Your project's documentation can only represent *one* version of your API.  Thus, when you call this, the `current_documentation_version` attribute of your project is set to the version supplied in the call.  `Cost: 0 Credit` (Free) (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Update the project's documentation 
-     * @param projectId The ID of the project. Created and returned when a project is created.
-     * @param version The version of the project.
-     */
-    public updateProjectDocumentation(projectId: string, version: string, _options?: Configuration): Observable<Project> {
-        const requestContextPromise = this.requestFactory.updateProjectDocumentation(projectId, version, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateProjectDocumentation(rsp)));
             }));
     }
 
@@ -682,30 +594,6 @@ export class ObservableSolanaCandyMachineApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/create-test-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.   Use this endpoint to create a test candy machine so that you can test your minting bot.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Create a test CM
-     * @param createTestCandyMachineRequest 
-     */
-    public solanaCreateTestCandyMachine(createTestCandyMachineRequest?: CreateTestCandyMachineRequest, _options?: Configuration): Observable<CreateTestCandyMachineResponse> {
-        const requestContextPromise = this.requestFactory.solanaCreateTestCandyMachine(createTestCandyMachineRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaCreateTestCandyMachine(rsp)));
-            }));
-    }
-
-    /**
      * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-all-nfts\" target=\"_blank\"> See examples (Python, JavaScript)</a>.  Use this endpoint to get the list of all NFTs (minted and unminted) from a Solana Candy Machine.  This works for `v1` and `v2` candy machines.   *However*, for `v2` only the value for `all_nfts` is provided. To determine which are minted and unminted follow this example.  You do not need to specify `v1` or `v2` for this endpoint as it will automatically determine it from the candy machine ID.  See example for how to get the list of NFT hashes <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/get-candy-machine-hash-table\" target=\"_blank\">here</a>.    `Cost: 2 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get CM's NFTs  
      * @param network The network ID
@@ -774,30 +662,6 @@ export class ObservableSolanaCandyMachineApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaListAllCandyMachines(rsp)));
-            }));
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-candy-machine/mint-from-candy-machine\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Use this endpoint to mint an NFT from a metaplex candy machine as soon as it drops.  This only works for `v1` and `v2` candy machines, and does not work for candy machines of any other type such as Magic Eden candy machines.  In order to achieve speed, this endpoint sends the transaction without checking whether or not it confirmed. It could still fail, for example, because the candy machine ran out of available mints. You should check the status of the transaction using our <a href=\"#operation/solanaGetTransaction\">getTransaction</a> endpoint. <a href=\"https://gist.github.com/joshwolff1/298e8251e43ff9b4815028683b1ca17d\" target=\"_blank\">Here's an example</a> of how to do this.  Mint transactions for candy machines that have capatcha/Civic enabled will fail. There is a gatekeeper functionality where you must manually verify through Civic and captcha in order to mint from a candy machine. In this functionality, Civic signs the transaction. Therefore, if the gatekeeper functionality is enabled, our “Mint from candy machine” endpoint will fail because it is missing a signer. If it is not enabled, then our “Mint from candy machine” endpoint will succeed. One caveat is the attribute “expireOnUse”. If this is True, then you have to solve a captcha each time. In this case, the “Mint from candy machine” endpoint will fail. If this is False, then your first verification is sufficient for further mints. In which case, after verifying manually the first time, you can use our endpoint thereafter.   You can check if the gatekeeper functionality is enabled with this <a href=\"#operation/solanaGetCandyMachineMetadata\">endpoint</a>.   `Cost: 8 Credits` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Mint from a CM
-     * @param mintNFTRequest 
-     */
-    public solanaMintFromCandyMachine(mintNFTRequest?: MintNFTRequest, _options?: Configuration): Observable<MintNFTResponse> {
-        const requestContextPromise = this.requestFactory.solanaMintFromCandyMachine(mintNFTRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaMintFromCandyMachine(rsp)));
             }));
     }
 
@@ -941,6 +805,31 @@ export class ObservableSolanaNFTApi {
     }
 
     /**
+     * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-owner\" target=\"_blank\">See examples (Python, JavaScript)</a>.       Get the owner, state, listed price, and listed marketplace (if any) of an NFT.   Here's are a couple of example responses: ``` {     'contract': {         'contract_blockchain_identifier': 'M2mx93ekt1fmXSVkTrUL9xVFHkmME8HTUi5Cyc5aF7K',          'contract_id': 'magic-eden-v2',          'contract_name': 'Magic Eden v2',          'contract_type': 'marketplace'     },      'owner': '25UJMR3FiMM6noQtPEaCJ6eDU2YQ7myDhikVQXmMuSRW',      'price': 50000000,      'state': 'listing' } ```  ``` {     'contract': null,      'owner': 'C37PJiJU8WTgoUoFqmB1Maw8hkuENDZoGDQA1pm54Fdd',      'price': null,      'state': 'holding' } ```  This function will return whether the NFT is `listed`, `loaned` (Yawww NFT loans), `otc`, `staked`, `burned`, or `held`.  If listed, it will return the contract, the readable name of the contract (e.g., Magic Eden, OpenSea), the contract ID (if any; e.g., open-sea), the owner, and the listed price. From this, you can get the floor of a collection. We currently support Magic Eden (v1, v2), Exchange.Art (auction, singles), CoralCube, Solanart (v1, v2), Yawww Loans, Yawww OTC, OpenSea, Fractal, SolSea, and AlphaArt.   If loaned, it will return the loan requester as the owner, the loan amount, and the loan contract. We only support the Yawww loaning contract.  If listed on an OTC marketplace, it will return the same information as `listed`. OTC is used to distinguish between marketplaces that respect royalties (OTC) and those that don't (normal ones). The only `OTC` contract we track is Yawwww, at the moment. We do not yet track Solanart v3.  If staked, it will return the owner and the staking contract public key.  If burned, it will return the `burner` as the `owner`.  If held, it will simply return the owner.  If you want to get the literal owner, which may or may not be the same as the owner returned here, call the simplified [get NFT owner function](/#tag/Solana-NFT/operation/solanaGetNFTOwner). For example, Bob might own the NFT, but if it is listed on Magic Eden, then the NFT is held in escrow and \"owned\" by Magic Eden. The simplified function will return Magic Eden as the owner (the literal owner). This advanced function will tell you the implied owner, which would be Bob.  `Cost: 1.0 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * Get owner of an NFT (advanced)
+     * @param network The network ID
+     * @param mintAddress The mint address of the NFT
+     */
+    public solanaGetNFTOwnerAdvanced(network: 'devnet' | 'mainnet-beta', mintAddress: string, _options?: Configuration): Observable<NFTOwnerAdvancedResponse> {
+        const requestContextPromise = this.requestFactory.solanaGetNFTOwnerAdvanced(network, mintAddress, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaGetNFTOwnerAdvanced(rsp)));
+            }));
+    }
+
+    /**
      * <a href=\"https://github.com/BL0CK-X/the-blockchain-api/tree/main/examples/solana-nft/get-nft-candy-machine-id\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the candy machine ID from where the NFT came, if any. NFTs can also be minted without a candy machine.  It's also possible that we return \"Not Found\" when the NFT actually did come from a version of a candy machine. We check for the most popular versions of candy machine, but it is possible that someone creates their own candy machine version and mints NFTs from it.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get the ID of the candy machine of an NFT 
      * @param getCandyMachineIDRequest 
@@ -985,130 +874,6 @@ export class ObservableSolanaNFTApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaSearchNFTs(rsp)));
-            }));
-    }
-
-}
-
-import { SolanaNFTMarketplacesApiRequestFactory, SolanaNFTMarketplacesApiResponseProcessor} from "../apis/SolanaNFTMarketplacesApi";
-export class ObservableSolanaNFTMarketplacesApi {
-    private requestFactory: SolanaNFTMarketplacesApiRequestFactory;
-    private responseProcessor: SolanaNFTMarketplacesApiResponseProcessor;
-    private configuration: Configuration;
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: SolanaNFTMarketplacesApiRequestFactory,
-        responseProcessor?: SolanaNFTMarketplacesApiResponseProcessor
-    ) {
-        this.configuration = configuration;
-        this.requestFactory = requestFactory || new SolanaNFTMarketplacesApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new SolanaNFTMarketplacesApiResponseProcessor();
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/buy-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Buy an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 25 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Buy
-     * @param network The network ID
-     * @param exchange The NFT exchange to interact with
-     * @param mintAddress The mint address of the NFT you want to buy
-     * @param buyRequest 
-     */
-    public solanaBuyNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, buyRequest?: BuyRequest, _options?: Configuration): Observable<BuyResponse> {
-        const requestContextPromise = this.requestFactory.solanaBuyNFT(network, exchange, mintAddress, buyRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaBuyNFT(rsp)));
-            }));
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/delist-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Delist an NFT from a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 8 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Delist
-     * @param network The network ID
-     * @param exchange The NFT exchange to interact with
-     * @param mintAddress The mint address of the NFT you want to buy
-     * @param delistRequest 
-     */
-    public solanaDelistNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, delistRequest?: DelistRequest, _options?: Configuration): Observable<DelistResponse> {
-        const requestContextPromise = this.requestFactory.solanaDelistNFT(network, exchange, mintAddress, delistRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaDelistNFT(rsp)));
-            }));
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/get-nft-listing\" target=\"_blank\">See examples (Python, JavaScript)</a>.  Get the Marketplace listing of a Solana NFT.  Currently checks the following Solana NFT martketplaces: SolSea, Magic Eden, Solanart, Alpha Art, Digital Eyes, Exchange.art  `Cost: 1 Credits`, (<a href=\"#section/Pricing\">See Pricing</a>)
-     * Get NFT Listing
-     * @param network The network ID
-     * @param mintAddress The mint address of the NFT you want to buy
-     */
-    public solanaGetNFTListing(network: 'devnet' | 'mainnet-beta', mintAddress: string, _options?: Configuration): Observable<GetNFTListingResponse> {
-        const requestContextPromise = this.requestFactory.solanaGetNFTListing(network, mintAddress, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaGetNFTListing(rsp)));
-            }));
-    }
-
-    /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/solana-nft-marketplaces/list-nft\" target=\"_blank\">See examples (Python, JavaScript)</a>.  List an NFT on a Solana Exchange.  Exchanges supported: SolSea, Magic Eden  `Cost: 12 Credits`, `Cost: 3 Credits on Devnet` (<a href=\"#section/Pricing\">See Pricing</a>)
-     * List
-     * @param network The network ID
-     * @param exchange The NFT exchange to interact with
-     * @param mintAddress The mint address of the NFT you want to buy
-     * @param listRequest 
-     */
-    public solanaListNFT(network: 'devnet' | 'mainnet-beta', exchange: 'magic-eden', mintAddress: string, listRequest?: ListRequest, _options?: Configuration): Observable<ListResponse> {
-        const requestContextPromise = this.requestFactory.solanaListNFT(network, exchange, mintAddress, listRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.solanaListNFT(rsp)));
             }));
     }
 
@@ -1503,7 +1268,7 @@ export class ObservableTokenApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the metadata of a token.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/tokens/get-token-metadata\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      Get the metadata of a token.  `Cost: 0.25 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * Get a token's metadata
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;
@@ -1529,7 +1294,7 @@ export class ObservableTokenApi {
     }
 
     /**
-     * <a href=\"https://github.com/BL0CK-X/blockchain-api\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      List all tokens.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
+     * <a href=\"https://github.com/BL0CK-X/blockchain-api/tree/main/examples/tokens/get-all-tokens\" target=\"_blank\">See examples (Python, JavaScript) [Coming Soon]</a>.      List all tokens.  `Cost: 1 Credit` (<a href=\"#section/Pricing\">See Pricing</a>)
      * List all tokens
      * @param blockchain The blockchain you want to use 
      * @param network The network of the blockchain you selected  - Solana: &#x60;devnet&#x60;, &#x60;mainnet-beta&#x60; - Ethereum: &#x60;ropsten&#x60;, &#x60;mainnet&#x60;  Defaults when not provided (not applicable to path parameters): - Solana: &#x60;devnet&#x60; - Ethereum: &#x60;ropsten&#x60;

@@ -11,16 +11,16 @@ export * from './B58PrivateKey';
 export * from './BSCPublicAddress';
 export * from './BalanceRequest';
 export * from './BalanceResponse';
-export * from './BuyRequest';
-export * from './BuyResponse';
+export * from './CCPayment';
+export * from './CCPaymentBlockchainPaymentDetails';
+export * from './CCProject';
+export * from './CCProjectCreateRequest';
+export * from './CCProjectCreateRequestCustomerIdToCollect';
+export * from './CCProjectCreateRequestPayoutMethod';
+export * from './CCWebhook';
+export * from './CCWebhookValidateRequest';
 export * from './CandyMachineSearchRequest';
-export * from './CreateTestCandyMachineRequest';
-export * from './CreateTestCandyMachineResponse';
-export * from './DelistRequest';
-export * from './DelistResponse';
 export * from './DoubleTransferResponse';
-export * from './Endpoint';
-export * from './EndpointReference';
 export * from './EthereumPublicAddress';
 export * from './EthereumTransaction';
 export * from './EthereumTransactionCompiledResponse';
@@ -51,35 +51,25 @@ export * from './GetCandyMetadataErrorResponse';
 export * from './GetCandyMetadataRequest';
 export * from './GetCandyMetadataResponse';
 export * from './GetCandyMetadataResponseCreators';
-export * from './GetNFTListingResponse';
 export * from './GetPublicKeyRequest';
 export * from './GetSPLTokenResponse';
-export * from './Group';
 export * from './HexPrivateKey';
-export * from './InlineObject';
 export * from './InputBlockchainIdentifier';
 export * from './InputName';
 export * from './ListNFTsResponse';
-export * from './ListRequest';
-export * from './ListResponse';
-export * from './MintNFTErrorResponse';
-export * from './MintNFTRequest';
-export * from './MintNFTResponse';
 export * from './NFT';
 export * from './NFTCollection';
 export * from './NFTData';
 export * from './NFTMintErrorResponse';
 export * from './NFTMintFee';
 export * from './NFTMintRequest';
+export * from './NFTOwnerAdvancedResponse';
+export * from './NFTOwnerAdvancedResponseContract';
 export * from './NFTOwnerResponse';
 export * from './NFTSearchRequest';
 export * from './NFTSearchResponse';
 export * from './NearPublicKey';
-export * from './ParameterSpecification';
 export * from './PrivateKey';
-export * from './Project';
-export * from './ProjectCreateRequest';
-export * from './ProjectDeploymentURL';
 export * from './PublicKey';
 export * from './SecretPhrase';
 export * from './SecretRecoveryPhrase';
@@ -87,7 +77,6 @@ export * from './SolanaPublicKey';
 export * from './SolanaTransaction';
 export * from './SolanaTransactionCompiledResponse';
 export * from './SolanaTransactionMadeResponse';
-export * from './StatItem';
 export * from './SupplyWalletRequest';
 export * from './TokenMetadataResponse';
 export * from './Transaction';
@@ -111,16 +100,16 @@ import { B58PrivateKey } from './B58PrivateKey';
 import { BSCPublicAddress } from './BSCPublicAddress';
 import { BalanceRequest , BalanceRequestUnitEnum  , BalanceRequestNetworkEnum    } from './BalanceRequest';
 import { BalanceResponse   , BalanceResponseNetworkEnum  , BalanceResponseUnitEnum   } from './BalanceResponse';
-import { BuyRequest } from './BuyRequest';
-import { BuyResponse } from './BuyResponse';
+import { CCPayment } from './CCPayment';
+import { CCPaymentBlockchainPaymentDetails, CCPaymentBlockchainPaymentDetailsChainEnum        } from './CCPaymentBlockchainPaymentDetails';
+import { CCProject } from './CCProject';
+import { CCProjectCreateRequest } from './CCProjectCreateRequest';
+import { CCProjectCreateRequestCustomerIdToCollect, CCProjectCreateRequestCustomerIdToCollectIdTypeEnum      } from './CCProjectCreateRequestCustomerIdToCollect';
+import { CCProjectCreateRequestPayoutMethod } from './CCProjectCreateRequestPayoutMethod';
+import { CCWebhook } from './CCWebhook';
+import { CCWebhookValidateRequest } from './CCWebhookValidateRequest';
 import { CandyMachineSearchRequest , CandyMachineSearchRequestUpdateAuthoritySearchMethodEnum   , CandyMachineSearchRequestConfigAddressSearchMethodEnum   , CandyMachineSearchRequestUuidSearchMethodEnum   , CandyMachineSearchRequestSymbolSearchMethodEnum    , CandyMachineSearchRequestNftNameSearchMethodEnum  , CandyMachineSearchRequestNetworkEnum  , CandyMachineSearchRequestCandyMachineContractVersionEnum   } from './CandyMachineSearchRequest';
-import { CreateTestCandyMachineRequest , CreateTestCandyMachineRequestNetworkEnum  , CreateTestCandyMachineRequestCandyMachineContractVersionEnum    } from './CreateTestCandyMachineRequest';
-import { CreateTestCandyMachineResponse } from './CreateTestCandyMachineResponse';
-import { DelistRequest } from './DelistRequest';
-import { DelistResponse } from './DelistResponse';
 import { DoubleTransferResponse } from './DoubleTransferResponse';
-import { Endpoint } from './Endpoint';
-import { EndpointReference } from './EndpointReference';
 import { EthereumPublicAddress } from './EthereumPublicAddress';
 import { EthereumTransaction } from './EthereumTransaction';
 import { EthereumTransactionCompiledResponse } from './EthereumTransactionCompiledResponse';
@@ -151,35 +140,25 @@ import { GetCandyMetadataErrorResponse } from './GetCandyMetadataErrorResponse';
 import { GetCandyMetadataRequest   , GetCandyMetadataRequestNetworkEnum  , GetCandyMetadataRequestCandyMachineContractVersionEnum   } from './GetCandyMetadataRequest';
 import { GetCandyMetadataResponse } from './GetCandyMetadataResponse';
 import { GetCandyMetadataResponseCreators } from './GetCandyMetadataResponseCreators';
-import { GetNFTListingResponse, GetNFTListingResponseExchangeEnum        } from './GetNFTListingResponse';
 import { GetPublicKeyRequest } from './GetPublicKeyRequest';
 import { GetSPLTokenResponse } from './GetSPLTokenResponse';
-import { Group } from './Group';
 import { HexPrivateKey } from './HexPrivateKey';
-import { InlineObject, InlineObjectPlatformEnum   } from './InlineObject';
 import { InputBlockchainIdentifier } from './InputBlockchainIdentifier';
 import { InputName } from './InputName';
 import { ListNFTsResponse } from './ListNFTsResponse';
-import { ListRequest } from './ListRequest';
-import { ListResponse } from './ListResponse';
-import { MintNFTErrorResponse } from './MintNFTErrorResponse';
-import { MintNFTRequest  , MintNFTRequestNetworkEnum  , MintNFTRequestCandyMachineContractVersionEnum   } from './MintNFTRequest';
-import { MintNFTResponse } from './MintNFTResponse';
 import { NFT } from './NFT';
 import { NFTCollection } from './NFTCollection';
 import { NFTData } from './NFTData';
 import { NFTMintErrorResponse } from './NFTMintErrorResponse';
 import { NFTMintFee } from './NFTMintFee';
 import { NFTMintRequest     , NFTMintRequestUploadMethodEnum           , NFTMintRequestNetworkEnum   } from './NFTMintRequest';
+import { NFTOwnerAdvancedResponse   , NFTOwnerAdvancedResponseStateEnum   } from './NFTOwnerAdvancedResponse';
+import { NFTOwnerAdvancedResponseContract, NFTOwnerAdvancedResponseContractContractTypeEnum      } from './NFTOwnerAdvancedResponseContract';
 import { NFTOwnerResponse } from './NFTOwnerResponse';
 import { NFTSearchRequest , NFTSearchRequestUpdateAuthoritySearchMethodEnum   , NFTSearchRequestMintAddressSearchMethodEnum   , NFTSearchRequestNameSearchMethodEnum   , NFTSearchRequestUriSearchMethodEnum   , NFTSearchRequestSymbolSearchMethodEnum  , NFTSearchRequestNetworkEnum   } from './NFTSearchRequest';
 import { NFTSearchResponse } from './NFTSearchResponse';
 import { NearPublicKey } from './NearPublicKey';
-import { ParameterSpecification, ParameterSpecificationTypeEnum      } from './ParameterSpecification';
 import { PrivateKey } from './PrivateKey';
-import { Project } from './Project';
-import { ProjectCreateRequest } from './ProjectCreateRequest';
-import { ProjectDeploymentURL } from './ProjectDeploymentURL';
 import { PublicKey } from './PublicKey';
 import { SecretPhrase } from './SecretPhrase';
 import { SecretRecoveryPhrase } from './SecretRecoveryPhrase';
@@ -187,12 +166,11 @@ import { SolanaPublicKey } from './SolanaPublicKey';
 import { SolanaTransaction } from './SolanaTransaction';
 import { SolanaTransactionCompiledResponse } from './SolanaTransactionCompiledResponse';
 import { SolanaTransactionMadeResponse } from './SolanaTransactionMadeResponse';
-import { StatItem } from './StatItem';
 import { SupplyWalletRequest } from './SupplyWalletRequest';
 import { TokenMetadataResponse } from './TokenMetadataResponse';
 import { Transaction } from './Transaction';
 import { TransactionResult } from './TransactionResult';
-import { TransferRequest   , TransferRequestNetworkEnum       } from './TransferRequest';
+import { TransferRequest    , TransferRequestNetworkEnum       } from './TransferRequest';
 import { TransferResponse } from './TransferResponse';
 import { TransferResponseCompiled } from './TransferResponseCompiled';
 import { Wallet } from './Wallet';
@@ -223,6 +201,8 @@ let enumsMap: Set<string> = new Set<string>([
     "BalanceRequestNetworkEnum",
     "BalanceResponseNetworkEnum",
     "BalanceResponseUnitEnum",
+    "CCPaymentBlockchainPaymentDetailsChainEnum",
+    "CCProjectCreateRequestCustomerIdToCollectIdTypeEnum",
     "CandyMachineSearchRequestUpdateAuthoritySearchMethodEnum",
     "CandyMachineSearchRequestConfigAddressSearchMethodEnum",
     "CandyMachineSearchRequestUuidSearchMethodEnum",
@@ -230,25 +210,20 @@ let enumsMap: Set<string> = new Set<string>([
     "CandyMachineSearchRequestNftNameSearchMethodEnum",
     "CandyMachineSearchRequestNetworkEnum",
     "CandyMachineSearchRequestCandyMachineContractVersionEnum",
-    "CreateTestCandyMachineRequestNetworkEnum",
-    "CreateTestCandyMachineRequestCandyMachineContractVersionEnum",
     "GetCandyMachineIDRequestNetworkEnum",
     "GetCandyMachineIDResponseCandyMachineContractVersionEnum",
     "GetCandyMetadataRequestNetworkEnum",
     "GetCandyMetadataRequestCandyMachineContractVersionEnum",
-    "GetNFTListingResponseExchangeEnum",
-    "InlineObjectPlatformEnum",
-    "MintNFTRequestNetworkEnum",
-    "MintNFTRequestCandyMachineContractVersionEnum",
     "NFTMintRequestUploadMethodEnum",
     "NFTMintRequestNetworkEnum",
+    "NFTOwnerAdvancedResponseStateEnum",
+    "NFTOwnerAdvancedResponseContractContractTypeEnum",
     "NFTSearchRequestUpdateAuthoritySearchMethodEnum",
     "NFTSearchRequestMintAddressSearchMethodEnum",
     "NFTSearchRequestNameSearchMethodEnum",
     "NFTSearchRequestUriSearchMethodEnum",
     "NFTSearchRequestSymbolSearchMethodEnum",
     "NFTSearchRequestNetworkEnum",
-    "ParameterSpecificationTypeEnum",
     "TransferRequestNetworkEnum",
 ]);
 
@@ -266,16 +241,16 @@ let typeMap: {[index: string]: any} = {
     "BSCPublicAddress": BSCPublicAddress,
     "BalanceRequest": BalanceRequest,
     "BalanceResponse": BalanceResponse,
-    "BuyRequest": BuyRequest,
-    "BuyResponse": BuyResponse,
+    "CCPayment": CCPayment,
+    "CCPaymentBlockchainPaymentDetails": CCPaymentBlockchainPaymentDetails,
+    "CCProject": CCProject,
+    "CCProjectCreateRequest": CCProjectCreateRequest,
+    "CCProjectCreateRequestCustomerIdToCollect": CCProjectCreateRequestCustomerIdToCollect,
+    "CCProjectCreateRequestPayoutMethod": CCProjectCreateRequestPayoutMethod,
+    "CCWebhook": CCWebhook,
+    "CCWebhookValidateRequest": CCWebhookValidateRequest,
     "CandyMachineSearchRequest": CandyMachineSearchRequest,
-    "CreateTestCandyMachineRequest": CreateTestCandyMachineRequest,
-    "CreateTestCandyMachineResponse": CreateTestCandyMachineResponse,
-    "DelistRequest": DelistRequest,
-    "DelistResponse": DelistResponse,
     "DoubleTransferResponse": DoubleTransferResponse,
-    "Endpoint": Endpoint,
-    "EndpointReference": EndpointReference,
     "EthereumPublicAddress": EthereumPublicAddress,
     "EthereumTransaction": EthereumTransaction,
     "EthereumTransactionCompiledResponse": EthereumTransactionCompiledResponse,
@@ -306,35 +281,25 @@ let typeMap: {[index: string]: any} = {
     "GetCandyMetadataRequest": GetCandyMetadataRequest,
     "GetCandyMetadataResponse": GetCandyMetadataResponse,
     "GetCandyMetadataResponseCreators": GetCandyMetadataResponseCreators,
-    "GetNFTListingResponse": GetNFTListingResponse,
     "GetPublicKeyRequest": GetPublicKeyRequest,
     "GetSPLTokenResponse": GetSPLTokenResponse,
-    "Group": Group,
     "HexPrivateKey": HexPrivateKey,
-    "InlineObject": InlineObject,
     "InputBlockchainIdentifier": InputBlockchainIdentifier,
     "InputName": InputName,
     "ListNFTsResponse": ListNFTsResponse,
-    "ListRequest": ListRequest,
-    "ListResponse": ListResponse,
-    "MintNFTErrorResponse": MintNFTErrorResponse,
-    "MintNFTRequest": MintNFTRequest,
-    "MintNFTResponse": MintNFTResponse,
     "NFT": NFT,
     "NFTCollection": NFTCollection,
     "NFTData": NFTData,
     "NFTMintErrorResponse": NFTMintErrorResponse,
     "NFTMintFee": NFTMintFee,
     "NFTMintRequest": NFTMintRequest,
+    "NFTOwnerAdvancedResponse": NFTOwnerAdvancedResponse,
+    "NFTOwnerAdvancedResponseContract": NFTOwnerAdvancedResponseContract,
     "NFTOwnerResponse": NFTOwnerResponse,
     "NFTSearchRequest": NFTSearchRequest,
     "NFTSearchResponse": NFTSearchResponse,
     "NearPublicKey": NearPublicKey,
-    "ParameterSpecification": ParameterSpecification,
     "PrivateKey": PrivateKey,
-    "Project": Project,
-    "ProjectCreateRequest": ProjectCreateRequest,
-    "ProjectDeploymentURL": ProjectDeploymentURL,
     "PublicKey": PublicKey,
     "SecretPhrase": SecretPhrase,
     "SecretRecoveryPhrase": SecretRecoveryPhrase,
@@ -342,7 +307,6 @@ let typeMap: {[index: string]: any} = {
     "SolanaTransaction": SolanaTransaction,
     "SolanaTransactionCompiledResponse": SolanaTransactionCompiledResponse,
     "SolanaTransactionMadeResponse": SolanaTransactionMadeResponse,
-    "StatItem": StatItem,
     "SupplyWalletRequest": SupplyWalletRequest,
     "TokenMetadataResponse": TokenMetadataResponse,
     "Transaction": Transaction,
